@@ -1,12 +1,19 @@
+body{
+    background: url(../img/rtrwv.jpg);
+    background-size: 100%;
+}
 header{
-    background-color: blue;
+    /* background-color: blue; */
 }
 nav{
-    background-color: blue;
+    /* background-color: blue; */
 }
 section{
-    background-color: blue;
+    /* background-color: blue; */
 }
 article{
+    /* background-color: blue; */
+}
+footer{
     background-color: blue;
 }
