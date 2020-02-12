@@ -1,17 +1,24 @@
-const serverRequest = async (url, method, body, formData=false) => {
+const serverRequest = async (url, method, body, formData=false,credentials=[]) => {
     var data = {};
+    var byRequest = {};
     if(formData){
         data = body;
     }else{
         data = JSON.stringify(body);
     }
-
-    const byRequest = new Request(url, {
-        method: method,
-        body: data,
-        bodyUsed: bodyUsed
-    });
-
+    if(method == 'POST'){
+        byRequest = new Request(url, {
+            method: method,
+            body: data,
+        });
+    }else if(method == 'GET'){
+        byRequest = new Request(url, {
+            method: method,
+            Headers:     {   
+                Accept: '*/*' 
+            }
+        });
+    }
     var responseServer = await fetch(byRequest)
         .then(response => {
             if (!response.redirected) {
