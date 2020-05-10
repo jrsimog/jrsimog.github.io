@@ -1,1 +1,0 @@
-  serverRequest(urlBaseMarvelApi +'/v1/public/comics' +credentials, 'GET');
