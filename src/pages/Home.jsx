@@ -5,6 +5,7 @@ import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
   SiReact, SiNodedotjs, SiLaravel, SiAngular, SiGithub, SiOpenjdk, SiInstagram,
+  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions,
 } from 'react-icons/si'
 import { FaLinkedin, FaAmazon } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
@@ -196,6 +197,33 @@ export default function Home() {
             </a>
           </GlassCard>
         </div>
+
+        {/* Footer */}
+        <footer className="mt-10 border-t border-white/5 pt-5 pb-2 text-center text-[11px] text-white/30">
+          <p className="mb-2 font-medium tracking-wider uppercase text-[9px] text-white/35">
+            {t('home.built_with')}
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-1.5">
+            <span className="flex items-center gap-1.2 text-white/45 hover:text-white/80 transition-colors duration-200 cursor-default">
+              <SiReact className="text-xs text-[#61DAFB]" /> React
+            </span>
+            <span className="flex items-center gap-1.2 text-white/45 hover:text-white/80 transition-colors duration-200 cursor-default">
+              <SiVite className="text-xs text-[#646CFF]" /> Vite
+            </span>
+            <span className="flex items-center gap-1.2 text-white/45 hover:text-white/80 transition-colors duration-200 cursor-default">
+              <SiTailwindcss className="text-xs text-[#38BDF8]" /> Tailwind CSS
+            </span>
+            <span className="flex items-center gap-1.2 text-white/45 hover:text-white/80 transition-colors duration-200 cursor-default">
+              <SiReactrouter className="text-xs text-[#F44250]" /> React Router
+            </span>
+            <span className="flex items-center gap-1.2 text-white/45 hover:text-white/80 transition-colors duration-200 cursor-default">
+              <SiGithubactions className="text-xs text-[#2088FF]" /> GitHub Actions
+            </span>
+          </div>
+          <p className="mt-4 text-[9px] text-white/15">
+            © {new Date().getFullYear()} José Simó.
+          </p>
+        </footer>
 
       </div>
     </div>
