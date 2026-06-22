@@ -4,6 +4,7 @@ import { SiElixir } from 'react-icons/si'
 import { posts } from '../../data/posts'
 import { useLanguage } from '../../context/LanguageContext'
 import LangToggle from '../../components/LangToggle'
+import ThemeToggle from '../../components/ThemeToggle'
 
 const SLUG = '/blog/elixir-hello-world'
 const related = posts.filter(p => p.slug !== SLUG)
@@ -89,7 +90,7 @@ function CodeDisplay({ showCode, highlight }) {
   if (!showCode) {
     return (
       <div className="flex items-center justify-center h-full">
-        <span className="text-white/20 text-sm font-mono italic">empty file</span>
+        <span className="text-slate-400/40 dark:text-white/20 text-sm font-mono italic">empty file</span>
       </div>
     )
   }
@@ -98,7 +99,7 @@ function CodeDisplay({ showCode, highlight }) {
     <span
       key={id}
       className={`transition-all duration-300 ${color} ${
-        highlight === id ? 'bg-white/15 rounded px-1 py-0.5 ring-1 ring-white/25' : ''
+        highlight === id ? 'bg-slate-900/5 dark:bg-white/15 rounded px-1 py-0.5 ring-1 ring-slate-900/10 dark:ring-white/25' : ''
       }`}
     >
       {text}
@@ -108,12 +109,12 @@ function CodeDisplay({ showCode, highlight }) {
   return (
     <div className="flex items-center justify-center h-full">
       <code className="font-mono text-base sm:text-lg">
-        {token('IO', 'IO', 'text-violet-400')}
-        <span className="text-white/30">.</span>
-        {token('puts', 'puts', 'text-amber-300')}
-        <span className="text-white/30">(</span>
-        {token('string', '"Hello, World!"', 'text-emerald-400')}
-        <span className="text-white/30">)</span>
+        {token('IO', 'IO', 'text-violet-500 dark:text-violet-400')}
+        <span className="text-slate-400 dark:text-white/30">.</span>
+        {token('puts', 'puts', 'text-amber-600 dark:text-amber-300')}
+        <span className="text-slate-400 dark:text-white/30">(</span>
+        {token('string', '"Hello, World!"', 'text-emerald-600 dark:text-emerald-400')}
+        <span className="text-slate-400 dark:text-white/30">)</span>
       </code>
     </div>
   )
@@ -128,33 +129,34 @@ export default function ElixirHelloWorld() {
   const isLast = step === currentSteps.length - 1
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+    <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
       <div
         className="absolute inset-0 z-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.25), transparent 70%), #000000',
+          background: 'var(--bg-radial)',
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
 
         <div className="mb-8 flex items-center justify-between">
-          <Link to="/blog" className="text-white/40 hover:text-white/70 text-sm transition">
+          <Link to="/blog" className="text-slate-500 dark:text-white/40 hover:text-slate-800 dark:hover:text-white/70 text-sm transition">
             {t('nav.back_blog')}
           </Link>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-white/40">
-              <SiElixir className="text-violet-400" />
+            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40">
+              <SiElixir className="text-violet-500 dark:text-violet-400" />
               Elixir · Playground
             </div>
+            <ThemeToggle />
             <LangToggle />
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mb-1">
+        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-1">
           {lang === 'es' ? 'Hola Mundo en Elixir' : 'Hello World in Elixir'}
         </h1>
-        <p className="text-white/40 text-sm mb-8">
+        <p className="text-slate-500 dark:text-white/40 text-sm mb-8">
           {lang === 'es'
             ? 'Cómo Elixir muestra texto en pantalla, paso a paso.'
             : 'How Elixir prints text to the screen, step by step.'}
@@ -166,36 +168,36 @@ export default function ElixirHelloWorld() {
               key={i}
               onClick={() => setStep(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === step ? 'w-6 bg-violet-400' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                i === step ? 'w-6 bg-violet-500 dark:bg-violet-400' : 'w-1.5 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'
               }`}
             />
           ))}
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+          <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-slate-200 dark:border-white/10">
               <span className="h-2 w-2 rounded-full bg-red-500/50" />
               <span className="h-2 w-2 rounded-full bg-yellow-500/50" />
               <span className="h-2 w-2 rounded-full bg-green-500/50" />
-              <span className="ml-2 text-xs text-white/25 font-mono">hello.ex</span>
+              <span className="ml-2 text-xs text-slate-400 dark:text-white/25 font-mono">hello.ex</span>
             </div>
             <div className="h-28 p-4">
               <CodeDisplay showCode={current.showCode} highlight={current.highlight} />
             </div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-black/70 backdrop-blur-md overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+          <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-900 dark:bg-black/70 backdrop-blur-md overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-slate-200 dark:border-white/10">
               <span className="h-2 w-2 rounded-full bg-red-500/50" />
               <span className="h-2 w-2 rounded-full bg-yellow-500/50" />
               <span className="h-2 w-2 rounded-full bg-green-500/50" />
-              <span className="ml-2 text-xs text-white/25 font-mono">terminal</span>
+              <span className="ml-2 text-xs text-slate-400 dark:text-white/25 font-mono">terminal</span>
             </div>
             <div className="h-28 p-4 font-mono text-sm">
               {current.showCommand
                 ? <p className="text-white/50">$ elixir hello.ex</p>
-                : <span className="text-white/15 text-xs">{lang === 'es' ? 'esperando...' : 'waiting...'}</span>
+                : <span className="text-slate-400/50 dark:text-white/15 text-xs">{lang === 'es' ? 'esperando...' : 'waiting...'}</span>
               }
               {current.showOutput && (
                 <p className="text-emerald-400 mt-1">Hello, World!</p>
@@ -206,27 +208,27 @@ export default function ElixirHelloWorld() {
 
         <div
           key={`${step}-${lang}`}
-          className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-6 mb-6 slide-in-blurred-top"
+          className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-6 mb-6 slide-in-blurred-top"
           style={{ animationDuration: '0.25s' }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mb-2">
+          <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-2">
             {step + 1} / {currentSteps.length} — {current.title}
           </p>
-          <p className="text-white/65 text-sm leading-relaxed">{current.explanation}</p>
+          <p className="text-slate-600 dark:text-white/65 text-sm leading-relaxed">{current.explanation}</p>
         </div>
 
         <div className="flex justify-between">
           <button
             onClick={() => setStep(s => Math.max(0, s - 1))}
             disabled={step === 0}
-            className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-white/60 transition hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed"
+            className="rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-5 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed"
           >
             ← {lang === 'es' ? 'Anterior' : 'Previous'}
           </button>
           <button
             onClick={() => setStep(s => Math.min(currentSteps.length - 1, s + 1))}
             disabled={isLast}
-            className="rounded-full border border-violet-500/30 bg-violet-500/15 px-5 py-2 text-sm text-violet-300 transition hover:bg-violet-500/25 disabled:opacity-20 disabled:cursor-not-allowed"
+            className="rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/15 px-5 py-2 text-sm text-violet-700 dark:text-violet-300 transition hover:bg-violet-500/20 dark:hover:bg-violet-500/25 disabled:opacity-20 disabled:cursor-not-allowed"
           >
             {lang === 'es' ? 'Siguiente' : 'Next'} →
           </button>
@@ -234,10 +236,10 @@ export default function ElixirHelloWorld() {
 
         {isLast && (
           <div className="mt-8 slide-in-blurred-top" style={{ animationDuration: '0.3s' }}>
-            <div className="border-t border-white/10 pt-8">
+            <div className="border-t border-slate-200 dark:border-white/10 pt-8">
               {related.length > 0 && (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-white/30 mb-4">
                     {t('blog.related')}
                   </p>
                   <div className="flex flex-col gap-3 mb-6">
@@ -245,13 +247,13 @@ export default function ElixirHelloWorld() {
                       <Link
                         key={slug}
                         to={slug}
-                        className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 transition hover:bg-white/10 hover:border-white/20"
+                        className="group rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-4 transition hover:bg-white/80 dark:hover:bg-white/10 hover:border-slate-300/80 dark:hover:border-white/20"
                       >
-                        <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
+                        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40 mb-1">
                           <Icon className="text-violet-400" />
                           <span>{tag}</span>
                         </div>
-                        <p className="text-white/80 text-sm font-medium group-hover:text-white transition">
+                        <p className="text-slate-700 dark:text-white/80 text-sm font-medium group-hover:text-indigo-600 dark:group-hover:text-white transition">
                           {lang === 'en' && title_en ? title_en : title}
                         </p>
                       </Link>
@@ -262,13 +264,13 @@ export default function ElixirHelloWorld() {
               <div className="flex gap-3">
                 <Link
                   to="/blog"
-                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-white/60 transition hover:bg-white/10"
+                  className="rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-5 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10"
                 >
                   {t('blog.see_blog')}
                 </Link>
                 <Link
                   to="/"
-                  className="rounded-full border border-violet-500/30 bg-violet-500/15 px-5 py-2 text-sm text-violet-300 transition hover:bg-violet-500/25"
+                  className="rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/15 px-5 py-2 text-sm text-violet-700 dark:text-violet-300 transition hover:bg-violet-500/20 dark:hover:bg-violet-500/25"
                 >
                   {t('blog.back_home')}
                 </Link>
