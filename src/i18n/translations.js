@@ -1,0 +1,69 @@
+export const translations = {
+  es: {
+    lang_toggle: 'EN',
+    nav: {
+      back_profile: '← Volver al perfil',
+      back_blog: '← Blog',
+    },
+    home: {
+      role: 'Fullstack Developer',
+      subtitle: 'APIs REST · Microservicios · Docker',
+      bio: 'Developer desde 2012. PHP y Symfony en el día a día. Ciudadano del mundo, actualmente en el hermoso Santiago de Chile. Siempre con algo nuevo en el editor — ahora Elixir.',
+      contact: 'Contacto',
+      blog: 'Blog',
+      about_title: 'Sobre mí',
+      about_text: 'Ingeniero de Sistemas con base en Santiago, Chile. Actualmente trabajando en RECEMED con Symfony, MySQL y Docker. Fuera del código, soy padre y practico Inline Downhill con mis hijos.',
+      stack_title: 'Stack',
+      contact_title: 'Contacto',
+      contact_text: 'Santiago, Chile. Abierto a nuevos proyectos y conversaciones.',
+      experience_title: 'Experiencia',
+      present: 'Presente',
+    },
+    blog: {
+      title: 'Blog',
+      subtitle: 'Píldoras rápidas y playgrounds interactivos sobre lo que voy aprendiendo.',
+      back: '← Volver al perfil',
+      types: {
+        playground: 'Playground',
+        pildora: 'Píldora',
+      },
+      see_blog: 'Ver el blog',
+      back_home: 'Volver al inicio',
+      related: 'Seguir leyendo',
+    },
+  },
+
+  en: {
+    lang_toggle: 'ES',
+    nav: {
+      back_profile: '← Back to profile',
+      back_blog: '← Blog',
+    },
+    home: {
+      role: 'Fullstack Developer',
+      subtitle: 'REST APIs · Microservices · Docker',
+      bio: 'Developer since 2012. PHP and Symfony day to day. Citizen of the world, currently in the beautiful Santiago de Chile. Always something new in the editor — now Elixir.',
+      contact: 'Contact',
+      blog: 'Blog',
+      about_title: 'About me',
+      about_text: 'Systems Engineer based in Santiago, Chile. Currently working at RECEMED with Symfony, MySQL and Docker. Outside of code, I\'m a father who practices Inline Downhill with his kids.',
+      stack_title: 'Stack',
+      contact_title: 'Contact',
+      contact_text: 'Santiago, Chile. Open to new projects and conversations.',
+      experience_title: 'Experience',
+      present: 'Present',
+    },
+    blog: {
+      title: 'Blog',
+      subtitle: 'Quick pills and interactive playgrounds about what I\'m learning.',
+      back: '← Back to profile',
+      types: {
+        playground: 'Playground',
+        pildora: 'Pill',
+      },
+      see_blog: 'See the blog',
+      back_home: 'Back to home',
+      related: 'Keep reading',
+    },
+  },
+}
