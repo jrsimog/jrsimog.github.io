@@ -33,3 +33,54 @@
 .slide-in-blurred-top {
   animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 }
+
+/* Animación de Borde Giratorio (Border Beam) */
+.border-beam-active {
+  position: relative;
+  overflow: hidden;
+  border-color: transparent !important;
+}
+
+.border-beam-active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250%;
+  height: 250%;
+  background: conic-gradient(from 0deg, transparent 65%, var(--beam-color, #8b5cf6) 90%, transparent 100%);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: rotate-beam 4s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.border-beam-active::after {
+  content: '';
+  position: absolute;
+  inset: 0.6px;
+  border-radius: 9999px;
+  background-color: #ffffff; /* Fondo claro sólido */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dark .border-beam-active::after {
+  background-color: #121214; /* Fondo oscuro sólido */
+}
+
+/* Asegurar que el contenido del link esté por encima del fondo y el gradiente */
+.border-beam-active > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rotate-beam {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
