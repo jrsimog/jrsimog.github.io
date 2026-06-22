@@ -1,0 +1,283 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { SiElixir } from 'react-icons/si'
+import { posts } from '../../data/posts'
+import { useLanguage } from '../../context/LanguageContext'
+import LangToggle from '../../components/LangToggle'
+
+const SLUG = '/blog/elixir-hello-world'
+const related = posts.filter(p => p.slug !== SLUG)
+
+const steps = {
+  es: [
+    {
+      title: 'Un archivo vacío',
+      showCode: false, highlight: null, showCommand: false, showOutput: false,
+      explanation: 'En Elixir el código vive en archivos con extensión .ex. Vamos a crear nuestro primero y escribir una sola línea.',
+    },
+    {
+      title: 'Una sola línea',
+      showCode: true, highlight: null, showCommand: false, showOutput: false,
+      explanation: 'Esta es la línea completa. Una sola instrucción para mostrar texto en pantalla. Vamos a entender qué significa cada parte.',
+    },
+    {
+      title: 'IO — el módulo',
+      showCode: true, highlight: 'IO', showCommand: false, showOutput: false,
+      explanation: 'IO es un módulo. En Elixir, los módulos agrupan funciones con un propósito en común. IO maneja todo lo relacionado con entrada y salida de datos.',
+    },
+    {
+      title: 'puts — la función',
+      showCode: true, highlight: 'puts', showCommand: false, showOutput: false,
+      explanation: 'puts es una función dentro del módulo IO. El punto (.) es cómo accedemos a las funciones de un módulo. Su trabajo: imprimir texto y agregar un salto de línea al final.',
+    },
+    {
+      title: '"Hello, World!" — el string',
+      showCode: true, highlight: 'string', showCommand: false, showOutput: false,
+      explanation: 'El texto entre comillas dobles es un string. Es el argumento que le pasamos a puts — el texto que queremos mostrar en pantalla.',
+    },
+    {
+      title: 'Ejecutamos el archivo',
+      showCode: true, highlight: null, showCommand: true, showOutput: false,
+      explanation: 'Para correr el archivo usamos el comando elixir en la terminal. Elixir lo leerá y ejecutará línea por línea.',
+    },
+    {
+      title: '¡Y aparece en pantalla!',
+      showCode: true, highlight: null, showCommand: true, showOutput: true,
+      explanation: 'IO.puts tomó el string "Hello, World!" y lo imprimió en la terminal. Eso es todo lo que hace Elixir para mostrar texto en pantalla.',
+    },
+  ],
+  en: [
+    {
+      title: 'An empty file',
+      showCode: false, highlight: null, showCommand: false, showOutput: false,
+      explanation: 'In Elixir, code lives in files with a .ex extension. Let\'s create our first one and write a single line.',
+    },
+    {
+      title: 'A single line',
+      showCode: true, highlight: null, showCommand: false, showOutput: false,
+      explanation: 'This is the complete line. One single instruction to display text on screen. Let\'s understand what each part means.',
+    },
+    {
+      title: 'IO — the module',
+      showCode: true, highlight: 'IO', showCommand: false, showOutput: false,
+      explanation: 'IO is a module. In Elixir, modules group functions with a common purpose. IO handles everything related to input and output of data.',
+    },
+    {
+      title: 'puts — the function',
+      showCode: true, highlight: 'puts', showCommand: false, showOutput: false,
+      explanation: 'puts is a function inside the IO module. The dot (.) is how we access functions in a module. Its job: print text and add a newline at the end.',
+    },
+    {
+      title: '"Hello, World!" — the string',
+      showCode: true, highlight: 'string', showCommand: false, showOutput: false,
+      explanation: 'Text between double quotes is a string. It\'s the argument we pass to puts — the text we want to display on screen.',
+    },
+    {
+      title: 'We run the file',
+      showCode: true, highlight: null, showCommand: true, showOutput: false,
+      explanation: 'To run the file we use the elixir command in the terminal. Elixir will read it and execute it line by line.',
+    },
+    {
+      title: 'And it appears on screen!',
+      showCode: true, highlight: null, showCommand: true, showOutput: true,
+      explanation: 'IO.puts took the string "Hello, World!" and printed it to the terminal. That\'s all Elixir does to display text on screen.',
+    },
+  ],
+}
+
+function CodeDisplay({ showCode, highlight }) {
+  if (!showCode) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <span className="text-white/20 text-sm font-mono italic">empty file</span>
+      </div>
+    )
+  }
+
+  const token = (id, text, color) => (
+    <span
+      key={id}
+      className={`transition-all duration-300 ${color} ${
+        highlight === id ? 'bg-white/15 rounded px-1 py-0.5 ring-1 ring-white/25' : ''
+      }`}
+    >
+      {text}
+    </span>
+  )
+
+  return (
+    <div className="flex items-center justify-center h-full">
+      <code className="font-mono text-base sm:text-lg">
+        {token('IO', 'IO', 'text-violet-400')}
+        <span className="text-white/30">.</span>
+        {token('puts', 'puts', 'text-amber-300')}
+        <span className="text-white/30">(</span>
+        {token('string', '"Hello, World!"', 'text-emerald-400')}
+        <span className="text-white/30">)</span>
+      </code>
+    </div>
+  )
+}
+
+export default function ElixirHelloWorld() {
+  const [step, setStep] = useState(0)
+  const { lang, t } = useLanguage()
+
+  const currentSteps = steps[lang]
+  const current = currentSteps[step]
+  const isLast = step === currentSteps.length - 1
+
+  return (
+    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.25), transparent 70%), #000000',
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
+
+        <div className="mb-8 flex items-center justify-between">
+          <Link to="/blog" className="text-white/40 hover:text-white/70 text-sm transition">
+            {t('nav.back_blog')}
+          </Link>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 text-xs text-white/40">
+              <SiElixir className="text-violet-400" />
+              Elixir · Playground
+            </div>
+            <LangToggle />
+          </div>
+        </div>
+
+        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mb-1">
+          {lang === 'es' ? 'Hola Mundo en Elixir' : 'Hello World in Elixir'}
+        </h1>
+        <p className="text-white/40 text-sm mb-8">
+          {lang === 'es'
+            ? 'Cómo Elixir muestra texto en pantalla, paso a paso.'
+            : 'How Elixir prints text to the screen, step by step.'}
+        </p>
+
+        <div className="flex gap-1.5 mb-6 justify-center">
+          {currentSteps.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setStep(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === step ? 'w-6 bg-violet-400' : 'w-1.5 bg-white/20 hover:bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+              <span className="h-2 w-2 rounded-full bg-red-500/50" />
+              <span className="h-2 w-2 rounded-full bg-yellow-500/50" />
+              <span className="h-2 w-2 rounded-full bg-green-500/50" />
+              <span className="ml-2 text-xs text-white/25 font-mono">hello.ex</span>
+            </div>
+            <div className="h-28 p-4">
+              <CodeDisplay showCode={current.showCode} highlight={current.highlight} />
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/70 backdrop-blur-md overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+              <span className="h-2 w-2 rounded-full bg-red-500/50" />
+              <span className="h-2 w-2 rounded-full bg-yellow-500/50" />
+              <span className="h-2 w-2 rounded-full bg-green-500/50" />
+              <span className="ml-2 text-xs text-white/25 font-mono">terminal</span>
+            </div>
+            <div className="h-28 p-4 font-mono text-sm">
+              {current.showCommand
+                ? <p className="text-white/50">$ elixir hello.ex</p>
+                : <span className="text-white/15 text-xs">{lang === 'es' ? 'esperando...' : 'waiting...'}</span>
+              }
+              {current.showOutput && (
+                <p className="text-emerald-400 mt-1">Hello, World!</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div
+          key={`${step}-${lang}`}
+          className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-6 mb-6 slide-in-blurred-top"
+          style={{ animationDuration: '0.25s' }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mb-2">
+            {step + 1} / {currentSteps.length} — {current.title}
+          </p>
+          <p className="text-white/65 text-sm leading-relaxed">{current.explanation}</p>
+        </div>
+
+        <div className="flex justify-between">
+          <button
+            onClick={() => setStep(s => Math.max(0, s - 1))}
+            disabled={step === 0}
+            className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-white/60 transition hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed"
+          >
+            ← {lang === 'es' ? 'Anterior' : 'Previous'}
+          </button>
+          <button
+            onClick={() => setStep(s => Math.min(currentSteps.length - 1, s + 1))}
+            disabled={isLast}
+            className="rounded-full border border-violet-500/30 bg-violet-500/15 px-5 py-2 text-sm text-violet-300 transition hover:bg-violet-500/25 disabled:opacity-20 disabled:cursor-not-allowed"
+          >
+            {lang === 'es' ? 'Siguiente' : 'Next'} →
+          </button>
+        </div>
+
+        {isLast && (
+          <div className="mt-8 slide-in-blurred-top" style={{ animationDuration: '0.3s' }}>
+            <div className="border-t border-white/10 pt-8">
+              {related.length > 0 && (
+                <>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
+                    {t('blog.related')}
+                  </p>
+                  <div className="flex flex-col gap-3 mb-6">
+                    {related.map(({ slug, Icon, tag, title, title_en }) => (
+                      <Link
+                        key={slug}
+                        to={slug}
+                        className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 transition hover:bg-white/10 hover:border-white/20"
+                      >
+                        <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
+                          <Icon className="text-violet-400" />
+                          <span>{tag}</span>
+                        </div>
+                        <p className="text-white/80 text-sm font-medium group-hover:text-white transition">
+                          {lang === 'en' && title_en ? title_en : title}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+              <div className="flex gap-3">
+                <Link
+                  to="/blog"
+                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm text-white/60 transition hover:bg-white/10"
+                >
+                  {t('blog.see_blog')}
+                </Link>
+                <Link
+                  to="/"
+                  className="rounded-full border border-violet-500/30 bg-violet-500/15 px-5 py-2 text-sm text-violet-300 transition hover:bg-violet-500/25"
+                >
+                  {t('blog.back_home')}
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>
+    </div>
+  )
+}
