@@ -18,6 +18,7 @@ export const translations = {
       contact_text: 'Santiago, Chile. Abierto a nuevos proyectos y conversaciones.',
       experience_title: 'Experiencia',
       present: 'Presente',
+      built_with: 'Sitio construido con:',
     },
     blog: {
       title: 'Blog',
@@ -52,6 +53,7 @@ export const translations = {
       contact_text: 'Santiago, Chile. Open to new projects and conversations.',
       experience_title: 'Experience',
       present: 'Present',
+      built_with: 'Site built with:',
     },
     blog: {
       title: 'Blog',

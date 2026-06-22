@@ -5,11 +5,13 @@ import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
   SiReact, SiNodedotjs, SiLaravel, SiAngular, SiGithub, SiOpenjdk, SiInstagram,
+  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions,
 } from 'react-icons/si'
 import { FaLinkedin, FaAmazon } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
 import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
+import ThemeToggle from '../components/ThemeToggle'
 
 const stack = [
   { name: 'Elixir',      icon: SiElixir,          level: 4 },
@@ -32,15 +34,15 @@ const stack = [
 ]
 
 const levelStyle = {
-  4: 'bg-white/18 border-white/30 text-white/95 hover:bg-white/30 hover:border-white/50 hover:text-white',
-  3: 'bg-white/10 border-white/18 text-white/60 hover:bg-white/22 hover:border-white/35 hover:text-white/90',
-  2: 'bg-white/5  border-white/10 text-white/38 hover:bg-white/15 hover:border-white/25 hover:text-white/75',
-  1: 'bg-white/3  border-white/6  text-white/22 hover:bg-white/10 hover:border-white/18 hover:text-white/55',
+  4: 'bg-slate-900/10 border-slate-900/20 text-slate-800 hover:bg-slate-900/20 hover:border-slate-900/30 dark:bg-white/18 dark:border-white/30 dark:text-white/95 dark:hover:bg-white/30 dark:hover:border-white/50 dark:hover:text-white',
+  3: 'bg-slate-900/5 border-slate-900/10 text-slate-600 hover:bg-slate-900/10 hover:border-slate-900/15 dark:bg-white/10 dark:border-white/18 dark:text-white/60 dark:hover:bg-white/22 dark:hover:border-white/35 dark:hover:text-white/90',
+  2: 'bg-slate-900/3 border-slate-900/6 text-slate-500 hover:bg-slate-900/6 hover:border-slate-900/10 dark:bg-white/5  dark:border-white/10 dark:text-white/38 dark:hover:bg-white/15 dark:hover:border-white/25 dark:hover:text-white/75',
+  1: 'bg-slate-900/1 border-slate-900/4 text-slate-400 hover:bg-slate-900/3 hover:border-slate-900/6 dark:bg-white/3  dark:border-white/6  dark:text-white/22 dark:hover:bg-white/10 dark:hover:border-white/18 dark:hover:text-white/55',
 }
 
 function GlassCard({ children, className = '' }) {
   return (
-    <div className={`rounded-2xl border border-white/15 bg-white/8 p-6 shadow-xl backdrop-blur-md ${className}`}>
+    <div className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`}>
       {children}
     </div>
   )
@@ -55,17 +57,18 @@ export default function Home() {
   const visible = expanded ? experience : experience.slice(0, PREVIEW)
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+    <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
       <div
         className="absolute inset-0 z-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.25), transparent 70%), #000000',
+          background: 'var(--bg-radial)',
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
 
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-end items-center gap-3 mb-6">
+          <ThemeToggle />
           <LangToggle />
         </div>
 
@@ -74,35 +77,35 @@ export default function Home() {
           <img
             src="https://avatars.githubusercontent.com/u/4277373?v=4"
             alt="José Simó"
-            className="mx-auto mb-5 h-20 w-20 rounded-full border border-white/20 object-cover"
+            className="mx-auto mb-5 h-20 w-20 rounded-full border border-slate-200 dark:border-white/20 object-cover"
           />
-          <h1 className="mb-1 text-4xl font-bold tracking-tight bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+          <h1 className="mb-1 text-4xl font-bold tracking-tight bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-400 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
             José Simó
           </h1>
-          <p className="mb-1 text-lg text-purple-300">{t('home.role')}</p>
-          <p className="mb-5 text-sm text-white/40">{t('home.subtitle')}</p>
-          <p className="mx-auto mb-7 max-w-lg text-sm leading-relaxed text-white/55">
+          <p className="mb-1 text-lg text-violet-600 dark:text-purple-300">{t('home.role')}</p>
+          <p className="mb-5 text-sm text-slate-500 dark:text-white/40">{t('home.subtitle')}</p>
+          <p className="mx-auto mb-7 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-white/55">
             {t('home.bio')}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a href="https://github.com/jrsimog" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm text-white/80 transition hover:bg-white/20">
+              className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
               <SiGithub className="text-base" /> GitHub
             </a>
             <a href="https://www.linkedin.com/in/jrsimog" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm text-white/80 transition hover:bg-white/20">
+              className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
               <FaLinkedin className="text-base" /> LinkedIn
             </a>
             <a href="mailto:jrsimog@gmail.com"
-              className="rounded-full border border-purple-400/40 bg-purple-500/20 px-5 py-2 text-sm text-purple-200 transition hover:bg-purple-500/30">
+              className="rounded-full border border-violet-200 dark:border-purple-400/40 bg-violet-100 dark:bg-purple-500/20 px-5 py-2 text-sm text-violet-700 dark:text-purple-200 transition hover:bg-violet-200 dark:hover:bg-purple-500/30">
               {t('home.contact')}
             </a>
             <a href="https://www.instagram.com/khdtto" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm text-white/80 transition hover:bg-white/20">
+              className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
               <SiInstagram className="text-base" /> Instagram
             </a>
             <Link to="/blog"
-              className="rounded-full border border-violet-400/30 bg-violet-500/10 px-5 py-2 text-sm text-violet-300 transition hover:bg-violet-500/20">
+              className="rounded-full border border-indigo-100 dark:border-violet-400/30 bg-indigo-50 dark:bg-violet-500/10 px-5 py-2 text-sm text-indigo-600 dark:text-violet-300 transition hover:bg-indigo-100 dark:hover:bg-violet-500/20">
               {t('home.blog')}
             </Link>
           </div>
@@ -110,31 +113,31 @@ export default function Home() {
 
         {/* Experiencia */}
         <div className="slide-in-blurred-top mb-8" style={{ animationDelay: '0.2s' }}>
-          <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mb-5">
+          <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
             {t('home.experience_title')}
           </h2>
 
           <div className="relative">
-            <div className="absolute left-0 top-2 bottom-2 w-px bg-white/10" />
+            <div className="absolute left-0 top-2 bottom-2 w-px bg-slate-200 dark:bg-white/10" />
             <div className="flex flex-col gap-4 pl-6">
               {visible.map(({ company, role_es, role_en, period_es, period_en, desc_es, desc_en, current }, i) => (
                 <div key={i} className="relative">
                   <div className={`absolute -left-[1.625rem] top-2 h-2.5 w-2.5 rounded-full border-2 ${
-                    current ? 'bg-violet-400 border-violet-400' : 'bg-black border-white/25'
+                    current ? 'bg-violet-500 border-violet-500 dark:bg-violet-400 dark:border-violet-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
                   }`} />
-                  <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md px-5 py-4 transition hover:bg-white/8 hover:border-white/15">
+                  <div className="rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md px-5 py-4 transition hover:bg-white/80 dark:hover:bg-white/8 hover:border-slate-300/80 dark:hover:border-white/15">
                     <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
                       <div>
-                        <span className="text-white/90 font-semibold text-sm">{company}</span>
-                        <span className="text-white/40 text-xs ml-2">
+                        <span className="text-slate-800 dark:text-white/90 font-semibold text-sm">{company}</span>
+                        <span className="text-slate-500 dark:text-white/40 text-xs ml-2">
                           {lang === 'en' ? role_en : role_es}
                         </span>
                       </div>
-                      <span className={`text-xs shrink-0 ${current ? 'text-violet-400' : 'text-white/30'}`}>
+                      <span className={`text-xs shrink-0 ${current ? 'text-violet-600 dark:text-violet-400' : 'text-slate-400 dark:text-white/30'}`}>
                         {lang === 'en' ? period_en : period_es}
                       </span>
                     </div>
-                    <p className="text-white/45 text-xs leading-relaxed">
+                    <p className="text-slate-600 dark:text-white/45 text-xs leading-relaxed">
                       {lang === 'en' ? desc_en : desc_es}
                     </p>
                   </div>
@@ -146,7 +149,7 @@ export default function Home() {
           {experience.length > PREVIEW && (
             <button
               onClick={() => setExpanded(e => !e)}
-              className="mt-4 ml-6 text-xs text-white/35 hover:text-white/60 transition flex items-center gap-1.5"
+              className="mt-4 ml-6 text-xs text-slate-400 hover:text-slate-600 dark:text-white/35 dark:hover:text-white/60 transition flex items-center gap-1.5"
             >
               <span className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}>↓</span>
               {expanded
@@ -160,18 +163,18 @@ export default function Home() {
         {/* Cards */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 slide-in-blurred-top" style={{ animationDelay: '0.3s' }}>
           <GlassCard>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
               {t('home.about_title')}
             </h2>
-            <p className="text-sm leading-relaxed text-white/55">{t('home.about_text')}</p>
-            <div className="mt-3 flex items-center gap-1.5 text-white/25">
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.about_text')}</p>
+            <div className="mt-3 flex items-center gap-1.5 text-slate-400 dark:text-white/25">
               <MdRollerSkating className="text-lg" />
               <span className="text-xs">Inline Downhill</span>
             </div>
           </GlassCard>
 
           <GlassCard>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
               {t('home.stack_title')}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -186,16 +189,43 @@ export default function Home() {
           </GlassCard>
 
           <GlassCard>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
               {t('home.contact_title')}
             </h2>
-            <p className="mb-4 text-sm leading-relaxed text-white/55">{t('home.contact_text')}</p>
+            <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
             <a href="mailto:jrsimog@gmail.com"
-              className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs text-white/80 transition hover:bg-white/20">
+              className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
               jrsimog@gmail.com
             </a>
           </GlassCard>
         </div>
+
+        {/* Footer */}
+        <footer className="mt-6 border-t border-slate-200 dark:border-white/5 pt-3 pb-1 text-center text-[10px] text-slate-500 dark:text-white/30">
+          <p className="mb-1.5 font-medium tracking-wider uppercase text-[8px] text-slate-400 dark:text-white/35">
+            {t('home.built_with')}
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1">
+            <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">
+              <SiReact className="text-xs text-[#61DAFB]" /> React
+            </a>
+            <a href="https://vite.dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">
+              <SiVite className="text-xs text-[#646CFF]" /> Vite
+            </a>
+            <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">
+              <SiTailwindcss className="text-xs text-[#38BDF8]" /> Tailwind CSS
+            </a>
+            <a href="https://reactrouter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">
+              <SiReactrouter className="text-xs text-[#F44250]" /> React Router
+            </a>
+            <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">
+              <SiGithubactions className="text-xs text-[#2088FF]" /> GitHub Actions
+            </a>
+          </div>
+          <p className="mt-2.5 text-[8px] text-slate-300 dark:text-white/15">
+            © {new Date().getFullYear()} José Simó.
+          </p>
+        </footer>
 
       </div>
     </div>
