@@ -41,6 +41,11 @@ export const translations = {
       message: 'La página que buscas no existe o fue movida.',
       back: '← Volver al inicio',
     },
+    projects: {
+      title: 'Proyectos',
+      view: 'Ver',
+      close: 'Cerrar',
+    },
   },
 
   en: {
@@ -84,6 +89,11 @@ export const translations = {
       title: 'Page not found',
       message: 'The page you are looking for does not exist or has been moved.',
       back: '← Back to home',
+    },
+    projects: {
+      title: 'Projects',
+      view: 'View',
+      close: 'Close',
     },
   },
 }

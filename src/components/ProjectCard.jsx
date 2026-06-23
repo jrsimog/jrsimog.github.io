@@ -1,0 +1,105 @@
+import { useState } from 'react'
+import { useLanguage } from '../context/LanguageContext'
+
+export default function ProjectCard({ project }) {
+  const { lang, t } = useLanguage()
+  const [lightbox, setLightbox] = useState(null)
+
+  const description = lang === 'en' ? project.description_en : project.description_es
+
+  return (
+    <>
+      <div className="rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 shadow-xl dark:shadow-black/20 backdrop-blur-md overflow-hidden transition-all duration-300">
+
+        {/* Screenshot grid */}
+        <div className="grid grid-cols-2 gap-0.5 bg-slate-200/50 dark:bg-white/5">
+          {project.screenshots.map((src, i) => (
+            <button
+              key={i}
+              onClick={() => setLightbox(i)}
+              className="relative overflow-hidden aspect-video bg-slate-100 dark:bg-white/5 hover:opacity-90 transition-opacity group"
+            >
+              <img
+                src={src}
+                alt={`${project.name} screenshot ${i + 1}`}
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-medium transition-opacity">
+                  {t('projects.view')}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Info */}
+        <div className="p-5">
+          <h3 className="text-slate-800 dark:text-white/90 font-semibold text-base mb-1">
+            {project.name}
+          </h3>
+          <p className="text-slate-600 dark:text-white/50 text-xs leading-relaxed mb-4">
+            {description}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {project.stack.map(tech => (
+              <span
+                key={tech}
+                className="text-xs rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/8 px-2.5 py-0.5 text-slate-600 dark:text-white/55"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <div className="relative max-w-5xl w-full" onClick={e => e.stopPropagation()}>
+            <img
+              src={project.screenshots[lightbox]}
+              alt={`${project.name} screenshot ${lightbox + 1}`}
+              className="w-full rounded-xl shadow-2xl"
+            />
+
+            {/* Prev / Next */}
+            {project.screenshots.length > 1 && (
+              <>
+                <button
+                  onClick={() => setLightbox(i => (i - 1 + project.screenshots.length) % project.screenshots.length)}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center"
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={() => setLightbox(i => (i + 1) % project.screenshots.length)}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center"
+                >
+                  ›
+                </button>
+              </>
+            )}
+
+            {/* Counter */}
+            <p className="text-center text-white/40 text-xs mt-3">
+              {lightbox + 1} / {project.screenshots.length}
+            </p>
+
+            {/* Close */}
+            <button
+              onClick={() => setLightbox(null)}
+              className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
+            >
+              {t('projects.close')} ✕
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
