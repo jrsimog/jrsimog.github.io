@@ -129,7 +129,7 @@ export default function Home() {
             <div className="absolute left-0 top-2 bottom-2 w-px bg-slate-200 dark:bg-white/10" />
             <div className="flex flex-col gap-4 pl-6">
               {visible.map(({ company, role_es, role_en, period_es, period_en, desc_es, desc_en, current }, i) => (
-                <ScrollReveal key={i} className="relative" delay={`${i * 0.05}s`}>
+                <ScrollReveal key={i} className="relative" delay={`${i * 0.08}s`} variant="left">
                   <div className={`absolute -left-[1.625rem] top-2 h-2.5 w-2.5 rounded-full border-2 ${
                     current ? 'bg-violet-500 border-violet-500 dark:bg-violet-400 dark:border-violet-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
                   }`} />
