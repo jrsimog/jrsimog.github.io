@@ -35,6 +35,12 @@ export const translations = {
       clear_filter: 'Quitar filtro',
       no_posts: 'Aún no hay publicaciones sobre esta tecnología.',
     },
+    not_found: {
+      code: '404',
+      title: 'Página no encontrada',
+      message: 'La página que buscas no existe o fue movida.',
+      back: '← Volver al inicio',
+    },
   },
 
   en: {
@@ -72,6 +78,12 @@ export const translations = {
       filter_by: 'Filtering by:',
       clear_filter: 'Clear filter',
       no_posts: 'No posts about this technology yet.',
+    },
+    not_found: {
+      code: '404',
+      title: 'Page not found',
+      message: 'The page you are looking for does not exist or has been moved.',
+      back: '← Back to home',
     },
   },
 }
