@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { experience } from '../data/experience'
 import { posts } from '../data/posts'
+import { projects } from '../data/projects'
+import ProjectCard from '../components/ProjectCard'
 import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
@@ -77,7 +79,7 @@ export default function Home() {
         </div>
 
         {/* Hero */}
-        <ScrollReveal>
+        <ScrollReveal delay="0s">
           <GlassCard className="mb-6 text-center rounded-3xl px-10 py-10">
             <img
               src="https://avatars.githubusercontent.com/u/4277373?v=4"
@@ -119,7 +121,7 @@ export default function Home() {
 
         {/* Experiencia */}
         <div className="mb-8">
-          <ScrollReveal>
+          <ScrollReveal delay="0.3s">
             <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
               {t('home.experience_title')}
             </h2>
@@ -129,7 +131,7 @@ export default function Home() {
             <div className="absolute left-0 top-2 bottom-2 w-px bg-slate-200 dark:bg-white/10" />
             <div className="flex flex-col gap-4 pl-6">
               {visible.map(({ company, role_es, role_en, period_es, period_en, desc_es, desc_en, current }, i) => (
-                <ScrollReveal key={i} className="relative" delay={`${i * 0.05}s`}>
+                <ScrollReveal key={i} className="relative" delay={`${0.45 + i * 0.08}s`} variant="left">
                   <div className={`absolute -left-[1.625rem] top-2 h-2.5 w-2.5 rounded-full border-2 ${
                     current ? 'bg-violet-500 border-violet-500 dark:bg-violet-400 dark:border-violet-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
                   }`} />
@@ -155,7 +157,7 @@ export default function Home() {
           </div>
 
           {experience.length > PREVIEW && (
-            <ScrollReveal className="inline-block">
+            <ScrollReveal className="inline-block" delay="0.62s">
               <button
                 onClick={() => setExpanded(e => !e)}
                 className="mt-4 ml-6 text-xs text-slate-400 hover:text-slate-600 dark:text-white/35 dark:hover:text-white/60 transition flex items-center gap-1.5"
@@ -168,6 +170,22 @@ export default function Home() {
               </button>
             </ScrollReveal>
           )}
+        </div>
+
+        {/* Proyectos */}
+        <div className="mb-8">
+          <ScrollReveal delay="0.05s">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
+              {t('projects.title')}
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {projects.map((project, i) => (
+              <ScrollReveal key={project.id} delay={`${0.1 + i * 0.08}s`} variant="left">
+                <ProjectCard project={project} />
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
 
         {/* Cards */}
