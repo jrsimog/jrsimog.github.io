@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function ScrollReveal({ children, className = '', delay = '0s' }) {
+const animationClass = {
+  top: 'slide-in-blurred-top',
+  left: 'slide-in-from-left',
+}
+
+export default function ScrollReveal({ children, className = '', delay = '0s', variant = 'top' }) {
   const [isIntersecting, setIsIntersecting] = useState(false)
   const ref = useRef(null)
 
@@ -17,7 +22,7 @@ export default function ScrollReveal({ children, className = '', delay = '0s' })
       },
       {
         threshold: 0.01,
-        rootMargin: '0px 0px 100px 0px', // Trigger 100px before entering
+        rootMargin: '0px 0px 100px 0px',
       }
     )
 
@@ -35,7 +40,7 @@ export default function ScrollReveal({ children, className = '', delay = '0s' })
   return (
     <div
       ref={ref}
-      className={`transition-all duration-75 ${isIntersecting ? 'slide-in-blurred-top' : 'opacity-0'} ${className}`}
+      className={`transition-all duration-75 ${isIntersecting ? animationClass[variant] : 'opacity-0'} ${className}`}
       style={isIntersecting ? { animationDelay: delay } : {}}
     >
       {children}
