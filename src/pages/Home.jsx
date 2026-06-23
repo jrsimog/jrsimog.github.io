@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { experience } from '../data/experience'
 import { posts } from '../data/posts'
+import { projects } from '../data/projects'
+import ProjectCard from '../components/ProjectCard'
 import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
@@ -168,6 +170,22 @@ export default function Home() {
               </button>
             </ScrollReveal>
           )}
+        </div>
+
+        {/* Proyectos */}
+        <div className="mb-8">
+          <ScrollReveal delay="0.05s">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
+              {t('projects.title')}
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {projects.map((project, i) => (
+              <ScrollReveal key={project.id} delay={`${0.1 + i * 0.08}s`} variant="left">
+                <ProjectCard project={project} />
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
 
         {/* Cards */}
