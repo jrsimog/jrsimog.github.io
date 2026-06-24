@@ -8,7 +8,7 @@ import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
   SiReact, SiNodedotjs, SiLaravel, SiAngular, SiGithub, SiOpenjdk, SiInstagram,
-  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions,
+  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions, SiYoutubemusic,
 } from 'react-icons/si'
 import { FaLinkedin, FaAmazon } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
@@ -71,7 +71,7 @@ export default function Home() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 pt-12 pb-4">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-4">
 
         <div className="flex justify-end items-center gap-3 mb-6">
           <ThemeToggle />
@@ -80,16 +80,16 @@ export default function Home() {
 
         {/* Hero */}
         <ScrollReveal delay="0s">
-          <GlassCard className="mb-6 text-center rounded-3xl px-10 py-10">
+          <GlassCard className="mb-6 text-center rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
             <img
               src="https://avatars.githubusercontent.com/u/4277373?v=4"
               alt="José Simó"
               className="mx-auto mb-5 h-20 w-20 rounded-full border border-slate-200 dark:border-white/20 object-cover"
             />
-            <h1 className="mb-1 text-4xl font-bold tracking-tight bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
+            <h1 className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
               José Simó
             </h1>
-            <p className="mb-1 text-lg text-violet-600 dark:text-purple-300">{t('home.role')}</p>
+            <p className="mb-1 text-lg text-blue-600 dark:text-blue-300">{t('home.role')}</p>
             <p className="mb-5 text-sm text-slate-500 dark:text-white/40">{t('home.subtitle')}</p>
             <p className="mx-auto mb-7 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-white/55">
               {t('home.bio')}
@@ -104,7 +104,7 @@ export default function Home() {
                 <FaLinkedin className="text-base text-[#0A66C2]" /> LinkedIn
               </a>
               <a href="mailto:jrsimog@gmail.com"
-                className="rounded-full border border-violet-200 dark:border-purple-400/40 bg-violet-100 dark:bg-purple-500/20 px-5 py-2 text-sm text-violet-700 dark:text-purple-200 transition hover:bg-violet-200 dark:hover:bg-purple-500/30">
+                className="rounded-full border border-blue-200 dark:border-blue-400/40 bg-blue-100 dark:bg-blue-500/20 px-5 py-2 text-sm text-blue-700 dark:text-blue-200 transition hover:bg-blue-200 dark:hover:bg-blue-500/30">
                 {t('home.contact')}
               </a>
               <a href="https://www.instagram.com/khdtto" target="_blank" rel="noopener noreferrer"
@@ -112,7 +112,7 @@ export default function Home() {
                 <SiInstagram className="text-base" /> Instagram
               </a>
               <Link to="/blog"
-                className="rounded-full border border-indigo-100 dark:border-violet-400/30 bg-indigo-50 dark:bg-violet-500/10 px-5 py-2 text-sm text-indigo-600 dark:text-violet-300 transition hover:bg-indigo-100 dark:hover:bg-violet-500/20">
+                className="rounded-full border border-blue-100 dark:border-blue-400/30 bg-blue-50 dark:bg-blue-500/10 px-5 py-2 text-sm text-blue-600 dark:text-blue-300 transition hover:bg-blue-100 dark:hover:bg-blue-500/20">
                 {t('home.blog')}
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default function Home() {
         {/* Experiencia */}
         <div className="mb-8">
           <ScrollReveal delay="0.3s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
               {t('home.experience_title')}
             </h2>
           </ScrollReveal>
@@ -133,17 +133,17 @@ export default function Home() {
               {visible.map(({ company, role_es, role_en, period_es, period_en, desc_es, desc_en, current }, i) => (
                 <ScrollReveal key={i} className="relative" delay={`${0.45 + i * 0.08}s`} variant="left">
                   <div className={`absolute -left-[1.625rem] top-2 h-2.5 w-2.5 rounded-full border-2 ${
-                    current ? 'bg-violet-500 border-violet-500 dark:bg-violet-400 dark:border-violet-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
+                    current ? 'bg-blue-500 border-blue-500 dark:bg-blue-400 dark:border-blue-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
                   }`} />
                   <div className="rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md px-5 py-4 transition hover:bg-white/80 dark:hover:bg-white/8 hover:border-slate-300/80 dark:hover:border-white/15">
-                    <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
-                      <div>
+                    <div className="flex items-start justify-between gap-2 flex-wrap mb-1">
+                      <div className="min-w-0">
                         <span className="text-slate-800 dark:text-white/90 font-semibold text-sm">{company}</span>
                         <span className="text-slate-500 dark:text-white/40 text-xs ml-2">
                           {lang === 'en' ? role_en : role_es}
                         </span>
                       </div>
-                      <span className={`text-xs shrink-0 ${current ? 'text-violet-600 dark:text-violet-400' : 'text-slate-400 dark:text-white/30'}`}>
+                      <span className={`text-xs shrink-0 ${current ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-white/30'}`}>
                         {lang === 'en' ? period_en : period_es}
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export default function Home() {
         {/* Proyectos */}
         <div className="mb-8">
           <ScrollReveal delay="0.05s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-5">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
               {t('projects.title')}
             </h2>
           </ScrollReveal>
@@ -189,23 +189,52 @@ export default function Home() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <ScrollReveal delay="0.05s">
-            <GlassCard>
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
-                {t('home.about_title')}
-              </h2>
-              <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.about_text')}</p>
-              <div className="mt-3 flex items-center gap-1.5 text-slate-400 dark:text-white/25">
-                <MdRollerSkating className="text-lg" />
-                <span className="text-xs">Inline Downhill</span>
-              </div>
-            </GlassCard>
-          </ScrollReveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-          <ScrollReveal delay="0.1s">
-            <GlassCard>
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
+          {/* Columna izquierda: Sobre mí + Contacto */}
+          <div className="flex flex-col gap-5">
+            <ScrollReveal delay="0.05s">
+              <GlassCard>
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                  {t('home.about_title')}
+                </h2>
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.about_text')}</p>
+                <div className="mt-3 flex flex-col gap-2">
+                  <div className="flex items-center gap-1.5 text-slate-400 dark:text-white/25">
+                    <MdRollerSkating className="text-lg" />
+                    <span className="text-xs">Inline Downhill</span>
+                  </div>
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLrTZHWsW-mdayf2WOylkb5R33x1NtpS3S&si=pDPydJOi6LXTbrVj"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-3 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20 w-fit"
+                  >
+                    <SiYoutubemusic className="text-base text-[#FF0000]" />
+                    Coding Playlist
+                  </a>
+                </div>
+              </GlassCard>
+            </ScrollReveal>
+
+            <ScrollReveal delay="0.15s">
+              <GlassCard>
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                  {t('home.contact_title')}
+                </h2>
+                <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
+                <a href="mailto:jrsimog@gmail.com"
+                  className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
+                  jrsimog@gmail.com
+                </a>
+              </GlassCard>
+            </ScrollReveal>
+          </div>
+
+          {/* Columna derecha: Stack */}
+          <ScrollReveal delay="0.1s" className="h-full">
+            <GlassCard className="h-full">
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
                 {t('home.stack_title')}
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -226,18 +255,6 @@ export default function Home() {
             </GlassCard>
           </ScrollReveal>
 
-          <ScrollReveal delay="0.15s">
-            <GlassCard>
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent">
-                {t('home.contact_title')}
-              </h2>
-              <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
-              <a href="mailto:jrsimog@gmail.com"
-                className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
-                jrsimog@gmail.com
-              </a>
-            </GlassCard>
-          </ScrollReveal>
         </div>
 
         {/* Footer */}
