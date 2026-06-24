@@ -10,7 +10,7 @@ export default function Blog() {
   const filterTag = searchParams.get('tag')
 
   const typeLabel = {
-    playground: { label: t('blog.types.playground'), style: 'bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-300 border border-violet-500/20 dark:border-violet-500/25' },
+    playground: { label: t('blog.types.playground'), style: 'bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/20 dark:border-blue-500/25' },
     pildora:    { label: t('blog.types.pildora'),    style: 'bg-amber-500/10  dark:bg-amber-500/15  text-amber-700  dark:text-amber-300  border border-amber-500/20  dark:border-amber-500/25'  },
   }
 
@@ -26,7 +26,7 @@ export default function Blog() {
           background: 'var(--bg-radial)',
         }}
       />
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-12 slide-in-blurred-top">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top">
 
         <div className="flex items-center justify-between mb-10">
           <Link to="/" className="text-slate-500 dark:text-white/40 hover:text-slate-800 dark:hover:text-white/70 text-sm transition">
@@ -38,17 +38,17 @@ export default function Blog() {
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-1">
+        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-1">
           {t('blog.title')}
         </h1>
         <p className="text-slate-500 dark:text-white/40 text-sm mb-8">{t('blog.subtitle')}</p>
 
         {filterTag && (
-          <div className="flex items-center gap-3 bg-violet-500/10 dark:bg-violet-500/15 border border-violet-500/20 dark:border-violet-500/30 rounded-xl px-4 py-2.5 mb-6 text-sm text-violet-700 dark:text-violet-300 animate-fade-in">
+          <div className="flex items-center gap-3 bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 dark:border-blue-500/30 rounded-xl px-4 py-2.5 mb-6 text-sm text-blue-700 dark:text-blue-300 animate-fade-in">
             <span>
               {t('blog.filter_by')} <strong className="font-semibold">{filterTag}</strong>
             </span>
-            <Link to="/blog" className="text-xs underline hover:text-violet-900 dark:hover:text-violet-100 transition-colors ml-auto">
+            <Link to="/blog" className="text-xs underline hover:text-blue-900 dark:hover:text-blue-100 transition-colors ml-auto">
               {t('blog.clear_filter')}
             </Link>
           </div>
@@ -75,7 +75,7 @@ export default function Blog() {
               >
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
                   <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-white/40">
-                    <Icon className="text-violet-400" />
+                    <Icon className="text-blue-400" />
                     <span>{tag}</span>
                     <span>·</span>
                     <span>{date}</span>
@@ -86,7 +86,7 @@ export default function Blog() {
                     </span>
                   )}
                 </div>
-                <h2 className="text-slate-800 dark:text-white/90 font-semibold group-hover:text-indigo-600 dark:group-hover:text-white transition">{displayTitle}</h2>
+                <h2 className="text-slate-800 dark:text-white/90 font-semibold group-hover:text-blue-600 dark:group-hover:text-white transition">{displayTitle}</h2>
                 <p className="text-slate-500 dark:text-white/40 text-sm mt-1">{displayDesc}</p>
               </Link>
             )

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function ProjectCard({ project }) {
@@ -54,17 +55,18 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
+      {/* Lightbox — renderizado en document.body para evitar conflictos con transforms */}
+      {lightbox !== null && createPortal(
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center"
           onClick={() => setLightbox(null)}
         >
-          <div className="relative max-w-5xl w-full" onClick={e => e.stopPropagation()}>
+          <div className="relative flex flex-col items-center px-16" onClick={e => e.stopPropagation()}>
+
             <img
               src={project.screenshots[lightbox]}
               alt={`${project.name} screenshot ${lightbox + 1}`}
-              className="w-full rounded-xl shadow-2xl"
+              className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl"
             />
 
             {/* Prev / Next */}
@@ -72,13 +74,13 @@ export default function ProjectCard({ project }) {
               <>
                 <button
                   onClick={() => setLightbox(i => (i - 1 + project.screenshots.length) % project.screenshots.length)}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl w-12 h-12 flex items-center justify-center"
                 >
                   ‹
                 </button>
                 <button
                   onClick={() => setLightbox(i => (i + 1) % project.screenshots.length)}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl w-12 h-12 flex items-center justify-center"
                 >
                   ›
                 </button>
@@ -86,19 +88,20 @@ export default function ProjectCard({ project }) {
             )}
 
             {/* Counter */}
-            <p className="text-center text-white/40 text-xs mt-3">
+            <p className="text-white/40 text-xs mt-3">
               {lightbox + 1} / {project.screenshots.length}
             </p>
-
-            {/* Close */}
-            <button
-              onClick={() => setLightbox(null)}
-              className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm"
-            >
-              {t('projects.close')} ✕
-            </button>
           </div>
-        </div>
+
+          {/* Close */}
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-5 right-6 text-white/60 hover:text-white text-sm transition"
+          >
+            {t('projects.close')} ✕
+          </button>
+        </div>,
+        document.body
       )}
     </>
   )
