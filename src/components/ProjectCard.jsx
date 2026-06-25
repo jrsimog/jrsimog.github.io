@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useLanguage } from '../context/LanguageContext'
+import { techIcons } from '../data/techIcons'
 
 export default function ProjectCard({ project }) {
   const { lang, t } = useLanguage()
@@ -36,21 +37,31 @@ export default function ProjectCard({ project }) {
 
         {/* Info */}
         <div className="p-5">
-          <h3 className="text-slate-800 dark:text-white/90 font-semibold text-base mb-1">
-            {project.name}
-          </h3>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <h3 className="text-slate-800 dark:text-white/90 font-semibold text-base">
+              {project.name}
+            </h3>
+            {project.date && (
+              <span className="text-xs text-slate-400 dark:text-white/30 shrink-0">{project.date}</span>
+            )}
+          </div>
           <p className="text-slate-600 dark:text-white/50 text-xs leading-relaxed mb-4">
             {description}
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {project.stack.map(tech => (
-              <span
-                key={tech}
-                className="text-xs rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/8 px-2.5 py-0.5 text-slate-600 dark:text-white/55"
-              >
-                {tech}
-              </span>
-            ))}
+            {project.stack.map(tech => {
+              const tech_icon = techIcons[tech]
+              const Icon = tech_icon?.icon
+              return (
+                <span
+                  key={tech}
+                  className="flex items-center gap-1 text-xs rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/8 px-2.5 py-0.5 text-slate-600 dark:text-white/55"
+                >
+                  {Icon && <Icon className="text-sm shrink-0" style={{ color: tech_icon.color }} />}
+                  {tech}
+                </span>
+              )
+            })}
           </div>
         </div>
       </div>
