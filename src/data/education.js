@@ -3,9 +3,9 @@ export const education = [
     institution: 'Instituto Universitario Politécnico Santiago Mariño',
     degree_es: 'Ingeniero de Sistemas',
     degree_en: 'Systems Engineer',
-    field_es: 'Ingeniería en Telecomunicaciones',
-    field_en: 'Telecommunications Engineering',
-    period: '2008 — 2013',
+    field_es: 'Ingeniería en Software Computacional',
+    field_en: 'Computer Software Engineering',
+    period: 'Abr 2008 — Nov 2013',
   },
 ]
 
