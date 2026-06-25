@@ -5,6 +5,9 @@ import { LanguageProvider } from './context/LanguageContext'
 import { ThemeProvider } from './context/ThemeContext'
 import './index.css'
 import App from './App.jsx'
+import { initGA } from './utils/analytics.js'
+
+initGA()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
