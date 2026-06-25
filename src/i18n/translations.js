@@ -18,7 +18,7 @@ export const translations = {
       contact_text: 'Santiago, Chile. Disponible para colaboraciones open-source, mentorías e intercambio de ideas.',
       experience_title: 'Experiencia',
       present: 'Presente',
-      built_with: 'Sitio construido con:',
+      built_with: 'Tecnologías usadas para construir esta web:',
     },
     blog: {
       title: 'Blog',
@@ -67,7 +67,7 @@ export const translations = {
       contact_text: 'Santiago, Chile. Available for open-source collaborations, mentoring, and exchanging ideas.',
       experience_title: 'Experience',
       present: 'Present',
-      built_with: 'Site built with:',
+      built_with: 'Technologies used to build this site:',
     },
     blog: {
       title: 'Blog',
