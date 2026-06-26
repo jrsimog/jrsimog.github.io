@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { techIcons } from '../data/techIcons'
 
-export default function ProjectCard({ project }) {
+const ProjectCard = ({ project }) => {
   const { lang, t } = useLanguage()
   const [lightbox, setLightbox] = useState(null)
 
@@ -117,3 +117,5 @@ export default function ProjectCard({ project }) {
     </>
   )
 }
+
+export default ProjectCard
