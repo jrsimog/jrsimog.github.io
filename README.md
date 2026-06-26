@@ -1,6 +1,5 @@
 # jrsimog.github.io — Portfolio
 
-[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-000?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/code)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
