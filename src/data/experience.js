@@ -7,7 +7,7 @@ export const experience = [
     period_en: 'Oct 2021 — Present',
     desc_es: 'Backend con PHP, Symfony y Laravel. Microservicios, MySQL y Docker. Frontend con JS, jQuery y AJAX. Tests unitarios con Python/unittest. Integración con Slack SDK. Uso de IA (Claude Code, Gemini CLI) en flujo diario.',
     desc_en: 'Backend with PHP, Symfony and Laravel. Microservices, MySQL and Docker. Frontend with JS, jQuery and AJAX. Unit tests with Python/unittest. Slack SDK integration. AI tools (Claude Code, Gemini CLI) in daily workflow.',
-    stack: ['PHP', 'Symfony', 'Twig', 'Doctrine', 'Laravel', 'Blade', 'Eloquent', 'MySQL', 'Docker', 'Python', 'JavaScript', 'Elixir', 'Phoenix', 'HEEx', 'Ecto', 'GCP', 'React'],
+    stack: ['PHP', 'Symfony', 'Twig', 'Doctrine', 'Laravel', 'Blade', 'Eloquent', 'MySQL', 'Docker', 'Python', 'JavaScript', 'Elixir', 'Phoenix', 'HEEx', 'Ecto', 'GCP', 'React', 'Claude', 'Claude Code'],
     current: true,
   },
   {
