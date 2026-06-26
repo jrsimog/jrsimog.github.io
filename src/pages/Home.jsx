@@ -7,44 +7,27 @@ import { education, certifications } from '../data/education'
 import { techIcons } from '../data/techIcons'
 import ProjectCard from '../components/ProjectCard'
 import {
-  SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
-  SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
-  SiReact, SiNodedotjs, SiLaravel, SiAngular, SiGithub, SiOpenjdk, SiInstagram,
-  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions, SiYoutubemusic, SiX, SiDoctrine,
+  SiGithub, SiInstagram,
+  SiVite, SiTailwindcss, SiReactrouter, SiGithubactions, SiYoutubemusic, SiX, SiReact,
 } from 'react-icons/si'
-import { MdCode } from 'react-icons/md'
-import { FaLinkedin, FaAmazon } from 'react-icons/fa'
+import { FaLinkedin } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
 import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
 
-const stack = [
-  { name: 'Elixir',      icon: SiElixir,          level: 4, color: '#A07CF8' },
-  { name: 'Phoenix',     icon: SiPhoenixframework, level: 4, color: '#FD4F00' },
-  { name: 'HEEx',        icon: SiPhoenixframework, level: 4, color: '#FD4F00' },
-  { name: 'Ecto',        icon: SiElixir,           level: 4, color: '#A07CF8' },
-  { name: 'React',       icon: SiReact,            level: 4, color: '#00b4d8' },
-  { name: 'PHP',         icon: SiPhp,              level: 4, color: '#777BB4' },
-  { name: 'Symfony',     icon: SiSymfony,          level: 4, color: '#6E7681' },
-  { name: 'Twig',        icon: MdCode,             level: 4, color: '#BAD634' },
-  { name: 'Doctrine',    icon: SiDoctrine,         level: 4, color: '#FC6A31' },
-  { name: 'MySQL',       icon: SiMysql,            level: 4, color: '#00758F' },
-  { name: 'Docker',      icon: SiDocker,           level: 4, color: '#2496ED' },
-  { name: 'Python',      icon: SiPython,           level: 3, color: '#3776AB' },
-  { name: 'Java',        icon: SiOpenjdk,          level: 3, color: '#E76F00' },
-  { name: 'Spring Boot', icon: SiSpring,           level: 3, color: '#6DB33F' },
-  { name: 'GCP',         icon: SiGooglecloud,      level: 3, color: '#4285F4' },
-  { name: 'TypeScript',  icon: SiTypescript,       level: 3, color: '#3178C6' },
-  { name: 'JavaScript',  icon: SiJavascript,       level: 3, color: '#E9B000' },
-  { name: 'Laravel',     icon: SiLaravel,          level: 3, color: '#FF2D20' },
-  { name: 'Blade',       icon: SiLaravel,          level: 3, color: '#FF2D20' },
-  { name: 'Eloquent',    icon: SiLaravel,          level: 3, color: '#FF2D20' },
-  { name: 'Node.js',     icon: SiNodedotjs,        level: 2, color: '#339933' },
-  { name: 'AWS',         icon: FaAmazon,           level: 2, color: '#FF9900' },
-  { name: 'AngularJS',   icon: SiAngular,          level: 1, color: '#DD0031' },
-]
+const stack = Array.from(
+  new Set([
+    ...experience.flatMap(e => e.stack || []),
+    ...projects.flatMap(p => p.stack || []),
+    ...certifications.flatMap(c => c.stack || []),
+    ...posts.map(p => p.tag),
+  ])
+)
+  .map(name => ({ name, ...techIcons[name] }))
+  .filter(t => t.icon && t.level)
+  .sort((a, b) => b.level - a.level)
 
 const levelStyle = {
   4: 'bg-slate-900/10 border-slate-900/20 text-slate-800 hover:bg-slate-900/20 hover:border-slate-900/30 dark:bg-white/18 dark:border-white/30 dark:text-white/95 dark:hover:bg-white/30 dark:hover:border-white/50 dark:hover:text-white',
@@ -53,21 +36,35 @@ const levelStyle = {
   1: 'bg-slate-900/1 border-slate-900/4 text-slate-400 hover:bg-slate-900/3 hover:border-slate-900/6 dark:bg-white/3  dark:border-white/6  dark:text-white/22 dark:hover:bg-white/10 dark:hover:border-white/18 dark:hover:text-white/55',
 }
 
-function GlassCard({ children, className = '' }) {
+const GlassCard = ({ children, className = '' }) => (
+  <div className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`}>
+    {children}
+  </div>
+)
+
+const TechChip = ({ name, onClick, isActive = false }) => {
+  const ti = techIcons[name]
+  if (!ti) return null
+  const Icon = ti.icon
   return (
-    <div className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`}>
-      {children}
-    </div>
+    <button
+      onClick={() => onClick?.(name)}
+      className={`flex items-center gap-1 text-xs rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/60 dark:bg-white/5 px-2 py-0.5 text-slate-500 dark:text-white/40 transition hover:bg-slate-200 dark:hover:bg-white/10 hover:scale-105 ${isActive ? 'ring-2 ring-blue-400 ring-offset-1 ring-offset-white dark:ring-offset-black scale-105' : ''}`}
+    >
+      {Icon && <Icon className="text-sm shrink-0" style={{ color: ti.color }} />}
+      {name}
+    </button>
   )
 }
 
 const tagsWithPosts = new Set(posts.map(post => post.tag.toLowerCase()))
 const tagsWithProjects = new Set(projects.flatMap(p => p.stack.map(s => s.toLowerCase())))
 const tagsWithExperience = new Set(experience.flatMap(e => (e.stack || []).map(s => s.toLowerCase())))
+const tagsWithCertifications = new Set(certifications.flatMap(c => (c.stack || []).map(s => s.toLowerCase())))
 
 const PREVIEW = 2
 
-export default function Home() {
+const Home = () => {
   const { t, lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   const [filterSkill, setFilterSkill] = useState(null)
@@ -124,7 +121,7 @@ export default function Home() {
                 <FaLinkedin className="text-base text-[#0A66C2]" /> LinkedIn
               </a>
               <a href="mailto:jrsimog@gmail.com"
-                className="rounded-full border border-blue-200 dark:border-blue-400/40 bg-blue-100 dark:bg-blue-500/20 px-5 py-2 text-sm text-blue-700 dark:text-blue-200 transition hover:bg-blue-200 dark:hover:bg-blue-500/30">
+                className="rounded-full border border-blue-200 dark:border-blue-400/40 bg-blue-100 dark:bg-blue-500/20 px-5 py-2 text-sm text-blue-700 dark:text-blue-200 transition hover:bg-blue-200 dark:hover:bg-blue-500/30 email-beam">
                 {t('home.contact')}
               </a>
               <a href="https://www.instagram.com/khdtto" target="_blank" rel="noopener noreferrer"
@@ -191,16 +188,9 @@ export default function Home() {
                     </p>
                     {expStack?.length > 0 && (
                       <div className="flex flex-wrap gap-1.5">
-                        {expStack.map(tech => {
-                          const ti = techIcons[tech]
-                          const Icon = ti?.icon
-                          return (
-                            <span key={tech} className="flex items-center gap-1 text-xs rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/60 dark:bg-white/5 px-2 py-0.5 text-slate-500 dark:text-white/40">
-                              {Icon && <Icon className="text-sm shrink-0" style={{ color: ti.color }} />}
-                              {tech}
-                            </span>
-                          )
-                        })}
+                        {expStack.map(tech => (
+                          <TechChip key={tech} name={tech} onClick={toggleFilter} isActive={filterSkill === tech} />
+                        ))}
                       </div>
                     )}
                   </div>
@@ -281,7 +271,7 @@ export default function Home() {
                 </h2>
                 <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
                 <a href="mailto:jrsimog@gmail.com"
-                  className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
+                  className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20 email-beam">
                   jrsimog@gmail.com
                 </a>
               </GlassCard>
@@ -299,8 +289,9 @@ export default function Home() {
                   const hasPosts = tagsWithPosts.has(name.toLowerCase())
                   const hasProjects = tagsWithProjects.has(name.toLowerCase())
                   const hasExperience = tagsWithExperience.has(name.toLowerCase())
+                  const hasCerts = tagsWithCertifications.has(name.toLowerCase())
                   const isActive = filterSkill === name
-                  const beamColor = hasPosts ? color : (hasProjects || hasExperience) ? '#3b82f6' : null
+                  const beamColor = hasPosts ? color : (hasProjects || hasExperience || hasCerts) ? '#3b82f6' : null
                   return (
                     <button
                       key={name}
@@ -355,6 +346,13 @@ export default function Home() {
                         <p className="text-slate-700 dark:text-white/75 text-xs font-medium">{lang === 'en' ? cert.name_en : cert.name_es}</p>
                       )}
                       <p className="text-slate-400 dark:text-white/30 text-xs">{cert.issuer}</p>
+                      {cert.stack?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-1.5">
+                          {cert.stack.map(tech => (
+                            <TechChip key={tech} name={tech} onClick={toggleFilter} isActive={filterSkill === tech} />
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -396,3 +394,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

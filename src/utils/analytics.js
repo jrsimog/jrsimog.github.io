@@ -1,6 +1,6 @@
 const GA_ID = import.meta.env.VITE_GA_ID
 
-export function initGA() {
+export const initGA = () => {
   if (!GA_ID || !import.meta.env.PROD) return
 
   const script = document.createElement('script')
@@ -9,7 +9,7 @@ export function initGA() {
   document.head.appendChild(script)
 
   window.dataLayer = window.dataLayer || []
-  window.gtag = function () { window.dataLayer.push(arguments) }
+  window.gtag = (...args) => window.dataLayer.push(args)
   window.gtag('js', new Date())
   window.gtag('config', GA_ID)
 }

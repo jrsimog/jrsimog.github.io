@@ -4,13 +4,13 @@ import Blog from './pages/Blog'
 import ElixirHelloWorld from './pages/posts/ElixirHelloWorld'
 import NotFound from './pages/NotFound'
 
-export default function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/blog/elixir-hello-world" element={<ElixirHelloWorld />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  )
-}
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/blog" element={<Blog />} />
+    <Route path="/blog/elixir-hello-world" element={<ElixirHelloWorld />} />
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+)
+
+export default App
