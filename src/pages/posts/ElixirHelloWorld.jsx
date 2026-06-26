@@ -86,7 +86,7 @@ const steps = {
   ],
 }
 
-function CodeDisplay({ showCode, highlight }) {
+const CodeDisplay = ({ showCode, highlight }) => {
   if (!showCode) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -120,7 +120,7 @@ function CodeDisplay({ showCode, highlight }) {
   )
 }
 
-export default function ElixirHelloWorld() {
+const ElixirHelloWorld = () => {
   const [step, setStep] = useState(0)
   const { lang, t } = useLanguage()
 
@@ -283,3 +283,5 @@ export default function ElixirHelloWorld() {
     </div>
   )
 }
+
+export default ElixirHelloWorld

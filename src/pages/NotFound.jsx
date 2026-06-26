@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 
-export default function NotFound() {
+const NotFound = () => {
   const { t } = useLanguage()
 
   return (
@@ -40,3 +40,5 @@ export default function NotFound() {
     </div>
   )
 }
+
+export default NotFound

@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 
-export default function Blog() {
+const Blog = () => {
   const { t, lang } = useLanguage()
   const [searchParams] = useSearchParams()
   const filterTag = searchParams.get('tag')
@@ -97,3 +97,5 @@ export default function Blog() {
     </div>
   )
 }
+
+export default Blog

@@ -3,7 +3,7 @@ import { translations } from '../i18n/translations'
 
 const LanguageContext = createContext()
 
-export function LanguageProvider({ children }) {
+export const LanguageProvider = ({ children }) => {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'es')
 
   const toggle = () => {
