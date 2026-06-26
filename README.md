@@ -1,16 +1,46 @@
-# React + Vite
+# jrsimog.github.io — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-000?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/code)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Deploy](https://img.shields.io/badge/Deploy-GitHub%20Pages-181717?style=flat-square&logo=github&logoColor=white)](https://jrsimog.github.io)
 
-Currently, two official plugins are available:
+Portfolio personal de José Ramón Simó — desarrollador backend con experiencia en Elixir/Phoenix, PHP/Symfony y cloud.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- **React 19** + **Vite 8** + **Tailwind CSS 4**
+- **React Router 7** para navegación SPA
+- **Google Analytics 4** (solo en producción)
+- i18n manual ES/EN con `LanguageContext`
+- Tema claro/oscuro con `ThemeContext`
+- Animaciones con `ScrollReveal` (Intersection Observer)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Desarrollo local
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Build y deploy
+
+```bash
+npm run build      # genera /dist
+npm run preview    # previsualiza el build
+```
+
+El deploy a GitHub Pages es automático vía GitHub Actions al hacer push a `master`.
+
+## Estructura
+
+```
+src/
+├── components/     # ProjectCard, ThemeToggle, LangToggle, ScrollReveal
+├── context/        # ThemeContext, LanguageContext
+├── data/           # projects, experience, education, posts, techIcons
+├── i18n/           # translations.js (ES/EN)
+├── pages/          # Home, Blog, NotFound + posts/
+└── utils/          # analytics.js
+```
