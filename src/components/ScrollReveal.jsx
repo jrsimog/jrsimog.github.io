@@ -5,7 +5,7 @@ const animationClass = {
   left: 'slide-in-from-left',
 }
 
-export default function ScrollReveal({ children, className = '', delay = '0s', variant = 'top' }) {
+const ScrollReveal = ({ children, className = '', delay = '0s', variant = 'top' }) => {
   const [isIntersecting, setIsIntersecting] = useState(false)
   const ref = useRef(null)
 
@@ -47,3 +47,5 @@ export default function ScrollReveal({ children, className = '', delay = '0s', v
     </div>
   )
 }
+
+export default ScrollReveal
