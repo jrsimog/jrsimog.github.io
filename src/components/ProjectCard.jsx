@@ -19,7 +19,7 @@ const ProjectCard = ({ project }) => {
             <button
               key={i}
               onClick={() => setLightbox(i)}
-              className="relative overflow-hidden aspect-video bg-slate-100 dark:bg-white/5 hover:opacity-90 transition-opacity group"
+              className="relative overflow-hidden bg-slate-100 dark:bg-white/5 hover:opacity-90 transition-opacity group" style={{ aspectRatio: '16/9' }}
             >
               <img
                 src={src}
