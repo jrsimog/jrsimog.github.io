@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/LanguageContext'
 
-export default function LangToggle() {
+const LangToggle = () => {
   const { lang, toggle } = useLanguage()
   return (
     <button
@@ -15,3 +15,5 @@ export default function LangToggle() {
     </button>
   )
 }
+
+export default LangToggle
