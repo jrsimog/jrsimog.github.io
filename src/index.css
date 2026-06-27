@@ -2,13 +2,45 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ─── Design tokens ─────────────────────────────────────────────────────── */
 :root {
   --bg-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.08), transparent 70%), #f8fafc;
+
+  /* Typography */
+  --dt-heading:  #0f172a;   /* slate-900 */
+  --dt-sub:      #1e293b;   /* slate-800 */
+  --dt-body:     #64748b;   /* slate-500 */
+  --dt-muted:    #94a3b8;   /* slate-400 */
+  --dt-accent:   #2563eb;   /* blue-600  */
+
+  /* Gradient titles */
+  --dt-gradient-blue:   linear-gradient(to top left, #0f172a, #2563eb, #64748b);
+  --dt-gradient-violet: linear-gradient(to top left, #0f172a, #7c3aed, #64748b);
 }
 
 .dark {
   --bg-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.25), transparent 70%), #000000;
+
+  /* Typography */
+  --dt-heading:  #ffffff;
+  --dt-sub:      rgba(255, 255, 255, 0.90);
+  --dt-body:     rgba(255, 255, 255, 0.65);
+  --dt-muted:    rgba(255, 255, 255, 0.40);
+  --dt-accent:   #93c5fd;   /* blue-300  */
+
+  /* Gradient titles */
+  --dt-gradient-violet: linear-gradient(to top left, #312e81, #7c3aed, #a1a1aa);
 }
+
+/* Registrar tokens como utilidades de Tailwind: text-heading, text-body, etc. */
+@theme inline {
+  --color-heading: var(--dt-heading);
+  --color-sub:     var(--dt-sub);
+  --color-body:    var(--dt-body);
+  --color-muted:   var(--dt-muted);
+  --color-accent:  var(--dt-accent);
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
 
 
 * {
