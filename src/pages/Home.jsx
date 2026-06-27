@@ -16,6 +16,7 @@ import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
+import StickyNav from '../components/StickyNav'
 
 const stack = Array.from(
   new Set([
@@ -36,8 +37,8 @@ const levelStyle = {
   1: 'bg-slate-900/1 border-slate-900/4 text-slate-400 hover:bg-slate-900/3 hover:border-slate-900/6 dark:bg-white/3  dark:border-white/6  dark:text-white/22 dark:hover:bg-white/10 dark:hover:border-white/18 dark:hover:text-white/55',
 }
 
-const GlassCard = ({ children, className = '' }) => (
-  <div className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`}>
+const GlassCard = ({ children, className = '', ...props }) => (
+  <div className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`} {...props}>
     {children}
   </div>
 )
@@ -67,6 +68,7 @@ const PREVIEW = 2
 const Home = () => {
   const { t, lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
+  const [navActive, setNavActive] = useState(null)
   const [filterSkill, setFilterSkill] = useState(null)
 
   const toggleFilter = (name) => setFilterSkill(prev => prev === name ? null : name)
@@ -81,6 +83,7 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
+      <StickyNav onActiveChange={setNavActive} />
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -121,7 +124,7 @@ const Home = () => {
                 <FaLinkedin className="text-base text-[#0A66C2]" /> LinkedIn
               </a>
               <a href="mailto:jrsimog@gmail.com"
-                className="rounded-full border border-blue-200 dark:border-blue-400/40 bg-blue-100 dark:bg-blue-500/20 px-5 py-2 text-sm text-blue-700 dark:text-blue-200 transition hover:bg-blue-200 dark:hover:bg-blue-500/30 email-beam">
+                className="rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
                 {t('home.contact')}
               </a>
               <a href="/CV — José Ramón Simó Guerra.pdf" download
@@ -137,7 +140,7 @@ const Home = () => {
                 <SiX className="text-base" /> X
               </a>
               <Link to="/blog"
-                className="rounded-full border border-blue-100 dark:border-blue-400/30 bg-blue-50 dark:bg-blue-500/10 px-5 py-2 text-sm text-blue-600 dark:text-blue-300 transition hover:bg-blue-100 dark:hover:bg-blue-500/20">
+                className="contact-active rounded-full border border-blue-500/50 px-5 py-2 text-sm text-white transition">
                 {t('home.blog')}
               </Link>
             </div>
@@ -160,7 +163,7 @@ const Home = () => {
         )}
 
         {/* Experiencia */}
-        <div className="mb-8">
+        <div id="experiencia" className="mb-8">
           <ScrollReveal delay="0.3s">
             <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
               {t('home.experience_title')}
@@ -171,7 +174,7 @@ const Home = () => {
             <div className="absolute left-0 top-2 bottom-2 w-px bg-slate-200 dark:bg-white/10" />
             <div className="flex flex-col gap-4 pl-6">
               {filteredExperience.map(({ company, role_es, role_en, period_es, period_en, desc_es, desc_en, stack: expStack, current }, i) => (
-                <ScrollReveal key={i} className="relative" delay={`${0.45 + i * 0.08}s`} variant="left">
+                <ScrollReveal key={i} className="relative" delay={i < PREVIEW ? `${0.45 + i * 0.08}s` : `${(i - PREVIEW) * 0.06}s`} variant="left">
                   <div className={`absolute -left-[1.625rem] top-2 h-2.5 w-2.5 rounded-full border-2 ${
                     current ? 'bg-blue-500 border-blue-500 dark:bg-blue-400 dark:border-blue-400' : 'bg-slate-50 dark:bg-black border-slate-300 dark:border-white/25'
                   }`} />
@@ -220,7 +223,7 @@ const Home = () => {
         </div>
 
         {/* Proyectos */}
-        <div className="mb-8">
+        <div id="proyectos" className="mb-8">
           <ScrollReveal delay="0.05s">
             <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
               {t('projects.title')}
@@ -240,7 +243,7 @@ const Home = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div id="contacto" className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
           {/* Columna izquierda: Sobre mí + Contacto */}
           <div className="flex flex-col gap-5">
@@ -275,7 +278,11 @@ const Home = () => {
                 </h2>
                 <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
                 <a href="mailto:jrsimog@gmail.com"
-                  className="inline-block rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-4 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20 email-beam">
+                  className={`inline-block rounded-full border px-4 py-1.5 text-xs transition-all duration-500 ${
+                    navActive === 'contacto'
+                      ? 'contact-active border-blue-500/50 text-white'
+                      : 'border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white/80'
+                  }`}>
                   jrsimog@gmail.com
                 </a>
               </GlassCard>
@@ -315,7 +322,7 @@ const Home = () => {
         </div>
 
         {/* Educación y Certificaciones */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+        <div id="educacion" className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
           <ScrollReveal delay="0.05s">
             <GlassCard>
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
