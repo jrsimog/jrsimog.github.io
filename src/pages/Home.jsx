@@ -18,6 +18,7 @@ import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
 import StickyNav from '../components/StickyNav'
+import SectionTitle from '../components/SectionTitle'
 
 const stack = Array.from(
   new Set([
@@ -84,16 +85,9 @@ const Home = () => {
     : projects
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
+    <>
       <StickyNav onActiveChange={setNavActive} />
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'var(--bg-radial)',
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-24 sm:pb-4">
+      <div className="mx-auto max-w-5xl px-6 pt-12 pb-24 sm:pb-4">
 
         <div className="flex justify-end items-center gap-3 mb-6">
           <ThemeToggle />
@@ -173,9 +167,9 @@ const Home = () => {
         {/* Experiencia */}
         <div id="experiencia" className="mb-8">
           <ScrollReveal delay="0.3s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
+            <SectionTitle className="text-sm mb-5">
               {t('home.experience_title')}
-            </h2>
+            </SectionTitle>
           </ScrollReveal>
 
           <div className="relative">
@@ -233,9 +227,9 @@ const Home = () => {
         {/* Proyectos */}
         <div id="proyectos" className="mb-8">
           <ScrollReveal delay="0.05s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
+            <SectionTitle className="text-sm mb-5">
               {t('projects.title')}
-            </h2>
+            </SectionTitle>
           </ScrollReveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {filteredProjects.length > 0 ? filteredProjects.map((project, i) => (
@@ -257,9 +251,9 @@ const Home = () => {
           <div className="flex flex-col gap-5">
             <ScrollReveal delay="0.05s">
               <GlassCard>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                <SectionTitle className="text-sm mb-3">
                   {t('home.about_title')}
-                </h2>
+                </SectionTitle>
                 <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.about_text')}</p>
                 <div className="mt-3 flex flex-col gap-2">
                   <div className="flex items-center gap-1.5 text-slate-400 dark:text-white/25">
@@ -281,9 +275,9 @@ const Home = () => {
 
             <ScrollReveal delay="0.15s">
               <GlassCard>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                <SectionTitle className="text-sm mb-3">
                   {t('home.contact_title')}
-                </h2>
+                </SectionTitle>
                 <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
                 <a href="mailto:jrsimog@gmail.com"
                   className={`inline-block rounded-full border px-4 py-1.5 text-xs transition-all duration-500 ${
@@ -300,9 +294,9 @@ const Home = () => {
           {/* Columna derecha: Stack */}
           <ScrollReveal delay="0.1s" className="h-full">
             <GlassCard className="h-full">
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <SectionTitle className="text-sm mb-3">
                 {t('home.stack_title')}
-              </h2>
+              </SectionTitle>
               <div className="flex flex-wrap gap-2">
                 {stack.map(({ name, icon: Icon, level, color }) => {
                   const hasPosts = tagsWithPosts.has(name.toLowerCase())
@@ -333,9 +327,9 @@ const Home = () => {
         <div id="educacion" className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
           <ScrollReveal delay="0.05s">
             <GlassCard>
-              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <SectionTitle className="text-sm mb-4">
                 {lang === 'en' ? 'Education' : 'Educación'}
-              </h2>
+              </SectionTitle>
               {education.map((edu, i) => (
                 <div key={i}>
                   <p className="text-slate-800 dark:text-white/90 font-semibold text-sm">{edu.institution}</p>
@@ -348,9 +342,9 @@ const Home = () => {
 
           <ScrollReveal delay="0.1s">
             <GlassCard>
-              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <SectionTitle className="text-sm mb-4">
                 {lang === 'en' ? 'Certifications' : 'Certificaciones'}
-              </h2>
+              </SectionTitle>
               <div className="flex flex-col gap-3">
                 {certifications.map((cert, i) => (
                   <div key={i} className="flex items-start gap-2">
@@ -410,7 +404,7 @@ const Home = () => {
         </ScrollReveal>
 
       </div>
-    </div>
+    </>
   )
 }
 
