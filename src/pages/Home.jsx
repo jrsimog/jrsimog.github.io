@@ -10,7 +10,7 @@ import {
   SiGithub, SiInstagram,
   SiVite, SiTailwindcss, SiReactrouter, SiGithubactions, SiYoutubemusic, SiX, SiReact,
 } from 'react-icons/si'
-import { FaLinkedin } from 'react-icons/fa'
+import { FaLinkedin, FaFilePdf } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
 import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
@@ -123,6 +123,10 @@ const Home = () => {
               <a href="mailto:jrsimog@gmail.com"
                 className="rounded-full border border-blue-200 dark:border-blue-400/40 bg-blue-100 dark:bg-blue-500/20 px-5 py-2 text-sm text-blue-700 dark:text-blue-200 transition hover:bg-blue-200 dark:hover:bg-blue-500/30 email-beam">
                 {t('home.contact')}
+              </a>
+              <a href="/CV — José Ramón Simó Guerra.pdf" download
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
+                <FaFilePdf className="text-base text-red-500" /> {t('home.download_cv')}
               </a>
               <a href="https://www.instagram.com/khdtto" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
