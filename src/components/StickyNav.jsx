@@ -22,6 +22,7 @@ const StickyNav = ({ onActiveChange }) => {
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 320)
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -62,32 +63,32 @@ const StickyNav = ({ onActiveChange }) => {
   if (!visible) return null
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center rounded-full border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-black/60 backdrop-blur-md shadow-lg transition-all duration-300 max-w-[95vw]">
-      <div className="flex items-center gap-1 overflow-x-auto scrollbar-none px-3 py-1.5">
+    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center rounded-full border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-black/60 backdrop-blur-md shadow-lg transition-all duration-300 max-w-[95vw] max-sm:top-auto max-sm:bottom-5">
+      <div className="flex items-center gap-1 overflow-x-auto scrollbar-none px-3 py-2 sm:py-1.5">
         {links.map(({ id, es, en, icon: Icon }) => (
           <button
             key={id}
             onClick={() => scrollTo(id)}
             title={lang === 'en' ? en : es}
-            className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ${
+            className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
               active === id
                 ? 'bg-blue-500/15 text-blue-600 dark:text-blue-300'
                 : 'text-slate-500 dark:text-white/50 hover:text-slate-800 dark:hover:text-white/80'
             }`}
           >
             <span className="hidden sm:inline">{lang === 'en' ? en : es}</span>
-            <Icon className="sm:hidden text-sm" />
+            <Icon className="sm:hidden text-base" />
           </button>
         ))}
       </div>
-      <div className="w-px h-4 bg-slate-200 dark:bg-white/15 shrink-0" />
+      <div className="w-px h-5 bg-slate-200 dark:bg-white/15 shrink-0" />
       <a
         href="/CV — José Ramón Simó Guerra.pdf"
         download
         title={lang === 'en' ? 'Download CV' : 'Descargar CV'}
-        className="pdf-icon shrink-0 flex items-center justify-center rounded-full border border-transparent p-1.5 mx-1 transition-all duration-200"
+        className="pdf-icon shrink-0 flex items-center justify-center rounded-full border border-transparent p-2 mx-1 transition-all duration-200"
       >
-        <FaFilePdf className="text-sm text-red-400" />
+        <FaFilePdf className="text-base text-red-400" />
       </a>
     </div>
   )
