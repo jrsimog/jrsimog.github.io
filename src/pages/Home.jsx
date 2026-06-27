@@ -13,6 +13,7 @@ import {
 import { FaLinkedin, FaFilePdf } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
 import { useLanguage } from '../context/LanguageContext'
+import { useTheme } from '../context/ThemeContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
@@ -67,6 +68,7 @@ const PREVIEW = 2
 
 const Home = () => {
   const { t, lang } = useLanguage()
+  const { theme } = useTheme()
   const [expanded, setExpanded] = useState(false)
   const [navActive, setNavActive] = useState(null)
   const [filterSkill, setFilterSkill] = useState(null)
@@ -91,7 +93,7 @@ const Home = () => {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-4">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-24 sm:pb-4">
 
         <div className="flex justify-end items-center gap-3 mb-6">
           <ThemeToggle />
@@ -106,7 +108,13 @@ const Home = () => {
               alt="José Simó"
               className="mx-auto mb-5 h-20 w-20 rounded-full border border-slate-200 dark:border-white/20 object-cover"
             />
-            <h1 className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+            <h1
+              className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight"
+              style={theme === 'dark'
+                ? { color: 'white' }
+                : { background: 'linear-gradient(to top left, #0f172a, #2563eb, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }
+              }
+            >
               José Simó
             </h1>
             <p className="mb-1 text-lg text-blue-600 dark:text-blue-300">{t('home.role')}</p>
