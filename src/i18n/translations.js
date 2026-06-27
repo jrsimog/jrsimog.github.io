@@ -8,7 +8,7 @@ export const translations = {
     home: {
       role: 'Full Stack Developer',
       subtitle: 'APIs REST · Microservicios · Docker',
-      bio: 'Developer desde 2012. PHP y Symfony en el día a día. Ciudadano del mundo, actualmente en el hermoso Santiago de Chile. Siempre con algo nuevo en el editor — ahora Elixir.',
+      bio: 'Developer desde 2012. PHP y Symfony en el día a día. Ciudadano del mundo, radicado en Santiago, Chile. Siempre con algo nuevo en el editor — ahora Elixir.',
       contact: 'Contacto',
       download_cv: 'Descargar CV',
       blog: 'Blog',
@@ -58,7 +58,7 @@ export const translations = {
     home: {
       role: 'Full Stack Developer',
       subtitle: 'REST APIs · Microservices · Docker',
-      bio: 'Developer since 2012. PHP and Symfony day to day. Citizen of the world, currently in the beautiful Santiago de Chile. Always something new in the editor — now Elixir.',
+      bio: 'Developer since 2012. PHP and Symfony day to day. Citizen of the world, based in Santiago, Chile. Always something new in the editor — now Elixir.',
       contact: 'Contact',
       download_cv: 'Download CV',
       blog: 'Blog',
