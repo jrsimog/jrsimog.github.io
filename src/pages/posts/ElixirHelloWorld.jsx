@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { SiElixir } from 'react-icons/si'
 import { posts } from '../../data/posts'
 import { useLanguage } from '../../context/LanguageContext'
-import LangToggle from '../../components/LangToggle'
-import ThemeToggle from '../../components/ThemeToggle'
+import PageHeader from '../../components/PageHeader'
+import SectionTitle from '../../components/SectionTitle'
 
 const SLUG = '/blog/elixir-hello-world'
 const related = posts.filter(p => p.slug !== SLUG)
@@ -128,34 +128,20 @@ const ElixirHelloWorld = () => {
   const current = currentSteps[step]
   const isLast = step === currentSteps.length - 1
 
+  const elixirTag = (
+    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40">
+      <SiElixir className="text-violet-500 dark:text-violet-400" />
+      Elixir · Playground
+    </div>
+  )
+
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'var(--bg-radial)',
-        }}
-      />
+    <div className="mx-auto max-w-3xl px-6 py-12">
+      <PageHeader back="/blog" backLabel={t('nav.back_blog')} extra={elixirTag} />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
-
-        <div className="mb-8 flex items-center justify-between">
-          <Link to="/blog" className="text-slate-500 dark:text-white/40 hover:text-slate-800 dark:hover:text-white/70 text-sm transition">
-            {t('nav.back_blog')}
-          </Link>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40">
-              <SiElixir className="text-violet-500 dark:text-violet-400" />
-              Elixir · Playground
-            </div>
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
-
-        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-1">
+        <SectionTitle as="h1" color="violet" className="text-2xl font-bold mb-1">
           {lang === 'es' ? 'Hola Mundo en Elixir' : 'Hello World in Elixir'}
-        </h1>
+        </SectionTitle>
         <p className="text-slate-500 dark:text-white/40 text-sm mb-8">
           {lang === 'es'
             ? 'Cómo Elixir muestra texto en pantalla, paso a paso.'
@@ -211,9 +197,9 @@ const ElixirHelloWorld = () => {
           className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-6 mb-6 slide-in-blurred-top"
           style={{ animationDuration: '0.25s' }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-2">
+          <SectionTitle as="p" color="violet" className="text-xs mb-2">
             {step + 1} / {currentSteps.length} — {current.title}
-          </p>
+          </SectionTitle>
           <p className="text-slate-600 dark:text-white/65 text-sm leading-relaxed">{current.explanation}</p>
         </div>
 
@@ -280,7 +266,6 @@ const ElixirHelloWorld = () => {
         )}
 
       </div>
-    </div>
   )
 }
 

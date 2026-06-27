@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { posts } from '../data/posts'
 import { useLanguage } from '../context/LanguageContext'
-import LangToggle from '../components/LangToggle'
-import ThemeToggle from '../components/ThemeToggle'
+import PageHeader from '../components/PageHeader'
+import SectionTitle from '../components/SectionTitle'
 
 const Blog = () => {
   const { t, lang } = useLanguage()
@@ -19,28 +19,12 @@ const Blog = () => {
     : posts
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'var(--bg-radial)',
-        }}
-      />
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top">
+    <div className="mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top">
+      <PageHeader back="/" backLabel={t('blog.back')} />
 
-        <div className="flex items-center justify-between mb-10">
-          <Link to="/" className="text-slate-500 dark:text-white/40 hover:text-slate-800 dark:hover:text-white/70 text-sm transition">
-            {t('blog.back')}
-          </Link>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
-
-        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-1">
+        <SectionTitle as="h1" className="text-2xl font-bold mb-1">
           {t('blog.title')}
-        </h1>
+        </SectionTitle>
         <p className="text-slate-500 dark:text-white/40 text-sm mb-8">{t('blog.subtitle')}</p>
 
         {filterTag && (
@@ -94,7 +78,6 @@ const Blog = () => {
         </div>
 
       </div>
-    </div>
   )
 }
 
