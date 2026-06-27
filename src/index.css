@@ -7,11 +7,11 @@
   --bg-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.08), transparent 70%), #f8fafc;
 
   /* Typography */
-  --dt-heading:  #0f172a;   /* slate-900 */
-  --dt-sub:      #1e293b;   /* slate-800 */
-  --dt-body:     #64748b;   /* slate-500 */
-  --dt-muted:    #94a3b8;   /* slate-400 */
-  --dt-accent:   #2563eb;   /* blue-600  */
+  --dt-heading:  #0f172a;   /* slate-900 — títulos principales */
+  --dt-sub:      #1e293b;   /* slate-800 — títulos de card, subtítulos fuertes */
+  --dt-body:     #475569;   /* slate-600 — texto de párrafo, descripciones */
+  --dt-muted:    #64748b;   /* slate-500 — metadata, links secundarios */
+  --dt-accent:   #2563eb;   /* blue-600  — interactivo, links */
 
   /* Gradient titles */
   --dt-gradient-blue:   linear-gradient(to top left, #0f172a, #2563eb, #64748b);
@@ -26,19 +26,20 @@
   --dt-sub:      rgba(255, 255, 255, 0.90);
   --dt-body:     rgba(255, 255, 255, 0.65);
   --dt-muted:    rgba(255, 255, 255, 0.40);
-  --dt-accent:   #93c5fd;   /* blue-300  */
+  --dt-accent:   #93c5fd;   /* blue-300 */
 
-  /* Gradient titles */
-  --dt-gradient-violet: linear-gradient(to top left, #312e81, #7c3aed, #a1a1aa);
+  /* Gradient titles — versiones light para dark mode (clipeadas al texto) */
+  --dt-gradient-blue:   linear-gradient(to top left, #e2e8f0, #93c5fd, #cbd5e1);
+  --dt-gradient-violet: linear-gradient(to top left, #ede9fe, #c4b5fd, #d4d4d8);
 }
 
-/* Registrar tokens como utilidades de Tailwind: text-heading, text-body, etc. */
-@theme inline {
-  --color-heading: var(--dt-heading);
-  --color-sub:     var(--dt-sub);
-  --color-body:    var(--dt-body);
-  --color-muted:   var(--dt-muted);
-  --color-accent:  var(--dt-accent);
+/* Utilidades de tipografía generadas desde los tokens */
+@layer utilities {
+  .text-heading { color: var(--dt-heading); }
+  .text-sub     { color: var(--dt-sub); }
+  .text-body    { color: var(--dt-body); }
+  .text-muted   { color: var(--dt-muted); }
+  .text-accent  { color: var(--dt-accent); }
 }
 /* ─────────────────────────────────────────────────────────────────────────── */
 
@@ -110,11 +111,28 @@
   animation: email-glow 2s ease-in-out infinite;
 }
 
+@keyframes pdf-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.55); }
+  50%       { box-shadow: 0 0 0 5px rgba(248, 113, 113, 0); }
+}
+
+.pdf-icon {
+  animation: pdf-glow 2s ease-in-out infinite;
+}
+
 .scrollbar-none {
   scrollbar-width: none;
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.lang-t {
+  transition: opacity 0.18s ease, filter 0.18s ease;
+}
+.lang-t.lang-t-out {
+  opacity: 0;
+  filter: blur(5px);
 }
 
 

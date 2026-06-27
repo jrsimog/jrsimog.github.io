@@ -18,6 +18,7 @@ import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
 import StickyNav from '../components/StickyNav'
+import T from '../components/T'
 
 const stack = Array.from(
   new Set([
@@ -117,10 +118,10 @@ const Home = () => {
             >
               José Simó
             </h1>
-            <p className="mb-1 text-lg text-blue-600 dark:text-blue-300">{t('home.role')}</p>
-            <p className="mb-5 text-sm text-slate-500 dark:text-white/40">{t('home.subtitle')}</p>
+            <p className="mb-1 text-lg text-blue-600 dark:text-blue-300"><T id="home.role" /></p>
+            <p className="mb-5 text-sm text-slate-500 dark:text-white/40"><T id="home.subtitle" /></p>
             <p className="mx-auto mb-7 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-white/55">
-              {t('home.bio')}
+              <T id="home.bio" />
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <a href="https://github.com/jrsimog" target="_blank" rel="noopener noreferrer"
@@ -133,11 +134,11 @@ const Home = () => {
               </a>
               <a href="mailto:jrsimog@gmail.com"
                 className="rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
-                {t('home.contact')}
+                <T id="home.contact" />
               </a>
               <a href="/CV — José Ramón Simó Guerra.pdf" download
                 className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
-                <FaFilePdf className="text-base text-red-500" /> {t('home.download_cv')}
+                <FaFilePdf className="text-base text-red-500" /> <T id="home.download_cv" />
               </a>
               <a href="https://www.instagram.com/khdtto" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20">
@@ -149,7 +150,7 @@ const Home = () => {
               </a>
               <Link to="/blog"
                 className="contact-active rounded-full border border-blue-500/50 px-5 py-2 text-sm text-white transition">
-                {t('home.blog')}
+                <T id="home.blog" />
               </Link>
             </div>
           </GlassCard>
@@ -174,7 +175,7 @@ const Home = () => {
         <div id="experiencia" className="mb-8">
           <ScrollReveal delay="0.3s">
             <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
-              {t('home.experience_title')}
+              <T id="home.experience_title" />
             </h2>
           </ScrollReveal>
 
@@ -234,7 +235,7 @@ const Home = () => {
         <div id="proyectos" className="mb-8">
           <ScrollReveal delay="0.05s">
             <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
-              {t('projects.title')}
+              <T id="projects.title" />
             </h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -244,7 +245,7 @@ const Home = () => {
               </ScrollReveal>
             )) : (
               <p className="text-sm text-slate-400 dark:text-white/30 col-span-2">
-                {lang === 'en' ? 'No projects with this technology yet.' : 'Sin proyectos con esta tecnología aún.'}
+                <T>{lang === 'en' ? 'No projects with this technology yet.' : 'Sin proyectos con esta tecnología aún.'}</T>
               </p>
             )}
           </div>
@@ -258,9 +259,9 @@ const Home = () => {
             <ScrollReveal delay="0.05s">
               <GlassCard>
                 <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
-                  {t('home.about_title')}
+                  <T id="home.about_title" />
                 </h2>
-                <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.about_text')}</p>
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55"><T id="home.about_text" /></p>
                 <div className="mt-3 flex flex-col gap-2">
                   <div className="flex items-center gap-1.5 text-slate-400 dark:text-white/25">
                     <MdRollerSkating className="text-lg" />
@@ -282,9 +283,9 @@ const Home = () => {
             <ScrollReveal delay="0.15s">
               <GlassCard>
                 <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
-                  {t('home.contact_title')}
+                  <T id="home.contact_title" />
                 </h2>
-                <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">{t('home.contact_text')}</p>
+                <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55"><T id="home.contact_text" /></p>
                 <a href="mailto:jrsimog@gmail.com"
                   className={`inline-block rounded-full border px-4 py-1.5 text-xs transition-all duration-500 ${
                     navActive === 'contacto'
@@ -301,7 +302,7 @@ const Home = () => {
           <ScrollReveal delay="0.1s" className="h-full">
             <GlassCard className="h-full">
               <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
-                {t('home.stack_title')}
+                <T id="home.stack_title" />
               </h2>
               <div className="flex flex-wrap gap-2">
                 {stack.map(({ name, icon: Icon, level, color }) => {
@@ -384,7 +385,7 @@ const Home = () => {
         <ScrollReveal>
           <footer className="mt-4 border-t border-slate-200 dark:border-white/5 pt-2 pb-0.5 text-center text-[10px] text-slate-500 dark:text-white/30">
             <p className="mb-0.5 font-medium tracking-wider uppercase text-[8px] text-slate-400 dark:text-white/35">
-              {t('home.built_with')}
+              <T id="home.built_with" />
             </p>
             <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-0.5">
               <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200">

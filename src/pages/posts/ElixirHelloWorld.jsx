@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SiElixir } from 'react-icons/si'
+import { FiHome } from 'react-icons/fi'
 import { posts } from '../../data/posts'
 import { useLanguage } from '../../context/LanguageContext'
 import LangToggle from '../../components/LangToggle'
 import ThemeToggle from '../../components/ThemeToggle'
+import T from '../../components/T'
 
 const SLUG = '/blog/elixir-hello-world'
 const related = posts.filter(p => p.slug !== SLUG)
@@ -140,26 +142,38 @@ const ElixirHelloWorld = () => {
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
 
         <div className="mb-8 flex items-center justify-between">
-          <Link to="/blog" className="text-slate-500 dark:text-white/40 hover:text-slate-800 dark:hover:text-white/70 text-sm transition">
+          <Link
+            to="/blog"
+            className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition"
+          >
             {t('nav.back_blog')}
           </Link>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40">
-              <SiElixir className="text-violet-500 dark:text-violet-400" />
-              Elixir · Playground
-            </div>
+            <Link
+              to="/"
+              className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 p-1.5 text-muted hover:text-sub backdrop-blur-sm transition"
+              aria-label="Home"
+            >
+              <FiHome size={16} />
+            </Link>
             <ThemeToggle />
             <LangToggle />
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-1">
-          {lang === 'es' ? 'Hola Mundo en Elixir' : 'Hello World in Elixir'}
+        <div className="flex items-center gap-2 text-xs text-muted mb-3">
+          <SiElixir className="text-violet-500 dark:text-violet-400" />
+          Elixir · Playground
+        </div>
+
+        <h1
+          className="text-2xl font-bold bg-clip-text text-transparent mb-1"
+          style={{ backgroundImage: 'var(--dt-gradient-blue)' }}
+        >
+          <T>{lang === 'es' ? 'Hola Mundo en Elixir' : 'Hello World in Elixir'}</T>
         </h1>
-        <p className="text-slate-500 dark:text-white/40 text-sm mb-8">
-          {lang === 'es'
-            ? 'Cómo Elixir muestra texto en pantalla, paso a paso.'
-            : 'How Elixir prints text to the screen, step by step.'}
+        <p className="text-muted text-sm mb-8">
+          <T>{lang === 'es' ? 'Cómo Elixir muestra texto en pantalla, paso a paso.' : 'How Elixir prints text to the screen, step by step.'}</T>
         </p>
 
         <div className="flex gap-1.5 mb-6 justify-center">
@@ -168,7 +182,7 @@ const ElixirHelloWorld = () => {
               key={i}
               onClick={() => setStep(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === step ? 'w-6 bg-violet-500 dark:bg-violet-400' : 'w-1.5 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'
+                i === step ? 'w-6 bg-blue-500 dark:bg-blue-400' : 'w-1.5 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'
               }`}
             />
           ))}
@@ -197,7 +211,7 @@ const ElixirHelloWorld = () => {
             <div className="h-28 p-4 font-mono text-sm">
               {current.showCommand
                 ? <p className="text-white/50">$ elixir hello.ex</p>
-                : <span className="text-slate-400/50 dark:text-white/15 text-xs">{lang === 'es' ? 'esperando...' : 'waiting...'}</span>
+                : <T className="text-slate-400/50 dark:text-white/15 text-xs">{lang === 'es' ? 'esperando...' : 'waiting...'}</T>
               }
               {current.showOutput && (
                 <p className="text-emerald-400 mt-1">Hello, World!</p>
@@ -211,10 +225,13 @@ const ElixirHelloWorld = () => {
           className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-6 mb-6 slide-in-blurred-top"
           style={{ animationDuration: '0.25s' }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400 bg-clip-text text-transparent mb-2">
-            {step + 1} / {currentSteps.length} — {current.title}
+          <p
+            className="text-xs font-semibold uppercase tracking-widest bg-clip-text text-transparent mb-2"
+            style={{ backgroundImage: 'var(--dt-gradient-blue)' }}
+          >
+            {step + 1} / {currentSteps.length} — <T>{current.title}</T>
           </p>
-          <p className="text-slate-600 dark:text-white/65 text-sm leading-relaxed">{current.explanation}</p>
+          <p className="text-body text-sm leading-relaxed"><T>{current.explanation}</T></p>
         </div>
 
         <div className="flex justify-between">
@@ -223,14 +240,14 @@ const ElixirHelloWorld = () => {
             disabled={step === 0}
             className="rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-5 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            ← {lang === 'es' ? 'Anterior' : 'Previous'}
+            ← <T>{lang === 'es' ? 'Anterior' : 'Previous'}</T>
           </button>
           <button
             onClick={() => setStep(s => Math.min(currentSteps.length - 1, s + 1))}
             disabled={isLast}
-            className="rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/15 px-5 py-2 text-sm text-violet-700 dark:text-violet-300 transition hover:bg-violet-500/20 dark:hover:bg-violet-500/25 disabled:opacity-20 disabled:cursor-not-allowed"
+            className="rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-accent transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            {lang === 'es' ? 'Siguiente' : 'Next'} →
+            <T>{lang === 'es' ? 'Siguiente' : 'Next'}</T> →
           </button>
         </div>
 
@@ -239,7 +256,7 @@ const ElixirHelloWorld = () => {
             <div className="border-t border-slate-200 dark:border-white/10 pt-8">
               {related.length > 0 && (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-white/30 mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
                     {t('blog.related')}
                   </p>
                   <div className="flex flex-col gap-3 mb-6">
@@ -249,11 +266,11 @@ const ElixirHelloWorld = () => {
                         to={slug}
                         className="group rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-4 transition hover:bg-white/80 dark:hover:bg-white/10 hover:border-slate-300/80 dark:hover:border-white/20"
                       >
-                        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-white/40 mb-1">
+                        <div className="flex items-center gap-2 text-xs text-muted mb-1">
                           <Icon className="text-violet-400" />
                           <span>{tag}</span>
                         </div>
-                        <p className="text-slate-700 dark:text-white/80 text-sm font-medium group-hover:text-indigo-600 dark:group-hover:text-white transition">
+                        <p className="text-sub text-sm font-medium group-hover:text-accent dark:group-hover:text-heading transition">
                           {lang === 'en' && title_en ? title_en : title}
                         </p>
                       </Link>
@@ -270,7 +287,7 @@ const ElixirHelloWorld = () => {
                 </Link>
                 <Link
                   to="/"
-                  className="rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/15 px-5 py-2 text-sm text-violet-700 dark:text-violet-300 transition hover:bg-violet-500/20 dark:hover:bg-violet-500/25"
+                  className="rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-accent transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25"
                 >
                   {t('blog.back_home')}
                 </Link>
