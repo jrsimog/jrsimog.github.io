@@ -13,7 +13,6 @@ import {
 import { FaLinkedin, FaFilePdf } from 'react-icons/fa'
 import { MdRollerSkating } from 'react-icons/md'
 import { useLanguage } from '../context/LanguageContext'
-import { useTheme } from '../context/ThemeContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import ScrollReveal from '../components/ScrollReveal'
@@ -69,7 +68,6 @@ const PREVIEW = 2
 
 const Home = () => {
   const { t, lang } = useLanguage()
-  const { theme } = useTheme()
   const [expanded, setExpanded] = useState(false)
   const [navActive, setNavActive] = useState(null)
   const [filterSkill, setFilterSkill] = useState(null)
@@ -110,11 +108,8 @@ const Home = () => {
               className="mx-auto mb-5 h-20 w-20 rounded-full border border-slate-200 dark:border-white/20 object-cover"
             />
             <h1
-              className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight"
-              style={theme === 'dark'
-                ? { color: 'white' }
-                : { background: 'linear-gradient(to top left, #0f172a, #2563eb, #64748b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }
-              }
+              className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight bg-clip-text text-transparent"
+              style={{ backgroundImage: 'var(--dt-gradient-blue)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
             >
               José Simó
             </h1>
@@ -174,7 +169,7 @@ const Home = () => {
         {/* Experiencia */}
         <div id="experiencia" className="mb-8">
           <ScrollReveal delay="0.3s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent mb-5" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
               <T id="home.experience_title" />
             </h2>
           </ScrollReveal>
@@ -234,7 +229,7 @@ const Home = () => {
         {/* Proyectos */}
         <div id="proyectos" className="mb-8">
           <ScrollReveal delay="0.05s">
-            <h2 className="text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white mb-5">
+            <h2 className="text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent mb-5" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
               <T id="projects.title" />
             </h2>
           </ScrollReveal>
@@ -258,7 +253,7 @@ const Home = () => {
           <div className="flex flex-col gap-5">
             <ScrollReveal delay="0.05s">
               <GlassCard>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
                   <T id="home.about_title" />
                 </h2>
                 <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55"><T id="home.about_text" /></p>
@@ -282,7 +277,7 @@ const Home = () => {
 
             <ScrollReveal delay="0.15s">
               <GlassCard>
-                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+                <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
                   <T id="home.contact_title" />
                 </h2>
                 <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55"><T id="home.contact_text" /></p>
@@ -301,7 +296,7 @@ const Home = () => {
           {/* Columna derecha: Stack */}
           <ScrollReveal delay="0.1s" className="h-full">
             <GlassCard className="h-full">
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
                 <T id="home.stack_title" />
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -334,7 +329,7 @@ const Home = () => {
         <div id="educacion" className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
           <ScrollReveal delay="0.05s">
             <GlassCard>
-              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
                 {lang === 'en' ? 'Education' : 'Educación'}
               </h2>
               {education.map((edu, i) => (
@@ -349,7 +344,7 @@ const Home = () => {
 
           <ScrollReveal delay="0.1s">
             <GlassCard>
-              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 bg-clip-text text-transparent dark:bg-none dark:text-white">
+              <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
                 {lang === 'en' ? 'Certifications' : 'Certificaciones'}
               </h2>
               <div className="flex flex-col gap-3">

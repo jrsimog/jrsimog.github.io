@@ -7,6 +7,7 @@ import { useLanguage } from '../../context/LanguageContext'
 import LangToggle from '../../components/LangToggle'
 import ThemeToggle from '../../components/ThemeToggle'
 import T from '../../components/T'
+import StickyNav from '../../components/StickyNav'
 
 const SLUG = '/blog/elixir-hello-world'
 const related = posts.filter(p => p.slug !== SLUG)
@@ -139,27 +140,20 @@ const ElixirHelloWorld = () => {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-12">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 max-sm:pb-24">
 
-        <div className="mb-8 flex items-center justify-between">
-          <Link
-            to="/blog"
-            className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition"
-          >
-            {t('nav.back_blog')}
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 p-1.5 text-muted hover:text-sub backdrop-blur-sm transition"
-              aria-label="Home"
-            >
-              <FiHome size={16} />
-            </Link>
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
+        <StickyNav
+          left={<Link to="/blog" className="px-3 py-1 text-sm text-muted hover:text-sub transition">{t('nav.back_blog')}</Link>}
+          right={
+            <div className="flex items-center gap-1">
+              <Link to="/" className="flex items-center justify-center w-8 h-8 rounded-full text-muted hover:text-sub transition" aria-label="Home">
+                <FiHome className="text-base" />
+              </Link>
+              <ThemeToggle compact />
+              <LangToggle compact />
+            </div>
+          }
+        />
 
         <div className="flex items-center gap-2 text-xs text-muted mb-3">
           <SiElixir className="text-violet-500 dark:text-violet-400" />
@@ -278,20 +272,6 @@ const ElixirHelloWorld = () => {
                   </div>
                 </>
               )}
-              <div className="flex gap-3">
-                <Link
-                  to="/blog"
-                  className="rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-5 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10"
-                >
-                  {t('blog.see_blog')}
-                </Link>
-                <Link
-                  to="/"
-                  className="rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-accent transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25"
-                >
-                  {t('blog.back_home')}
-                </Link>
-              </div>
             </div>
           </div>
         )}
