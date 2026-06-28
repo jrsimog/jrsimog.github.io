@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import T from '../components/T'
+import StickyNav from '../components/StickyNav'
 
 const Blog = () => {
   const { t, lang } = useLanguage()
@@ -27,20 +28,12 @@ const Blog = () => {
           background: 'var(--bg-radial)',
         }}
       />
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top max-sm:pb-24">
 
-        <div className="flex items-center justify-between mb-10">
-          <Link
-            to="/"
-            className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition"
-          >
-            {t('blog.back')}
-          </Link>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
+        <StickyNav
+          left={<Link to="/" className="px-3 py-1 text-sm text-muted hover:text-sub transition">{t('blog.back')}</Link>}
+          right={<div className="flex items-center gap-1"><ThemeToggle compact /><LangToggle compact /></div>}
+        />
 
         <h1
           className="text-2xl font-bold bg-clip-text text-transparent mb-1"
