@@ -35,6 +35,8 @@ export const translations = {
       filter_by: 'Filtrando por:',
       clear_filter: 'Quitar filtro',
       no_posts: 'Aún no hay publicaciones sobre esta tecnología.',
+      search_placeholder: 'Buscar posts...',
+      no_results: 'No hay resultados para',
     },
     not_found: {
       code: '404',
@@ -85,6 +87,8 @@ export const translations = {
       filter_by: 'Filtering by:',
       clear_filter: 'Clear filter',
       no_posts: 'No posts about this technology yet.',
+      search_placeholder: 'Search posts...',
+      no_results: 'No results for',
     },
     not_found: {
       code: '404',
