@@ -1,11 +1,14 @@
 import { useLanguage } from '../context/LanguageContext'
 
-const LangToggle = () => {
+const LangToggle = ({ compact = false }) => {
   const { lang, toggle } = useLanguage()
   return (
     <button
       onClick={toggle}
-      className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-3 py-2.5 min-h-[44px] text-sm transition hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-white/80"
+      className={compact
+        ? 'flex items-center gap-1 rounded-full px-2 py-1 text-xs text-slate-500 dark:text-white/50 transition hover:text-slate-800 dark:hover:text-white/80'
+        : 'flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-3 py-2.5 min-h-[44px] text-sm transition hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-white/80'
+      }
       title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
     >
       {lang === 'es'
