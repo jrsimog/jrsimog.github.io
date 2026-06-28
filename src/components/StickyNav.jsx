@@ -11,6 +11,7 @@ const homeLinks = [
 ]
 
 const shell = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center rounded-full border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-black/60 backdrop-blur-md shadow-lg transition-all duration-300 max-w-[95vw] max-sm:top-auto max-sm:bottom-5'
+const shellMobileOnly = 'sm:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center rounded-full border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-black/60 backdrop-blur-md shadow-lg max-w-[95vw]'
 
 const StickyNav = ({ onActiveChange, left, right }) => {
   const { lang } = useLanguage()
@@ -62,7 +63,7 @@ const StickyNav = ({ onActiveChange, left, right }) => {
   if (!visible) return null
 
   const node = isCustom ? (
-    <div className={shell}>
+    <div className={shellMobileOnly}>
       <div className="flex items-center gap-1 px-3 py-1.5 whitespace-nowrap">{left}</div>
       <div className="w-px h-5 bg-slate-200 dark:bg-white/15 shrink-0" />
       <div className="flex items-center gap-1 px-3 py-1.5">{right}</div>
