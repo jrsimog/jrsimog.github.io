@@ -142,6 +142,21 @@ const ElixirHelloWorld = () => {
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 max-sm:pb-24">
 
+        {/* Desktop header — inline, always visible */}
+        <div className="hidden sm:flex items-center justify-between mb-8">
+          <Link to="/blog" className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition">
+            {t('nav.back_blog')}
+          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center justify-center w-11 h-11 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10" aria-label="Home">
+              <FiHome className="text-base" />
+            </Link>
+            <ThemeToggle />
+            <LangToggle />
+          </div>
+        </div>
+
+        {/* Mobile nav — StickyNav pill at bottom */}
         <StickyNav
           left={<Link to="/blog" className="px-3 py-1 text-sm text-muted hover:text-sub transition">{t('nav.back_blog')}</Link>}
           right={
