@@ -44,6 +44,14 @@
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 
+html {
+  background-color: #f8fafc;
+}
+
+html.dark {
+  background-color: #000000;
+}
+
 * {
   font-family: 'Inter', sans-serif;
 }
