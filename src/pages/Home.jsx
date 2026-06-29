@@ -345,7 +345,7 @@ const Home = () => {
           <ScrollReveal delay="0.1s">
             <GlassCard>
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent" style={{ backgroundImage: 'var(--dt-gradient-blue)' }}>
-                {lang === 'en' ? 'Certifications' : 'Certificaciones'}
+                {lang === 'en' ? 'Courses & Certifications' : 'Cursos y Certificaciones'}
               </h2>
               <div className="flex flex-col gap-3">
                 {certifications.map((cert, i) => (
