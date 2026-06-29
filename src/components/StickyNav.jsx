@@ -88,14 +88,20 @@ const StickyNav = ({ onActiveChange, left, right }) => {
         ))}
       </div>
       <div className="w-px h-5 bg-slate-200 dark:bg-white/15 shrink-0" />
-      <a
-        href="/CV — José Ramón Simó Guerra.pdf"
-        download
-        title={lang === 'en' ? 'Download CV' : 'Descargar CV'}
-        className="pdf-icon shrink-0 flex items-center justify-center rounded-full border border-transparent p-2 mx-1 transition-all duration-200"
-      >
-        <FaFilePdf className="text-base text-red-400" />
-      </a>
+      <div className="relative shrink-0 mx-1">
+        <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+        </span>
+        <a
+          href="/CV — José Ramón Simó Guerra.pdf"
+          download
+          title={lang === 'en' ? 'Download CV' : 'Descargar CV'}
+          className="pdf-icon flex items-center justify-center rounded-full border border-transparent p-2 transition-all duration-200"
+        >
+          <FaFilePdf className="text-base text-red-400" />
+        </a>
+      </div>
     </div>
   )
 

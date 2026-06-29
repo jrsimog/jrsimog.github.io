@@ -95,10 +95,16 @@ const Home = () => {
       <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-24 sm:pb-4">
 
         <div className="flex justify-end items-center gap-3 mb-6">
-          <a href="/CV — José Ramón Simó Guerra.pdf" download
-            className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-4 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10">
-            <FaFilePdf className="text-base text-red-500" /> <T id="home.download_cv" />
-          </a>
+          <div className="relative">
+            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+            </span>
+            <a href="/CV — José Ramón Simó Guerra.pdf" download
+              className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-4 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10">
+              <FaFilePdf className="text-base text-red-500" /> <T id="home.download_cv" />
+            </a>
+          </div>
           <ThemeToggle />
           <LangToggle />
         </div>
