@@ -8,6 +8,7 @@ import LangToggle from '../../components/LangToggle'
 import ThemeToggle from '../../components/ThemeToggle'
 import T from '../../components/T'
 import StickyNav from '../../components/StickyNav'
+import ShareButtons from '../../components/ShareButtons'
 
 const SLUG = '/blog/elixir-hello-world'
 const related = posts.filter(p => p.slug !== SLUG)
@@ -442,6 +443,7 @@ const ElixirHelloWorld = () => {
         {isLast && (
           <div className="mt-8 slide-in-blurred-top" style={{ animationDuration: '0.3s' }}>
             <div className="border-t border-slate-200 dark:border-white/10 pt-8">
+              <ShareButtons lang={lang} />
               {related.length > 0 && (
                 <>
                   <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
