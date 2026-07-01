@@ -1,42 +1,70 @@
-import { useState } from 'react'
-import { SiX } from 'react-icons/si'
-import { FaLinkedinIn } from 'react-icons/fa6'
-import { FiCopy, FiCheck } from 'react-icons/fi'
+import { useState, useRef, useEffect } from "react";
+import { SiX } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
+import { FiCopy, FiCheck } from "react-icons/fi";
+import { trackEvent } from "../utils/analytics";
 
 const ShareButtons = ({ lang }) => {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
+  const timerRef = useRef(null);
 
-  const url = window.location.href
-  const tweetUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  const getUrl = () => window.location.href;
 
   const copyLink = () => {
-    navigator.clipboard.writeText(url)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    const url = getUrl();
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setCopied(false), 2000);
+    trackEvent("share", { method: "copy_link", url });
+  };
 
-  const btnClass = 'flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-3 py-1.5 text-xs text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10'
+  const btnClass =
+    "flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-3 py-1.5 text-xs text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10";
 
   return (
     <div className="flex flex-wrap items-center gap-2 mb-6">
-      <span className="text-xs text-muted">{lang === 'es' ? 'Compartir:' : 'Share:'}</span>
-      <a href={tweetUrl} target="_blank" rel="noopener noreferrer" className={btnClass}>
+      <span className="text-xs text-muted">
+        {lang === "es" ? "Compartir:" : "Share:"}
+      </span>
+      <a
+        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(getUrl())}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={btnClass}
+        onClick={() => trackEvent("share", { method: "x", url: getUrl() })}
+      >
         <SiX className="text-sm" /> X
       </a>
-      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className={btnClass}>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getUrl())}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={btnClass}
+        onClick={() =>
+          trackEvent("share", { method: "linkedin", url: getUrl() })
+        }
+      >
         <FaLinkedinIn className="text-sm text-[#0077B5]" /> LinkedIn
       </a>
       <button onClick={copyLink} className={btnClass}>
+        {copied ? (
+          <FiCheck className="text-sm text-emerald-500" />
+        ) : (
+          <FiCopy className="text-sm" />
+        )}
         {copied
-          ? <FiCheck className="text-sm text-emerald-500" />
-          : <FiCopy className="text-sm" />}
-        {copied
-          ? (lang === 'es' ? '¡Copiado!' : 'Copied!')
-          : (lang === 'es' ? 'Copiar enlace' : 'Copy link')}
+          ? lang === "es"
+            ? "¡Copiado!"
+            : "Copied!"
+          : lang === "es"
+            ? "Copiar enlace"
+            : "Copy link"}
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default ShareButtons
+export default ShareButtons;

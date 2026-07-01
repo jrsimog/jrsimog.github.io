@@ -13,3 +13,9 @@ export const initGA = () => {
   window.gtag('js', new Date())
   window.gtag('config', GA_ID)
 }
+
+export const trackEvent = (action, params = {}) => {
+  if (!import.meta.env.PROD) console.log('[analytics]', action, params)
+  if (typeof window.gtag !== 'function') return
+  window.gtag('event', action, params)
+}

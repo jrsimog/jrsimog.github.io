@@ -7,6 +7,7 @@ import LangToggle from '../components/LangToggle'
 import ThemeToggle from '../components/ThemeToggle'
 import T from '../components/T'
 import StickyNav from '../components/StickyNav'
+import { trackEvent } from '../utils/analytics'
 
 const Blog = () => {
   const { t, lang } = useLanguage()
@@ -114,6 +115,7 @@ const Blog = () => {
                   key={slug}
                   to={slug}
                   className="group rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-5 transition hover:bg-white/80 dark:hover:bg-white/10 hover:border-slate-300/80 dark:hover:border-white/20"
+                  onClick={() => trackEvent('post_click', { slug, title: displayTitle })}
                 >
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <div className="flex items-center gap-1.5 text-xs text-muted">
