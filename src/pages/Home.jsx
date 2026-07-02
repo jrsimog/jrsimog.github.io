@@ -25,6 +25,9 @@ import LangToggle from "../components/LangToggle";
 import ThemeToggle from "../components/ThemeToggle";
 import ScrollReveal from "../components/ScrollReveal";
 import StickyNav from "../components/StickyNav";
+import GlassCard from "../components/GlassCard";
+import TechChip from "../components/TechChip";
+import SectionTitle, { GradientText } from "../components/SectionTitle";
 import T from "../components/T";
 import { trackEvent } from "../utils/analytics";
 
@@ -47,32 +50,6 @@ const levelStyle = {
   1: "bg-slate-900/1 border-slate-900/4 text-slate-400 hover:bg-slate-900/3 hover:border-slate-900/6 dark:bg-white/3  dark:border-white/6  dark:text-white/22 dark:hover:bg-white/10 dark:hover:border-white/18 dark:hover:text-white/55",
 };
 
-const GlassCard = ({ children, className = "", ...props }) => (
-  <div
-    className={`rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 p-6 shadow-xl dark:shadow-black/20 backdrop-blur-md transition-all duration-300 ${className}`}
-    {...props}
-  >
-    {children}
-  </div>
-);
-
-const TechChip = ({ name, onClick, isActive = false }) => {
-  const ti = techIcons[name];
-  if (!ti) return null;
-  const Icon = ti.icon;
-  return (
-    <button
-      onClick={() => onClick?.(name)}
-      className={`flex items-center gap-1 text-xs rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/60 dark:bg-white/5 px-2 py-0.5 text-slate-500 dark:text-white/40 transition hover:bg-slate-200 dark:hover:bg-white/10 hover:scale-105 ${isActive ? "ring-2 ring-blue-400 ring-offset-1 ring-offset-white dark:ring-offset-black scale-105" : ""}`}
-    >
-      {Icon && (
-        <Icon className="text-sm shrink-0" style={{ color: ti.color }} />
-      )}
-      {name}
-    </button>
-  );
-};
-
 const tagsWithPosts = new Set(posts.map((post) => post.tag.toLowerCase()));
 const tagsWithProjects = new Set(
   projects.flatMap((p) => p.stack.map((s) => s.toLowerCase())),
@@ -87,7 +64,7 @@ const tagsWithCertifications = new Set(
 const PREVIEW = 2;
 
 const Home = () => {
-  const { t, lang } = useLanguage();
+  const { lang } = useLanguage();
   const [expanded, setExpanded] = useState(false);
   const [navActive, setNavActive] = useState(null);
   const [filterSkill, setFilterSkill] = useState(null);
@@ -143,7 +120,6 @@ const Home = () => {
           <LangToggle />
         </div>
 
-        {/* Hero */}
         <ScrollReveal delay="0s">
           <GlassCard className="mb-6 text-center rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
             <img
@@ -151,16 +127,12 @@ const Home = () => {
               alt="José Simó"
               className="mx-auto mb-5 h-20 w-20 rounded-full border border-slate-200 dark:border-white/20 object-cover"
             />
-            <h1
-              className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight bg-clip-text text-transparent"
-              style={{
-                backgroundImage: "var(--dt-gradient-blue)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
+            <GradientText
+              as="h1"
+              className="mb-1 text-3xl sm:text-4xl font-bold tracking-tight"
             >
               José Simó
-            </h1>
+            </GradientText>
             <p className="mb-1 text-lg text-blue-600 dark:text-blue-300">
               <T id="home.role" />
             </p>
@@ -235,7 +207,7 @@ const Home = () => {
               </a>
               <Link
                 to="/blog"
-                className="contact-active rounded-full border border-blue-500/50 px-5 py-2 text-sm text-white transition"
+                className="rounded-full border border-blue-500/40 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-blue-700 dark:text-blue-300 transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25"
               >
                 <T id="home.blog" />
               </Link>
@@ -243,19 +215,20 @@ const Home = () => {
           </GlassCard>
         </ScrollReveal>
 
-        {/* Banner filtro activo */}
         {filterSkill && (
           <div className="flex items-center gap-3 mb-6 px-4 py-2.5 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 dark:border-blue-500/30 text-sm text-blue-700 dark:text-blue-300">
             <span className="flex-1">
               {lang === "en" ? "Filtering by" : "Filtrando por"}:{" "}
               <strong>{filterSkill}</strong>
             </span>
-            <Link
-              to={`/blog?tag=${filterSkill}`}
-              className="text-xs underline hover:text-blue-900 dark:hover:text-blue-100 transition-colors shrink-0"
-            >
-              {lang === "en" ? "See posts →" : "Ver posts →"}
-            </Link>
+            {tagsWithPosts.has(filterSkill.toLowerCase()) && (
+              <Link
+                to={`/blog?tag=${filterSkill}`}
+                className="text-xs underline hover:text-blue-900 dark:hover:text-blue-100 transition-colors shrink-0"
+              >
+                {lang === "en" ? "See posts →" : "Ver posts →"}
+              </Link>
+            )}
             <button
               onClick={() => setFilterSkill(null)}
               className="text-xs text-blue-500 hover:text-blue-700 dark:hover:text-blue-200 transition shrink-0"
@@ -265,15 +238,11 @@ const Home = () => {
           </div>
         )}
 
-        {/* Experiencia */}
         <div id="experiencia" className="mb-8">
           <ScrollReveal delay="0.3s">
-            <h2
-              className="text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent mb-5"
-              style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-            >
+            <SectionTitle className="text-sm mb-5">
               <T id="home.experience_title" />
-            </h2>
+            </SectionTitle>
           </ScrollReveal>
 
           <div className="relative">
@@ -372,15 +341,11 @@ const Home = () => {
           )}
         </div>
 
-        {/* Proyectos */}
         <div id="proyectos" className="mb-8">
           <ScrollReveal delay="0.05s">
-            <h2
-              className="text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent mb-5"
-              style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-            >
+            <SectionTitle className="text-sm mb-5">
               <T id="projects.title" />
-            </h2>
+            </SectionTitle>
           </ScrollReveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {filteredProjects.length > 0 ? (
@@ -390,7 +355,10 @@ const Home = () => {
                   delay={`${0.1 + i * 0.08}s`}
                   variant="left"
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    highlightCaseStudy={navActive === "proyectos"}
+                  />
                 </ScrollReveal>
               ))
             ) : (
@@ -405,18 +373,13 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Cards */}
         <div id="contacto" className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {/* Columna izquierda: Sobre mí + Contacto */}
           <div className="flex flex-col gap-5">
             <ScrollReveal delay="0.05s">
               <GlassCard>
-                <h2
-                  className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-                >
+                <SectionTitle className="mb-3 text-sm">
                   <T id="home.about_title" />
-                </h2>
+                </SectionTitle>
                 <p className="text-sm leading-relaxed text-slate-600 dark:text-white/55">
                   <T id="home.about_text" />
                 </p>
@@ -440,12 +403,9 @@ const Home = () => {
 
             <ScrollReveal delay="0.15s">
               <GlassCard>
-                <h2
-                  className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-                >
+                <SectionTitle className="mb-3 text-sm">
                   <T id="home.contact_title" />
-                </h2>
+                </SectionTitle>
                 <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-white/55">
                   <T id="home.contact_text" />
                 </p>
@@ -453,7 +413,7 @@ const Home = () => {
                   href="mailto:jrsimog@gmail.com"
                   className={`inline-block rounded-full border px-4 py-1.5 text-xs transition-all duration-500 ${
                     navActive === "contacto"
-                      ? "contact-active border-blue-500/50 text-white"
+                      ? "pulse-beam border-blue-500/50 bg-blue-500/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300"
                       : "border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white/80"
                   }`}
                 >
@@ -463,15 +423,11 @@ const Home = () => {
             </ScrollReveal>
           </div>
 
-          {/* Columna derecha: Stack */}
           <ScrollReveal delay="0.1s" className="h-full">
             <GlassCard className="h-full">
-              <h2
-                className="mb-3 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-              >
+              <SectionTitle className="mb-3 text-sm">
                 <T id="home.stack_title" />
-              </h2>
+              </SectionTitle>
               <div className="flex flex-wrap gap-2">
                 {stack.map(({ name, icon: Icon, level, color }) => {
                   const hasPosts = tagsWithPosts.has(name.toLowerCase());
@@ -505,19 +461,15 @@ const Home = () => {
           </ScrollReveal>
         </div>
 
-        {/* Educación y Certificaciones */}
         <div
           id="educacion"
           className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5"
         >
           <ScrollReveal delay="0.05s">
             <GlassCard>
-              <h2
-                className="mb-4 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-              >
+              <SectionTitle className="mb-4 text-sm">
                 {lang === "en" ? "Education" : "Educación"}
-              </h2>
+              </SectionTitle>
               {education.map((edu) => (
                 <div key={edu.institution}>
                   <p className="text-slate-800 dark:text-white/90 font-semibold text-sm">
@@ -536,14 +488,11 @@ const Home = () => {
 
           <ScrollReveal delay="0.1s">
             <GlassCard>
-              <h2
-                className="mb-4 text-sm font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-              >
+              <SectionTitle className="mb-4 text-sm">
                 {lang === "en"
                   ? "Courses & Certifications"
                   : "Cursos y Certificaciones"}
-              </h2>
+              </SectionTitle>
               <div className="flex flex-col gap-3">
                 {certifications.map((cert) => (
                   <div
@@ -594,7 +543,6 @@ const Home = () => {
           </ScrollReveal>
         </div>
 
-        {/* Footer */}
         <ScrollReveal>
           <footer className="mt-4 border-t border-slate-200 dark:border-white/5 pt-2 pb-0.5 text-center text-[10px] text-slate-500 dark:text-white/30">
             <p className="mb-0.5 font-medium tracking-wider uppercase text-[8px] text-slate-400 dark:text-white/35">

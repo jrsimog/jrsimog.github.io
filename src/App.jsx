@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
+import ProjectDetail from "./pages/ProjectDetail";
 import ElixirHelloWorld from "./pages/posts/ElixirHelloWorld";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
@@ -16,17 +17,24 @@ const PageTracker = () => {
   return null;
 };
 
-const App = () => (
-  <Layout>
-    <PageTracker />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/blog/elixir-hello-world" element={<ElixirHelloWorld />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    <ScrollToTop />
-  </Layout>
-);
+const App = () => {
+  const location = useLocation();
+
+  return (
+    <Layout>
+      <PageTracker />
+      <div key={location.pathname} className="route-transition">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/elixir-hello-world" element={<ElixirHelloWorld />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <ScrollToTop />
+    </Layout>
+  );
+};
 
 export default App;

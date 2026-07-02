@@ -40,6 +40,12 @@ export const translations = {
       no_posts: "Aún no hay publicaciones sobre esta tecnología.",
       search_placeholder: "Buscar posts...",
       no_results: "No hay resultados para",
+      reading_time: "min de lectura",
+    },
+    post: {
+      previous: "Anterior",
+      next: "Siguiente",
+      waiting: "esperando...",
     },
     not_found: {
       code: "404",
@@ -51,6 +57,13 @@ export const translations = {
       title: "Proyectos",
       view: "Ver",
       close: "Cerrar",
+      case_study: "Ver caso de estudio",
+      problem: "El problema",
+      solution: "La solución",
+      outcome: "Resultados",
+      stack_used: "Stack",
+      screenshots: "Capturas",
+      back: "← Volver",
     },
   },
 
@@ -95,6 +108,12 @@ export const translations = {
       no_posts: "No posts about this technology yet.",
       search_placeholder: "Search posts...",
       no_results: "No results for",
+      reading_time: "min read",
+    },
+    post: {
+      previous: "Previous",
+      next: "Next",
+      waiting: "waiting...",
     },
     not_found: {
       code: "404",
@@ -106,6 +125,13 @@ export const translations = {
       title: "Projects",
       view: "View",
       close: "Close",
+      case_study: "Read case study",
+      problem: "The problem",
+      solution: "The solution",
+      outcome: "Outcome",
+      stack_used: "Stack",
+      screenshots: "Screenshots",
+      back: "← Back",
     },
   },
 };

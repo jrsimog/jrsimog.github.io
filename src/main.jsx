@@ -9,6 +9,10 @@ import { initGA } from './utils/analytics.js'
 
 initGA()
 
+if (/FxiOS/i.test(navigator.userAgent)) {
+  document.documentElement.classList.add('no-textclip')
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

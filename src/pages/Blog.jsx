@@ -1,19 +1,35 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { FiSearch, FiX } from 'react-icons/fi'
+import { FiSearch, FiX, FiCopy, FiCheck } from 'react-icons/fi'
+import { SiX } from 'react-icons/si'
+import { FaLinkedinIn } from 'react-icons/fa6'
 import { posts } from '../data/posts'
+import { readingTimeFromWords } from '../utils/readingTime'
 import { useLanguage } from '../context/LanguageContext'
-import LangToggle from '../components/LangToggle'
-import ThemeToggle from '../components/ThemeToggle'
+import PageHeader from '../components/PageHeader'
+import { GradientText } from '../components/SectionTitle'
 import T from '../components/T'
-import StickyNav from '../components/StickyNav'
 import { trackEvent } from '../utils/analytics'
 
 const Blog = () => {
   const { t, lang } = useLanguage()
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState('')
+  const [copiedSlug, setCopiedSlug] = useState(null)
+  const timerRef = useRef(null)
   const filterTag = searchParams.get('tag')
+
+  useEffect(() => () => clearTimeout(timerRef.current), [])
+
+  const postUrl = (slug) => `${window.location.origin}${slug}`
+
+  const copyLink = (slug) => {
+    navigator.clipboard.writeText(postUrl(slug))
+    setCopiedSlug(slug)
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setCopiedSlug(null), 2000)
+    trackEvent('share', { method: 'copy_link', url: postUrl(slug) })
+  }
 
   const typeLabel = {
     playground: { label: t('blog.types.playground'), style: 'bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/20 dark:border-blue-500/25' },
@@ -35,32 +51,13 @@ const Blog = () => {
       <div className="absolute inset-0 z-0" style={{ background: 'var(--bg-radial)' }} />
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top max-sm:pb-24">
 
-        {/* Desktop header — inline, always visible */}
-        <div className="hidden sm:flex items-center justify-between mb-10">
-          <Link to="/" className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition">
-            {t('blog.back')}
-          </Link>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
+        <PageHeader back="/" backLabel={t('blog.back')} />
 
-        {/* Mobile nav — StickyNav pill at bottom */}
-        <StickyNav
-          left={<Link to="/" className="px-3 py-1 text-sm text-muted hover:text-sub transition">{t('blog.back')}</Link>}
-          right={<div className="flex items-center gap-1"><ThemeToggle compact /><LangToggle compact /></div>}
-        />
-
-        <h1
-          className="text-2xl font-bold bg-clip-text text-transparent mb-1"
-          style={{ backgroundImage: 'var(--dt-gradient-blue)' }}
-        >
+        <GradientText as="h1" className="text-2xl font-bold mb-1">
           <T id="blog.title" />
-        </h1>
+        </GradientText>
         <p className="text-muted text-sm mb-6"><T id="blog.subtitle" /></p>
 
-        {/* Search input — only when there are more than 5 posts */}
         {posts.length > 5 && (
           <div className="relative mb-6">
             <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted text-sm pointer-events-none" />
@@ -106,33 +103,74 @@ const Blog = () => {
               )}
             </div>
           ) : (
-            filteredPosts.map(({ slug, Icon, tag, type, title, title_en, description, description_en, date }) => {
+            filteredPosts.map(({ slug, Icon, tag, type, title, title_en, description, description_en, date, wordCount }) => {
               const badge = typeLabel[type]
               const displayTitle = lang === 'en' && title_en ? title_en : title
               const displayDesc  = lang === 'en' && description_en ? description_en : description
               return (
-                <Link
+                <div
                   key={slug}
-                  to={slug}
-                  className="group rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-5 transition hover:bg-white/80 dark:hover:bg-white/10 hover:border-slate-300/80 dark:hover:border-white/20"
-                  onClick={() => trackEvent('post_click', { slug, title: displayTitle })}
+                  className="group relative rounded-xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-md p-5 transition hover:bg-white/80 dark:hover:bg-white/10 hover:border-slate-300/80 dark:hover:border-white/20"
                 >
+                  <Link
+                    to={slug}
+                    className="absolute inset-0 rounded-xl"
+                    aria-label={displayTitle}
+                    onClick={() => trackEvent('post_click', { slug, title: displayTitle })}
+                  />
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <div className="flex items-center gap-1.5 text-xs text-muted">
                       <Icon className="text-blue-400" />
                       <span>{tag}</span>
                       <span>·</span>
                       <span>{date}</span>
+                      {wordCount && (
+                        <>
+                          <span>·</span>
+                          <span>{readingTimeFromWords(wordCount)} {t('blog.reading_time')}</span>
+                        </>
+                      )}
                     </div>
                     {badge && (
                       <span className={`text-xs rounded-full px-2 py-0.5 ${badge.style}`}>
                         {badge.label}
                       </span>
                     )}
+                    <div className="relative ml-auto flex items-center gap-0.5">
+                      <a
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayTitle} — ${displayDesc}\n\n${lang === 'es' ? 'Míralo aquí:' : 'Check it out:'}`)}&url=${encodeURIComponent(postUrl(slug))}&hashtags=${tag}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="X"
+                        className="p-1.5 text-muted hover:text-sub transition"
+                        onClick={() => trackEvent('share', { method: 'x', url: postUrl(slug) })}
+                      >
+                        <SiX className="text-xs" />
+                      </a>
+                      <a
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl(slug))}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="LinkedIn"
+                        className="p-1.5 text-muted hover:text-sub transition"
+                        onClick={() => trackEvent('share', { method: 'linkedin', url: postUrl(slug) })}
+                      >
+                        <FaLinkedinIn className="text-xs" />
+                      </a>
+                      <button
+                        onClick={() => copyLink(slug)}
+                        title={lang === 'es' ? 'Copiar enlace' : 'Copy link'}
+                        className="p-1.5 text-muted hover:text-sub transition"
+                      >
+                        {copiedSlug === slug
+                          ? <FiCheck className="text-xs text-emerald-500" />
+                          : <FiCopy className="text-xs" />}
+                      </button>
+                    </div>
                   </div>
                   <h2 className="text-sub font-semibold group-hover:text-accent dark:group-hover:text-heading transition">{displayTitle}</h2>
                   <p className="text-muted text-sm mt-1">{displayDesc}</p>
-                </Link>
+                </div>
               )
             })
           )}

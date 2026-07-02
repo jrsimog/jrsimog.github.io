@@ -1,12 +1,35 @@
 const gradients = {
-  blue:   'bg-gradient-to-tl from-slate-900 via-blue-600 to-slate-500 dark:bg-none dark:text-white',
-  violet: 'bg-gradient-to-tl from-slate-900 via-violet-600 to-slate-500 dark:from-slate-800 dark:via-violet-500 dark:to-zinc-400',
-}
+  blue: "var(--dt-gradient-blue)",
+  violet: "var(--dt-gradient-violet)",
+};
 
-const SectionTitle = ({ children, color = 'blue', as: Tag = 'h2', className = '' }) => (
-  <Tag className={`font-semibold uppercase tracking-widest bg-clip-text text-transparent ${gradients[color]} ${className}`}>
+export const GradientText = ({
+  children,
+  color = "blue",
+  as: Tag = "span",
+  className = "",
+}) => (
+  <Tag
+    className={`bg-clip-text text-transparent ${className}`}
+    style={{ backgroundImage: gradients[color] }}
+  >
     {children}
   </Tag>
-)
+);
 
-export default SectionTitle
+const SectionTitle = ({
+  children,
+  color = "blue",
+  as: Tag = "h2",
+  className = "",
+}) => (
+  <GradientText
+    as={Tag}
+    color={color}
+    className={`font-semibold uppercase tracking-widest ${className}`}
+  >
+    {children}
+  </GradientText>
+);
+
+export default SectionTitle;

@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
-  // Check localStorage, default to 'dark'
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark'
   })

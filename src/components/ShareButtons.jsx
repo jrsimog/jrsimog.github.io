@@ -4,13 +4,18 @@ import { FaLinkedinIn } from "react-icons/fa6";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { trackEvent } from "../utils/analytics";
 
-const ShareButtons = ({ lang }) => {
+const ShareButtons = ({ lang, title, description, tag }) => {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef(null);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const getUrl = () => window.location.href;
+
+  const shareText = [
+    [title, description].filter(Boolean).join(" — "),
+    lang === "es" ? "Míralo aquí:" : "Check it out:",
+  ].join("\n\n");
 
   const copyLink = () => {
     const url = getUrl();
@@ -30,7 +35,7 @@ const ShareButtons = ({ lang }) => {
         {lang === "es" ? "Compartir:" : "Share:"}
       </span>
       <a
-        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(getUrl())}`}
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(getUrl())}${tag ? `&hashtags=${tag}` : ""}`}
         target="_blank"
         rel="noopener noreferrer"
         className={btnClass}

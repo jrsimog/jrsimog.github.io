@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import { SiElixir } from "react-icons/si";
 import { FiHome } from "react-icons/fi";
 import { posts } from "../../data/posts";
+import { getReadingTime } from "../../utils/readingTime";
 import { useLanguage } from "../../context/LanguageContext";
-import LangToggle from "../../components/LangToggle";
-import ThemeToggle from "../../components/ThemeToggle";
+import PageHeader from "../../components/PageHeader";
+import SectionTitle, { GradientText } from "../../components/SectionTitle";
 import T from "../../components/T";
-import StickyNav from "../../components/StickyNav";
 import ShareButtons from "../../components/ShareButtons";
 import PostNav from "../../components/PostNav";
 
 const SLUG = "/blog/elixir-hello-world";
+const post = posts.find((p) => p.slug === SLUG);
 const related = posts.filter((p) => p.slug !== SLUG);
 
 const steps = {
@@ -340,6 +341,9 @@ const ElixirHelloWorld = () => {
   const currentSteps = steps[lang];
   const current = currentSteps[step];
   const isLast = step === currentSteps.length - 1;
+  const readingTime = getReadingTime(
+    currentSteps.map((s) => `${s.title} ${s.explanation}`).join(" "),
+  );
 
   useEffect(() => {
     const onKey = (e) => {
@@ -365,15 +369,11 @@ const ElixirHelloWorld = () => {
       />
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 max-sm:pb-24">
-        {/* Desktop header — inline, always visible */}
-        <div className="hidden sm:flex items-center justify-between mb-8">
-          <Link
-            to="/blog"
-            className="rounded-full border border-slate-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-4 py-1.5 text-sm text-muted hover:text-sub backdrop-blur-sm transition"
-          >
-            {t("nav.back_blog")}
-          </Link>
-          <div className="flex items-center gap-3">
+        <PageHeader
+          back="/blog"
+          backLabel={t("nav.back_blog")}
+          className="mb-8"
+          extra={
             <Link
               to="/"
               className="flex items-center justify-center w-11 h-11 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10"
@@ -381,49 +381,28 @@ const ElixirHelloWorld = () => {
             >
               <FiHome className="text-base" />
             </Link>
-            <ThemeToggle />
-            <LangToggle />
-          </div>
-        </div>
-
-        {/* Mobile nav — StickyNav pill at bottom */}
-        <StickyNav
-          left={
-            <Link
-              to="/blog"
-              className="px-3 py-1 text-sm text-muted hover:text-sub transition"
-            >
-              {t("nav.back_blog")}
-            </Link>
           }
-          right={
-            <div className="flex items-center gap-1">
-              <Link
-                to="/"
-                className="flex items-center justify-center w-8 h-8 rounded-full text-muted hover:text-sub transition"
-                aria-label="Home"
-              >
-                <FiHome className="text-base" />
-              </Link>
-              <ThemeToggle compact />
-              <LangToggle compact />
-            </div>
+          extraCompact={
+            <Link
+              to="/"
+              className="flex items-center justify-center w-8 h-8 rounded-full text-muted hover:text-sub transition"
+              aria-label="Home"
+            >
+              <FiHome className="text-base" />
+            </Link>
           }
         />
 
         <div className="flex items-center gap-2 text-xs text-muted mb-3">
           <SiElixir className="text-violet-500 dark:text-violet-400" />
-          Elixir · Playground
+          Elixir · Playground · {readingTime} {t("blog.reading_time")}
         </div>
 
-        <h1
-          className="text-2xl font-bold bg-clip-text text-transparent mb-2"
-          style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-        >
+        <GradientText as="h1" className="text-2xl font-bold mb-2">
           <T>
             {lang === "es" ? "Hola Mundo en Elixir" : "Hello World in Elixir"}
           </T>
-        </h1>
+        </GradientText>
         <p className="text-muted text-sm mb-6 leading-relaxed">
           {lang === "es"
             ? "Elixir ofrece dos formas de ejecutar código: la IEx, una consola interactiva para explorar al instante, y los archivos .ex, donde el código persiste y puede reutilizarse. Vamos a hacer el mismo Hola Mundo de las dos formas."
@@ -546,7 +525,7 @@ const ElixirHelloWorld = () => {
                     <p className="text-white/50">$ elixir hello.ex</p>
                   ) : (
                     <T className="text-slate-400/50 dark:text-white/15 text-xs">
-                      {lang === "es" ? "esperando..." : "waiting..."}
+                      {t("post.waiting")}
                     </T>
                   )}
                   {current.showOutput && (
@@ -574,12 +553,9 @@ const ElixirHelloWorld = () => {
                 hello.ex
               </span>
             )}
-            <p
-              className="text-xs font-semibold uppercase tracking-widest bg-clip-text text-transparent"
-              style={{ backgroundImage: "var(--dt-gradient-blue)" }}
-            >
+            <SectionTitle as="p" className="text-xs">
               {step + 1} / {currentSteps.length} — <T>{current.title}</T>
-            </p>
+            </SectionTitle>
           </div>
           <p className="text-body text-sm leading-relaxed">
             <T>{current.explanation}</T>
@@ -592,7 +568,7 @@ const ElixirHelloWorld = () => {
             disabled={step === 0}
             className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-5 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            ← <T>{lang === "es" ? "Anterior" : "Previous"}</T>
+            ← <T>{t("post.previous")}</T>
             <kbd className="hidden sm:inline font-mono text-[9px] px-1 py-0.5 rounded border border-slate-300 dark:border-white/10 bg-white/60 dark:bg-white/5 text-muted leading-none">
               h
             </kbd>
@@ -607,7 +583,7 @@ const ElixirHelloWorld = () => {
             <kbd className="hidden sm:inline font-mono text-[9px] px-1 py-0.5 rounded border border-blue-500/20 bg-blue-500/10 text-accent leading-none">
               l
             </kbd>
-            <T>{lang === "es" ? "Siguiente" : "Next"}</T> →
+            <T>{t("post.next")}</T> →
           </button>
         </div>
 
@@ -617,7 +593,12 @@ const ElixirHelloWorld = () => {
             style={{ animationDuration: "0.3s" }}
           >
             <div className="border-t border-slate-200 dark:border-white/10 pt-8">
-              <ShareButtons lang={lang} />
+              <ShareButtons
+                lang={lang}
+                title={lang === "en" ? post.title_en : post.title}
+                description={lang === "en" ? post.description_en : post.description}
+                tag={post.tag}
+              />
               {related.length > 0 && (
                 <>
                   <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">

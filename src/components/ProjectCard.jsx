@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { techIcons } from "../data/techIcons";
+import Lightbox from "./Lightbox";
 import { trackEvent } from "../utils/analytics";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, highlightCaseStudy = false }) => {
   const { lang, t } = useLanguage();
   const [lightbox, setLightbox] = useState(null);
 
@@ -14,7 +15,6 @@ const ProjectCard = ({ project }) => {
   return (
     <>
       <div className="rounded-2xl border border-slate-200/80 bg-white/70 dark:border-white/15 dark:bg-white/8 shadow-xl dark:shadow-black/20 backdrop-blur-md overflow-hidden transition-all duration-300">
-        {/* Screenshot grid */}
         <div className="grid grid-cols-2 gap-0.5 bg-slate-200/50 dark:bg-white/5">
           {project.screenshots.map((src, i) => (
             <button
@@ -43,7 +43,6 @@ const ProjectCard = ({ project }) => {
           ))}
         </div>
 
-        {/* Info */}
         <div className="p-5">
           <div className="flex items-center justify-between gap-2 mb-1">
             <h3 className="text-slate-800 dark:text-white/90 font-semibold text-base">
@@ -58,7 +57,7 @@ const ProjectCard = ({ project }) => {
           <p className="text-slate-600 dark:text-white/50 text-xs leading-relaxed mb-4">
             {description}
           </p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {project.stack.map((tech) => {
               const tech_icon = techIcons[tech];
               const Icon = tech_icon?.icon;
@@ -78,68 +77,29 @@ const ProjectCard = ({ project }) => {
               );
             })}
           </div>
+          <Link
+            to={`/projects/${project.id}`}
+            className={`inline-block rounded-full border px-4 py-1.5 text-xs transition-all duration-500 ${
+              highlightCaseStudy
+                ? "pulse-beam border-blue-500/50 bg-blue-500/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300"
+                : "border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white/80"
+            }`}
+            onClick={() =>
+              trackEvent("case_study_click", { project: project.id })
+            }
+          >
+            {t("projects.case_study")} →
+          </Link>
         </div>
       </div>
 
-      {/* Lightbox — renderizado en document.body para evitar conflictos con transforms */}
-      {lightbox !== null &&
-        createPortal(
-          <div
-            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center"
-            onClick={() => setLightbox(null)}
-          >
-            <div
-              className="relative flex flex-col items-center px-16"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={project.screenshots[lightbox]}
-                alt={`${project.name} screenshot ${lightbox + 1}`}
-                className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl"
-              />
-
-              {/* Prev / Next */}
-              {project.screenshots.length > 1 && (
-                <>
-                  <button
-                    onClick={() =>
-                      setLightbox(
-                        (i) =>
-                          (i - 1 + project.screenshots.length) %
-                          project.screenshots.length,
-                      )
-                    }
-                    className="absolute left-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl w-12 h-12 flex items-center justify-center"
-                  >
-                    ‹
-                  </button>
-                  <button
-                    onClick={() =>
-                      setLightbox((i) => (i + 1) % project.screenshots.length)
-                    }
-                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-3xl w-12 h-12 flex items-center justify-center"
-                  >
-                    ›
-                  </button>
-                </>
-              )}
-
-              {/* Counter */}
-              <p className="text-white/40 text-xs mt-3">
-                {lightbox + 1} / {project.screenshots.length}
-              </p>
-            </div>
-
-            {/* Close */}
-            <button
-              onClick={() => setLightbox(null)}
-              className="absolute top-5 right-6 text-white/60 hover:text-white text-sm transition"
-            >
-              {t("projects.close")} ✕
-            </button>
-          </div>,
-          document.body,
-        )}
+      <Lightbox
+        images={project.screenshots}
+        index={lightbox}
+        alt={project.name}
+        onClose={() => setLightbox(null)}
+        onChange={setLightbox}
+      />
     </>
   );
 };

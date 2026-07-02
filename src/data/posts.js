@@ -13,5 +13,6 @@ export const posts = [
     description_en:
       "How Elixir prints text to the screen, interactive step by step.",
     date: "Jun 2026",
+    wordCount: 448,
   },
 ];

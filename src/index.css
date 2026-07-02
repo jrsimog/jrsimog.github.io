@@ -2,18 +2,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ─── Design tokens ─────────────────────────────────────────────────────── */
 :root {
   --bg-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.08), transparent 70%), #f8fafc;
 
-  /* Typography */
-  --dt-heading:  #0f172a;   /* slate-900 — títulos principales */
-  --dt-sub:      #1e293b;   /* slate-800 — títulos de card, subtítulos fuertes */
-  --dt-body:     #475569;   /* slate-600 — texto de párrafo, descripciones */
-  --dt-muted:    #64748b;   /* slate-500 — metadata, links secundarios */
-  --dt-accent:   #2563eb;   /* blue-600  — interactivo, links */
+  --dt-heading:  #0f172a;
+  --dt-sub:      #1e293b;
+  --dt-body:     #475569;
+  --dt-muted:    #64748b;
+  --dt-accent:   #2563eb;
 
-  /* Gradient titles */
   --dt-gradient-blue:   linear-gradient(to top left, #0f172a, #2563eb, #64748b);
   --dt-gradient-violet: linear-gradient(to top left, #0f172a, #7c3aed, #64748b);
 }
@@ -21,19 +18,16 @@
 .dark {
   --bg-radial: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.25), transparent 70%), #000000;
 
-  /* Typography */
   --dt-heading:  #ffffff;
   --dt-sub:      rgba(255, 255, 255, 0.90);
   --dt-body:     rgba(255, 255, 255, 0.65);
   --dt-muted:    rgba(255, 255, 255, 0.40);
-  --dt-accent:   #93c5fd;   /* blue-300 */
+  --dt-accent:   #93c5fd;
 
-  /* Gradient titles — versiones light para dark mode (clipeadas al texto) */
   --dt-gradient-blue:   linear-gradient(to top left, #e2e8f0, #93c5fd, #cbd5e1);
   --dt-gradient-violet: linear-gradient(to top left, #ede9fe, #c4b5fd, #d4d4d8);
 }
 
-/* Utilidades de tipografía generadas desde los tokens */
 @layer utilities {
   .text-heading { color: var(--dt-heading); }
   .text-sub     { color: var(--dt-sub); }
@@ -41,8 +35,12 @@
   .text-muted   { color: var(--dt-muted); }
   .text-accent  { color: var(--dt-accent); }
 }
-/* ─────────────────────────────────────────────────────────────────────────── */
 
+html.no-textclip .bg-clip-text {
+  background-image: none !important;
+  color: var(--dt-heading) !important;
+  -webkit-text-fill-color: var(--dt-heading) !important;
+}
 
 html {
   background-color: #f8fafc;
@@ -54,6 +52,27 @@ html.dark {
 
 * {
   font-family: 'Inter', sans-serif;
+}
+
+@keyframes route-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.route-transition {
+  animation: route-fade 0.3s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition {
+    animation: none;
+  }
 }
 
 @keyframes slide-in-blurred-top {
@@ -75,7 +94,6 @@ html.dark {
   animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 }
 
-/* Animación de Borde Giratorio (Border Beam) */
 .border-beam-active {
   position: relative;
   overflow: hidden;
@@ -110,13 +128,13 @@ html.dark {
   background-color: #121214;
 }
 
-@keyframes email-glow {
+@keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
-  50%       { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); }
+  50%       { box-shadow: 0 0 0 5px rgba(59, 130, 246, 0); }
 }
 
-.email-beam {
-  animation: email-glow 2s ease-in-out infinite;
+.pulse-beam {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .pdf-icon {}
@@ -135,7 +153,6 @@ html.dark {
   opacity: 0;
   filter: blur(5px);
 }
-
 
 @keyframes contact-shimmer {
   0%   { background-position: -200% center; }
@@ -157,7 +174,6 @@ html.dark {
   color: white !important;
 }
 
-/* Asegurar que el contenido del link esté por encima del fondo y el gradiente */
 .border-beam-active > * {
   position: relative;
   z-index: 2;
