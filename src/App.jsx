@@ -11,9 +11,52 @@ import { trackEvent } from "./utils/analytics";
 
 const PageTracker = () => {
   const location = useLocation();
+
   useEffect(() => {
     trackEvent("page_view", { page_path: location.pathname });
+
+    let hasReachedBottom = false;
+    let readTimer = null;
+    const isArticle = location.pathname.startsWith("/blog/") && location.pathname !== "/blog";
+
+    if (isArticle) {
+      readTimer = setTimeout(() => {
+        trackEvent("article_read_time", { 
+          page_path: location.pathname, 
+          duration_sec: 30 
+        });
+      }, 30000);
+    }
+
+    const handleScroll = () => {
+      if (hasReachedBottom) return;
+
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      if (docHeight > windowHeight && scrollTop + windowHeight >= docHeight * 0.9) {
+        hasReachedBottom = true;
+        
+        trackEvent("scroll_to_bottom", { 
+          page_path: location.pathname,
+          is_article: isArticle
+        });
+
+        if (isArticle) {
+          trackEvent("article_read_complete", { page_path: location.pathname });
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (readTimer) clearTimeout(readTimer);
+    };
   }, [location.pathname]);
+
   return null;
 };
 

@@ -207,6 +207,7 @@ const Home = () => {
               </a>
               <Link
                 to="/blog"
+                onClick={() => trackEvent("blog_click", { location: "hero" })}
                 className="rounded-full border border-blue-500/40 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-blue-700 dark:text-blue-300 transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25"
               >
                 <T id="home.blog" />
@@ -224,6 +225,7 @@ const Home = () => {
             {tagsWithPosts.has(filterSkill.toLowerCase()) && (
               <Link
                 to={`/blog?tag=${filterSkill}`}
+                onClick={() => trackEvent("blog_click", { location: "filter_skill", tag: filterSkill })}
                 className="text-xs underline hover:text-blue-900 dark:hover:text-blue-100 transition-colors shrink-0"
               >
                 {lang === "en" ? "See posts →" : "Ver posts →"}
