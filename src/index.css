@@ -50,6 +50,26 @@ html.dark {
   background-color: #000000;
 }
 
+/* Transición fluida y premium para el cambio de tema claro/oscuro */
+html,
+body,
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+section,
+footer,
+button,
+a,
+header,
+input,
+textarea {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
 * {
   font-family: 'Inter', sans-serif;
 }
@@ -202,4 +222,81 @@ html.dark {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Animación de destello horizontal (Flare Light Beam) */
+@keyframes flare-beam {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(2.2);
+    opacity: 0;
+  }
+}
+
+/* Entrada de la barra de navegación flotante con blur y slide */
+@keyframes nav-enter {
+  0% {
+    top: -24px;
+    opacity: 0;
+    filter: blur(4px);
+  }
+  100% {
+    top: 16px;
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Partícula de destello izquierdo */
+@keyframes flare-left {
+  0% {
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    left: 0%;
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Partícula de destello derecho */
+@keyframes flare-right {
+  0% {
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    left: 100%;
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+}
+
 

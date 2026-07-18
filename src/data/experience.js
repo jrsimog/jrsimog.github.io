@@ -22,6 +22,8 @@ export const experience = [
       "GCP",
       "Python",
       "JavaScript",
+      "HTML5",
+      "CSS3",
       "Bitbucket",
       "Jira",
     ],
@@ -37,7 +39,7 @@ export const experience = [
       "Administración y optimización de bases de datos MySQL para plataforma de gestión inmobiliaria. Desarrollo y mantenimiento de funcionalidades web con PHP, JavaScript, jQuery, HTML5 y CSS.",
     desc_en:
       "MySQL database administration and optimization for a real estate management platform. Web feature development and maintenance with PHP, JavaScript, jQuery, HTML5 and CSS.",
-    stack: ["MySQL", "PHP", "JavaScript", "jQuery"],
+    stack: ["MySQL", "PHP", "JavaScript", "HTML5", "CSS3", "jQuery"],
     current: false,
   },
   {
@@ -50,7 +52,7 @@ export const experience = [
       "Desarrollo de módulos de gestión de contratos, inventarios e historial clínico para software empresarial multiusuario. Líder técnico del equipo, definiendo estándares de arquitectura y coordinando entregas entre proyectos.",
     desc_en:
       "Development of contract management, inventory and clinical record modules for multi-user enterprise software. Tech lead defining architecture standards and coordinating deliveries across projects.",
-    stack: ["PHP", "Symfony", "MySQL", "JavaScript", "jQuery", "AWS"],
+    stack: ["PHP", "Symfony", "MySQL", "JavaScript", "HTML5", "CSS3", "jQuery", "AWS"],
     current: false,
   },
   {
@@ -70,6 +72,8 @@ export const experience = [
       "Express",
       "ElectronJS",
       "JavaScript",
+      "HTML5",
+      "CSS3",
       "OAuth",
     ],
     current: false,
@@ -84,7 +88,7 @@ export const experience = [
       "Desarrollo de módulos del área administrativa para sistema de gestión de asistencia con AngularJS integrado con APIs RESTful en stack Laravel/Node.js.",
     desc_en:
       "Administrative area module development for an attendance management system using AngularJS integrated with RESTful APIs on a Laravel/Node.js stack.",
-    stack: ["AngularJS", "Node.js", "Laravel", "MySQL", "JavaScript"],
+    stack: ["AngularJS", "Node.js", "Laravel", "MySQL", "JavaScript", "HTML5", "CSS3"],
     current: false,
   },
   {
@@ -97,7 +101,7 @@ export const experience = [
       "Desarrollo de plataforma de gestión de transacciones y eventos en tiempo real con PHP, JavaScript, MySQL y jQuery. Sistema de gestión de inventario y ventas con módulos de reportería.",
     desc_en:
       "Development of a real-time transaction and event management platform with PHP, JavaScript, MySQL and jQuery. Inventory and sales management system with reporting modules.",
-    stack: ["PHP", "JavaScript", "MySQL", "jQuery"],
+    stack: ["PHP", "JavaScript", "HTML5", "CSS3", "MySQL", "jQuery"],
     current: false,
   },
   {
@@ -110,7 +114,7 @@ export const experience = [
       "Desarrollo de aplicaciones web bajo patrón MVC con PHP, JavaScript, C#, AngularJS, jQuery y Bootstrap para clientes del sector empresarial.",
     desc_en:
       "MVC web application development with PHP, JavaScript, C#, AngularJS, jQuery and Bootstrap for enterprise clients.",
-    stack: ["PHP", "JavaScript", "C#", "AngularJS", "jQuery", "MySQL"],
+    stack: ["PHP", "JavaScript", "HTML5", "CSS3", "C#", "AngularJS", "jQuery", "MySQL"],
     current: false,
   },
 ];

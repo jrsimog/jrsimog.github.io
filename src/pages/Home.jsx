@@ -17,8 +17,10 @@ import {
   SiYoutubemusic,
   SiX,
   SiReact,
+  SiGoogleanalytics,
+  SiGmail,
 } from "react-icons/si";
-import { FaLinkedin, FaFilePdf } from "react-icons/fa";
+import { FaLinkedin, FaFilePdf, FaBookOpen } from "react-icons/fa";
 import { MdRollerSkating } from "react-icons/md";
 import { useLanguage } from "../context/LanguageContext";
 import LangToggle from "../components/LangToggle";
@@ -30,6 +32,9 @@ import TechChip from "../components/TechChip";
 import SectionTitle, { GradientText } from "../components/SectionTitle";
 import T from "../components/T";
 import { trackEvent } from "../utils/analytics";
+import InteractiveParallaxBg from "../components/InteractiveParallaxBg";
+import Hover3DCard from "../components/Hover3DCard";
+import RippleButton from "../components/RippleButton";
 
 const stack = Array.from(
   new Set([
@@ -63,16 +68,87 @@ const tagsWithCertifications = new Set(
 
 const PREVIEW = 2;
 
+const socialStyles = {
+  github: {
+    style: { backgroundColor: "rgba(71, 85, 105, 0.06)", color: "inherit", backdropFilter: "blur(6px)" },
+    ripple: "rgba(71, 85, 105, 0.25)"
+  },
+  linkedin: {
+    style: { backgroundColor: "rgba(10, 102, 194, 0.08)", color: "#0A66C2", backdropFilter: "blur(6px)" },
+    ripple: "rgba(10, 102, 194, 0.3)"
+  },
+  email: {
+    style: { backgroundColor: "rgba(37, 99, 235, 0.08)", color: "#2563eb", backdropFilter: "blur(6px)" },
+    ripple: "rgba(37, 99, 235, 0.3)"
+  },
+  discord: {
+    style: { backgroundColor: "rgba(88, 101, 242, 0.08)", color: "#5865F2", backdropFilter: "blur(6px)" },
+    ripple: "rgba(88, 101, 242, 0.3)"
+  },
+  instagram: {
+    style: { backgroundColor: "rgba(225, 48, 108, 0.08)", color: "#E1306C", backdropFilter: "blur(6px)" },
+    ripple: "rgba(225, 48, 108, 0.3)"
+  },
+  x: {
+    style: { backgroundColor: "rgba(20, 23, 26, 0.06)", color: "inherit", backdropFilter: "blur(6px)" },
+    ripple: "rgba(20, 23, 26, 0.25)"
+  },
+  blog: {
+    style: { backgroundColor: "rgba(59, 130, 246, 0.08)", color: "#3b82f6", backdropFilter: "blur(6px)" },
+    ripple: "rgba(59, 130, 246, 0.3)"
+  }
+};
+
+const getCategory = (name) => {
+  const n = name.toLowerCase();
+  if (["react", "angularjs", "javascript", "twig", "html5", "css3", "tailwind css", "jquery", "electronjs"].includes(n)) {
+    return "frontend";
+  }
+  if (["docker", "gcp", "aws", "github actions", "kubernetes", "bitbucket", "jira", "oauth"].includes(n)) {
+    return "devops";
+  }
+  return "backend";
+};
+
 const Home = () => {
   const { lang } = useLanguage();
   const [expanded, setExpanded] = useState(false);
   const [navActive, setNavActive] = useState(null);
   const [filterSkill, setFilterSkill] = useState(null);
 
+
   const toggleFilter = (name) => {
     const next = filterSkill === name ? null : name;
     if (next) trackEvent("tech_filter", { skill: next });
     setFilterSkill(next);
+  };
+
+  const backendTechs = stack.filter(t => getCategory(t.name) === "backend");
+  const frontendTechs = stack.filter(t => getCategory(t.name) === "frontend");
+  const devopsTechs = stack.filter(t => getCategory(t.name) === "devops");
+
+  const renderTechButton = ({ name, icon: Icon, level, color }) => {
+    const hasPosts = tagsWithPosts.has(name.toLowerCase());
+    const hasProjects = tagsWithProjects.has(name.toLowerCase());
+    const hasExperience = tagsWithExperience.has(name.toLowerCase());
+    const hasCerts = tagsWithCertifications.has(name.toLowerCase());
+    const isActive = filterSkill === name;
+    const beamColor = hasPosts
+      ? color
+      : hasProjects || hasExperience || hasCerts
+        ? "#3b82f6"
+        : null;
+    return (
+      <button
+        key={name}
+        onClick={() => toggleFilter(name)}
+        className={`relative flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-sm ${levelStyle[level]} ${beamColor ? "border-beam-active" : ""} ${isActive ? "ring-2 ring-blue-400 ring-offset-1 ring-offset-white dark:ring-offset-black scale-105" : ""}`}
+        style={beamColor ? { "--beam-color": beamColor } : {}}
+      >
+        <Icon className="text-sm shrink-0" style={{ color }} />
+        <span>{name}</span>
+      </button>
+    );
   };
 
   const filteredExperience = filterSkill
@@ -93,14 +169,15 @@ const Home = () => {
     <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
       <StickyNav onActiveChange={setNavActive} />
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
           background: "var(--bg-radial)",
         }}
       />
+      <InteractiveParallaxBg active={true} />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-12 pb-24 sm:pb-4">
-        <div className="flex justify-end items-center gap-3 mb-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pt-12 pb-24 sm:pb-4">
+        <div className="hidden sm:flex justify-end items-center gap-3 mb-6">
           <div className="relative">
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
@@ -143,75 +220,90 @@ const Home = () => {
               <T id="home.bio" />
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <a
+              <RippleButton
                 href="https://github.com/jrsimog"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.github.style}
+                rippleColor={socialStyles.github.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() =>
                   trackEvent("social_click", { platform: "github" })
                 }
               >
                 <SiGithub className="text-base" /> GitHub
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="https://www.linkedin.com/in/jrsimog"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.linkedin.style}
+                rippleColor={socialStyles.linkedin.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() =>
                   trackEvent("social_click", { platform: "linkedin" })
                 }
               >
                 <FaLinkedin className="text-base text-[#0A66C2]" /> LinkedIn
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="mailto:jrsimog@gmail.com"
-                className="rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.email.style}
+                rippleColor={socialStyles.email.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() =>
                   trackEvent("social_click", { platform: "email" })
                 }
               >
-                <T id="home.contact" />
-              </a>
-              <a
+                <SiGmail className="text-base text-[#EA4335]" /> <T id="home.contact" />
+              </RippleButton>
+              <RippleButton
                 href="https://discord.com/users/jrsimog"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.discord.style}
+                rippleColor={socialStyles.discord.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() =>
                   trackEvent("social_click", { platform: "discord" })
                 }
               >
                 <SiDiscord className="text-base text-[#5865F2]" /> Discord
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="https://www.instagram.com/khdtto"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.instagram.style}
+                rippleColor={socialStyles.instagram.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() =>
                   trackEvent("social_click", { platform: "instagram" })
                 }
               >
                 <SiInstagram className="text-base text-[#E1306C]" /> Instagram
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="https://x.com/jrsimog"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-5 py-2 text-sm text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20"
+                style={socialStyles.x.style}
+                rippleColor={socialStyles.x.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() => trackEvent("social_click", { platform: "x" })}
               >
                 <SiX className="text-base" /> X
-              </a>
-              <Link
+              </RippleButton>
+              <RippleButton
+                as={Link}
                 to="/blog"
+                style={socialStyles.blog.style}
+                rippleColor={socialStyles.blog.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
                 onClick={() => trackEvent("blog_click", { location: "hero" })}
-                className="rounded-full border border-blue-500/40 bg-blue-500/10 dark:bg-blue-500/15 px-5 py-2 text-sm text-blue-700 dark:text-blue-300 transition hover:bg-blue-500/20 dark:hover:bg-blue-500/25"
               >
-                <T id="home.blog" />
-              </Link>
+                <FaBookOpen className="text-base" /> <T id="home.blog" />
+              </RippleButton>
             </div>
           </GlassCard>
         </ScrollReveal>
@@ -322,9 +414,9 @@ const Home = () => {
 
           {!filterSkill && experience.length > PREVIEW && (
             <ScrollReveal className="inline-block" delay="0.62s">
-              <button
+              <RippleButton
                 onClick={() => setExpanded((e) => !e)}
-                className="mt-4 ml-6 text-xs text-slate-400 hover:text-slate-600 dark:text-white/35 dark:hover:text-white/60 transition flex items-center gap-1.5"
+                className="mt-4 ml-6 text-xs text-slate-400 hover:text-slate-600 dark:text-white/35 dark:hover:text-white/60 transition flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5"
               >
                 <span
                   className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
@@ -338,7 +430,7 @@ const Home = () => {
                   : lang === "en"
                     ? `Show ${experience.length - PREVIEW} more`
                     : `Ver ${experience.length - PREVIEW} más`}
-              </button>
+              </RippleButton>
             </ScrollReveal>
           )}
         </div>
@@ -357,10 +449,13 @@ const Home = () => {
                   delay={`${0.1 + i * 0.08}s`}
                   variant="left"
                 >
-                  <ProjectCard
-                    project={project}
-                    highlightCaseStudy={navActive === "proyectos"}
-                  />
+                    <ProjectCard
+                      project={project}
+                      highlightCaseStudy={navActive === "proyectos"}
+                      scrollParallax={true}
+                      onTechClick={toggleFilter}
+                      filterSkill={filterSkill}
+                    />
                 </ScrollReveal>
               ))
             ) : (
@@ -427,37 +522,45 @@ const Home = () => {
 
           <ScrollReveal delay="0.1s" className="h-full">
             <GlassCard className="h-full">
-              <SectionTitle className="mb-3 text-sm">
+              <SectionTitle className="mb-4 text-sm">
                 <T id="home.stack_title" />
               </SectionTitle>
-              <div className="flex flex-wrap gap-2">
-                {stack.map(({ name, icon: Icon, level, color }) => {
-                  const hasPosts = tagsWithPosts.has(name.toLowerCase());
-                  const hasProjects = tagsWithProjects.has(name.toLowerCase());
-                  const hasExperience = tagsWithExperience.has(
-                    name.toLowerCase(),
-                  );
-                  const hasCerts = tagsWithCertifications.has(
-                    name.toLowerCase(),
-                  );
-                  const isActive = filterSkill === name;
-                  const beamColor = hasPosts
-                    ? color
-                    : hasProjects || hasExperience || hasCerts
-                      ? "#3b82f6"
-                      : null;
-                  return (
-                    <button
-                      key={name}
-                      onClick={() => toggleFilter(name)}
-                      className={`relative flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-sm ${levelStyle[level]} ${beamColor ? "border-beam-active" : ""} ${isActive ? "ring-2 ring-blue-400 ring-offset-1 ring-offset-white dark:ring-offset-black scale-105" : ""}`}
-                      style={beamColor ? { "--beam-color": beamColor } : {}}
-                    >
-                      <Icon className="text-sm shrink-0" style={{ color }} />
-                      <span>{name}</span>
-                    </button>
-                  );
-                })}
+              <div className="space-y-4">
+                {/* Categoría 1: Backend */}
+                {backendTechs.length > 0 && (
+                  <div>
+                    <h4 className="text-[10px] font-bold tracking-wider uppercase text-slate-400 dark:text-white/30 mb-2">
+                      {lang === "en" ? "Backend & Frameworks" : "Backend y Frameworks"}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {backendTechs.map(renderTechButton)}
+                    </div>
+                  </div>
+                )}
+
+                {/* Categoría 2: Frontend */}
+                {frontendTechs.length > 0 && (
+                  <div>
+                    <h4 className="text-[10px] font-bold tracking-wider uppercase text-slate-400 dark:text-white/30 mb-2">
+                      {lang === "en" ? "Frontend & UI" : "Frontend e Interfaces"}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {frontendTechs.map(renderTechButton)}
+                    </div>
+                  </div>
+                )}
+
+                {/* Categoría 3: Cloud & DevOps */}
+                {devopsTechs.length > 0 && (
+                  <div>
+                    <h4 className="text-[10px] font-bold tracking-wider uppercase text-slate-400 dark:text-white/30 mb-2">
+                      {lang === "en" ? "Cloud & DevOps" : "Cloud y DevOps"}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {devopsTechs.map(renderTechButton)}
+                    </div>
+                  </div>
+                )}
               </div>
             </GlassCard>
           </ScrollReveal>
@@ -551,49 +654,54 @@ const Home = () => {
               <T id="home.built_with" />
             </p>
             <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-0.5">
-              <a
+              <RippleButton
                 href="https://react.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
               >
                 <SiReact className="text-xs text-[#61DAFB]" /> React
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="https://vite.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
               >
                 <SiVite className="text-xs text-[#646CFF]" /> Vite
-              </a>
-              <a
+              </RippleButton>
+              <RippleButton
                 href="https://tailwindcss.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
               >
-                <SiTailwindcss className="text-xs text-[#38BDF8]" /> Tailwind
-                CSS
-              </a>
-              <a
+                <SiTailwindcss className="text-xs text-[#38BDF8]" /> Tailwind CSS
+              </RippleButton>
+              <RippleButton
                 href="https://reactrouter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
               >
-                <SiReactrouter className="text-xs text-[#F44250]" /> React
-                Router
-              </a>
-              <a
+                <SiReactrouter className="text-xs text-[#F44250]" /> React Router
+              </RippleButton>
+              <RippleButton
                 href="https://github.com/features/actions"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
               >
-                <SiGithubactions className="text-xs text-[#2088FF]" /> GitHub
-                Actions
-              </a>
+                <SiGithubactions className="text-xs text-[#2088FF]" /> GitHub Actions
+              </RippleButton>
+              <RippleButton
+                href="https://analytics.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-slate-500 dark:text-white/45 hover:text-slate-800 dark:hover:text-white/80 transition-colors duration-200 px-2 py-1 rounded"
+              >
+                <SiGoogleanalytics className="text-xs text-[#E37400]" /> Google Analytics
+              </RippleButton>
             </div>
             <p className="mt-1.5 text-[8px] text-slate-300 dark:text-white/15">
               © {new Date().getFullYear()} José Simó.

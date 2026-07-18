@@ -2,10 +2,11 @@ import {
   SiElixir, SiPhoenixframework, SiPhp, SiSymfony, SiMysql, SiDocker,
   SiPython, SiSpring, SiGooglecloud, SiTypescript, SiJavascript,
   SiReact, SiNodedotjs, SiLaravel, SiAngular, SiOpenjdk, SiExpress, SiDoctrine,
-  SiClaude,
+  SiClaude, SiJquery, SiTailwindcss, SiBitbucket, SiJira, SiElectron,
 } from 'react-icons/si'
-import { FaAmazon } from 'react-icons/fa'
-import { MdCode } from 'react-icons/md'
+import { FaAmazon, FaHtml5, FaCss3Alt } from 'react-icons/fa'
+import { TbBrandCSharp } from 'react-icons/tb'
+import { MdCode, MdVpnKey } from 'react-icons/md'
 
 export const techIcons = {
   'Elixir':       { icon: SiElixir,          color: '#A07CF8', level: 4 },
@@ -25,6 +26,15 @@ export const techIcons = {
   'GCP':          { icon: SiGooglecloud,     color: '#4285F4', level: 3 },
   'TypeScript':   { icon: SiTypescript,      color: '#3178C6', level: 3 },
   'JavaScript':   { icon: SiJavascript,      color: '#E9B000', level: 3 },
+  'C#':           { icon: TbBrandCSharp,     color: '#239120', level: 3 },
+  'HTML5':        { icon: FaHtml5,           color: '#E34F26', level: 3 },
+  'CSS3':         { icon: FaCss3Alt,         color: '#1572B6', level: 3 },
+  'Tailwind CSS': { icon: SiTailwindcss,     color: '#06B6D4', level: 4 },
+  'jQuery':       { icon: SiJquery,          color: '#0769AD', level: 3 },
+  'Bitbucket':    { icon: SiBitbucket,       color: '#0052CC', level: 3 },
+  'Jira':         { icon: SiJira,            color: '#0052CC', level: 3 },
+  'ElectronJS':   { icon: SiElectron,        color: '#47848F', level: 3 },
+  'OAuth':        { icon: MdVpnKey,          color: '#EB5424', level: 3 },
   'Laravel':      { icon: SiLaravel,         color: '#FF2D20', level: 3 },
   'Blade':        { icon: SiLaravel,         color: '#FF2D20', level: 3 },
   'Eloquent':     { icon: SiLaravel,         color: '#FF2D20', level: 3 },
