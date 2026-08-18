@@ -20,8 +20,8 @@ const LangToggle = ({ compact = false }) => {
       title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
     >
       {lang === 'es'
-        ? <><span>🇪🇸</span><span className="text-slate-500 dark:text-white/50 text-xs font-semibold">ES</span></>
-        : <><span>🇺🇸</span><span className="text-slate-500 dark:text-white/50 text-xs font-semibold">EN</span></>
+        ? <><span>🇺🇸</span><span className="text-slate-500 dark:text-white/50 text-xs font-semibold">EN</span></>
+        : <><span>🇪🇸</span><span className="text-slate-500 dark:text-white/50 text-xs font-semibold">ES</span></>
       }
     </RippleButton>
   )

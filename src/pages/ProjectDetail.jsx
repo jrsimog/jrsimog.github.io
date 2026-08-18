@@ -4,6 +4,7 @@ import { projects } from "../data/projects";
 import { techIcons } from "../data/techIcons";
 import { useLanguage } from "../context/LanguageContext";
 import PageHeader from "../components/PageHeader";
+import PageContainer from "../components/PageContainer";
 import SectionTitle, { GradientText } from "../components/SectionTitle";
 import Lightbox from "../components/Lightbox";
 import NotFound from "./NotFound";
@@ -33,7 +34,7 @@ const ProjectDetail = () => {
         style={{ background: "var(--bg-radial)" }}
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-12 max-sm:pb-24">
+      <PageContainer maxWidth="max-w-3xl" className="py-12 max-sm:pb-24">
         <PageHeader back="/" backLabel={t("projects.back")} />
 
         <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
@@ -106,7 +107,7 @@ const ProjectDetail = () => {
             </button>
           ))}
         </div>
-      </div>
+      </PageContainer>
 
       <Lightbox
         images={project.screenshots}

@@ -24,8 +24,8 @@
   --dt-muted:    rgba(255, 255, 255, 0.40);
   --dt-accent:   #93c5fd;
 
-  --dt-gradient-blue:   linear-gradient(to top left, #e2e8f0, #93c5fd, #cbd5e1);
-  --dt-gradient-violet: linear-gradient(to top left, #ede9fe, #c4b5fd, #d4d4d8);
+  --dt-gradient-blue:   linear-gradient(to top left, #60a5fa, #93c5fd, #bfdbfe);
+  --dt-gradient-violet: linear-gradient(to top left, #c4b5fd, #ddd6fe, #ede9fe);
 }
 
 @layer utilities {

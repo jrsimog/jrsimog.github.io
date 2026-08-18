@@ -32,18 +32,22 @@ const StickyNav = ({ onActiveChange, left, right }) => {
   const [isFlashing, setIsFlashing] = useState(false);
   
   const containerRef = useRef(null);
+  const prevActiveRef = useRef(null);
   const [hoveredStyle, setHoveredStyle] = useState({ opacity: 0, left: 0, width: 0, height: 0, top: 0 });
 
   const isCustom = !!left;
 
   useEffect(() => {
     if (isCustom) return;
-    if (visible) {
+    const enteringOrLeavingExperiencia =
+      active === "experiencia" || prevActiveRef.current === "experiencia";
+    prevActiveRef.current = active;
+    if (visible || enteringOrLeavingExperiencia) {
       setIsFlashing(true);
       const timer = setTimeout(() => setIsFlashing(false), 650);
       return () => clearTimeout(timer);
     }
-  }, [visible, isCustom]);
+  }, [visible, active, isCustom]);
 
   const updateActive = (id) => {
     setActive(id);
@@ -83,7 +87,7 @@ const StickyNav = ({ onActiveChange, left, right }) => {
         onActiveChange?.("educacion");
         return;
       }
-      const OFFSET = 250;
+      const OFFSET = 120;
       let current = null,
         minDist = Infinity;
       homeLinks.forEach(({ id }) => {
@@ -160,7 +164,7 @@ const StickyNav = ({ onActiveChange, left, right }) => {
     if (!el) return;
     updateActive(id);
     window.scrollTo({
-      top: el.getBoundingClientRect().top + window.scrollY - 64,
+      top: el.getBoundingClientRect().top + window.scrollY - 110,
       behavior: "smooth",
     });
   };
@@ -226,13 +230,22 @@ const StickyNav = ({ onActiveChange, left, right }) => {
         ))}
       </div>
       <div className="w-px h-5 sm:h-6 bg-slate-200 dark:bg-white/15 shrink-0" />
-      <div className="relative shrink-0 mx-1.5 sm:mx-2.5">
+      <div className="relative shrink-0 mx-1.5 sm:mx-2.5 flex items-center gap-2">
+        <RippleButton
+          href="https://music.youtube.com/playlist?list=PLrTZHWsW-mdayf2WOylkb5R33x1NtpS3S&si=pDPydJOi6LXTbrVj"
+          target="_blank"
+          title={lang === "en" ? "Coding Playlist" : "Coding Playlist"}
+          className="flex items-center justify-center rounded-full border border-transparent p-2 sm:p-2.5 transition-all duration-200 cursor-pointer"
+          onClick={() => trackEvent("social_click", { platform: "youtube", location: "sticky_nav" })}
+        >
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" role="img" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" className="text-base sm:text-lg text-[#FF0000]"><title></title><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm0 19.141c-3.945 0-7.141-3.196-7.141-7.141S8.055 4.859 12 4.859 19.141 8.055 19.141 12 15.945 19.141 12 19.141zm-1.89-10.499l5.041 3.298-5.041 3.376V8.642z"></path></svg>
+        </RippleButton>
         <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
           <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
         </span>
         <RippleButton
-          href="/CV — José Ramón Simó Guerra.pdf"
+          href="/CV - José Ramón Simó Guerra.pdf"
           download
           title={lang === "en" ? "Download CV" : "Descargar CV"}
           className="pdf-icon flex items-center justify-center rounded-full border border-transparent p-2 sm:p-2.5 transition-all duration-200 cursor-pointer"

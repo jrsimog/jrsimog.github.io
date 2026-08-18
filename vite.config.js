@@ -24,7 +24,7 @@ const collectRoutes = () => {
     ),
   ].map(([, slug, title, description]) => ({
     path: slug,
-    title: `${title} — ${SITE_NAME}`,
+    title: `${title} - ${SITE_NAME}`,
     description,
   }));
 
@@ -34,7 +34,7 @@ const collectRoutes = () => {
     ),
   ].map(([, id, name, description]) => ({
     path: `/projects/${id}`,
-    title: `${name} — ${SITE_NAME}`,
+    title: `${name} - ${SITE_NAME}`,
     description,
   }));
 
@@ -42,7 +42,7 @@ const collectRoutes = () => {
     { path: "/" },
     {
       path: "/blog",
-      title: `Blog — ${SITE_NAME}`,
+      title: `Blog - ${SITE_NAME}`,
       description:
         "Píldoras rápidas y playgrounds interactivos sobre desarrollo de software.",
     },

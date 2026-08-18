@@ -5,7 +5,7 @@ export const education = [
     degree_en: "Systems Engineer",
     field_es: "Ingeniería en Software Computacional",
     field_en: "Computer Software Engineering",
-    period: "Abr 2008 — Nov 2013",
+    period: "Abr 2008 - Nov 2013",
   },
 ];
 

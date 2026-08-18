@@ -7,6 +7,7 @@ import { posts } from '../data/posts'
 import { readingTimeFromWords } from '../utils/readingTime'
 import { useLanguage } from '../context/LanguageContext'
 import PageHeader from '../components/PageHeader'
+import PageContainer from '../components/PageContainer'
 import { GradientText } from '../components/SectionTitle'
 import T from '../components/T'
 import { trackEvent } from '../utils/analytics'
@@ -49,7 +50,7 @@ const Blog = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
       <div className="absolute inset-0 z-0" style={{ background: 'var(--bg-radial)' }} />
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 slide-in-blurred-top max-sm:pb-24">
+      <PageContainer maxWidth="max-w-5xl" className="py-12 slide-in-blurred-top max-sm:pb-24">
 
         <PageHeader back="/" backLabel={t('blog.back')} />
 
@@ -138,7 +139,7 @@ const Blog = () => {
                     )}
                     <div className="relative ml-auto flex items-center gap-0.5">
                       <a
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayTitle} — ${displayDesc}\n\n${lang === 'es' ? 'Míralo aquí:' : 'Check it out:'}`)}&url=${encodeURIComponent(postUrl(slug))}&hashtags=${tag}`}
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${displayTitle} - ${displayDesc}\n\n${lang === 'es' ? 'Míralo aquí:' : 'Check it out:'}`)}&url=${encodeURIComponent(postUrl(slug))}&hashtags=${tag}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         title="X"
@@ -176,7 +177,7 @@ const Blog = () => {
           )}
         </div>
 
-      </div>
+      </PageContainer>
     </div>
   )
 }

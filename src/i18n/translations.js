@@ -7,14 +7,14 @@ export const translations = {
     },
     home: {
       role: "Full Stack Developer",
-      subtitle: "APIs REST · Microservicios · Docker",
-      bio: "Developer desde 2012. PHP y Symfony en el día a día. Ciudadano del mundo, radicado en Santiago, Chile. Siempre con algo nuevo en el editor — ahora Elixir.",
+      subtitle: "APIs REST · Microservicios · Docker · IA · Integración MCP",
+      bio: "Desarrollador con experiencia desde 2012, especializado en PHP, Java, Python y Spring Boot, Laravel, Symfony. Radicado en Santiago de Chile. Mantengo una curiosidad constante por aprender, actualmente enfocado en Elixir con Phoenix.",
       contact: "Contacto",
       download_cv: "Descargar CV",
       blog: "Blog",
       about_title: "Sobre mí",
       about_text:
-        "Desarrollador Full Stack especializado en sistemas de salud, gestión empresarial y comercio. Apasionado por la tecnología y el impacto que genera en el mundo. Viviendo en Santiago, Chile. En mis tiempos libres hago patinaje urbano.",
+        "Soy un desarrollador de software con experiencia desde 2012, especializado en la creación de aplicaciones robustas. A lo largo de mi carrera he trabajado principalmente con PHP, además de tener experiencia con Java y Python, utilizando frameworks como Spring Boot, Laravel y Symfony. Me apasiona el diseño de APIs REST, arquitecturas basadas en microservicios y el uso de Docker. Hoy en día, mi curiosidad me ha llevado a enfocarme en el ecosistema de Elixir y Phoenix, además de explorar la integración de Inteligencia Artificial y el protocolo MCP en proyectos modernos. Vivo en Santiago de Chile, siempre dispuesto a aprender y enfrentar nuevos desafíos tecnológicos. En mis tiempos libres hago patinaje urbano y me gusta el inline downhill.",
       stack_title: "Stack",
       contact_title: "Contacto",
       contact_text:
@@ -75,14 +75,14 @@ export const translations = {
     },
     home: {
       role: "Full Stack Developer",
-      subtitle: "REST APIs · Microservices · Docker",
-      bio: "Developer since 2012. PHP and Symfony day to day. Citizen of the world, based in Santiago, Chile. Always something new in the editor — now Elixir.",
+      subtitle: "REST APIs · Microservices · Docker · AI · MCP Integration",
+      bio: "Developer with experience since 2012, specialized in PHP, Java, Python and Spring Boot, Laravel, Symfony. Based in Santiago, Chile. Always curious to learn, currently focused on Elixir with Phoenix.",
       contact: "Contact",
       download_cv: "Download CV",
       blog: "Blog",
       about_title: "About me",
       about_text:
-        "Full Stack Developer specialized in healthcare, enterprise and commerce systems. Passionate about technology and the impact it creates in the world. Living in Santiago, Chile. In my free time I do urban skating.",
+        "I am a software developer with experience since 2012, specialized in creating robust applications. Throughout my career I have worked mainly with PHP, in addition to having experience with Java and Python, using frameworks such as Spring Boot, Laravel, and Symfony. I am passionate about designing REST APIs, microservices-based architectures, and using Docker. Today, my curiosity has led me to focus on the Elixir and Phoenix ecosystem, as well as exploring the integration of Artificial Intelligence and the MCP protocol in modern projects. I live in Santiago, Chile, always ready to learn and face new technological challenges. In my free time, I do urban skating and I like inline downhill.",
       stack_title: "Stack",
       contact_title: "Contact",
       contact_text:

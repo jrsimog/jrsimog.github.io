@@ -13,7 +13,7 @@ const ShareButtons = ({ lang, title, description, tag }) => {
   const getUrl = () => window.location.href;
 
   const shareText = [
-    [title, description].filter(Boolean).join(" — "),
+    [title, description].filter(Boolean).join(" - "),
     lang === "es" ? "Míralo aquí:" : "Check it out:",
   ].join("\n\n");
 

@@ -1,5 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 import { experience } from "../data/experience";
 import { posts } from "../data/posts";
 import { projects } from "../data/projects";
@@ -27,6 +34,7 @@ import LangToggle from "../components/LangToggle";
 import ThemeToggle from "../components/ThemeToggle";
 import ScrollReveal from "../components/ScrollReveal";
 import StickyNav from "../components/StickyNav";
+import PageContainer from "../components/PageContainer";
 import GlassCard from "../components/GlassCard";
 import TechChip from "../components/TechChip";
 import SectionTitle, { GradientText } from "../components/SectionTitle";
@@ -93,6 +101,10 @@ const socialStyles = {
     style: { backgroundColor: "rgba(20, 23, 26, 0.06)", color: "inherit", backdropFilter: "blur(6px)" },
     ripple: "rgba(20, 23, 26, 0.25)"
   },
+  youtube: {
+    style: { backgroundColor: "rgba(255, 0, 0, 0.08)", color: "#FF0000", backdropFilter: "blur(6px)" },
+    ripple: "rgba(255, 0, 0, 0.3)"
+  },
   blog: {
     style: { backgroundColor: "rgba(59, 130, 246, 0.08)", color: "#3b82f6", backdropFilter: "blur(6px)" },
     ripple: "rgba(59, 130, 246, 0.3)"
@@ -116,7 +128,48 @@ const Home = () => {
   const [navActive, setNavActive] = useState(null);
   const [filterSkill, setFilterSkill] = useState(null);
 
+  const heroRef = useRef(null);
+  const experienciaRef = useRef(null);
 
+  useGSAP(() => {
+    if (!heroRef.current) return;
+
+    gsap.set(heroRef.current, { willChange: "transform, opacity, filter" });
+    gsap.to(heroRef.current, {
+      y: 150,
+      scale: 0.92,
+      opacity: 0,
+      filter: "blur(10px)",
+      ease: "none",
+      force3D: true,
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom 30%",
+        scrub: true,
+      },
+    });
+  }, { scope: heroRef });
+
+  useGSAP(() => {
+    if (!experienciaRef.current || expanded) return;
+
+    gsap.set(experienciaRef.current, { willChange: "transform, opacity, filter" });
+    gsap.to(experienciaRef.current, {
+      y: 150,
+      scale: 0.92,
+      opacity: 0,
+      filter: "blur(10px)",
+      ease: "none",
+      force3D: true,
+      scrollTrigger: {
+        trigger: experienciaRef.current,
+        start: "bottom 60%",
+        end: "bottom 10%",
+        scrub: true,
+      },
+    });
+  }, { scope: experienciaRef, dependencies: [expanded], revertOnUpdate: true });
   const toggleFilter = (name) => {
     const next = filterSkill === name ? null : name;
     if (next) trackEvent("tech_filter", { skill: next });
@@ -176,7 +229,7 @@ const Home = () => {
       />
       <InteractiveParallaxBg active={true} />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pt-12 pb-24 sm:pb-4">
+      <PageContainer className="pt-12 pb-24 sm:pb-4">
         <div className="hidden sm:flex justify-end items-center gap-3 mb-6">
           <div className="relative">
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
@@ -184,7 +237,7 @@ const Home = () => {
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
             </span>
             <a
-              href="/CV — José Ramón Simó Guerra.pdf"
+              href="/CV - José Ramón Simó Guerra.pdf"
               download
               className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-4 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10"
               onClick={() => trackEvent("cv_download", { location: "header" })}
@@ -197,8 +250,9 @@ const Home = () => {
           <LangToggle />
         </div>
 
-        <ScrollReveal delay="0s">
-          <GlassCard className="mb-6 text-center rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
+        <div ref={heroRef}>
+          <ScrollReveal delay="0s">
+            <GlassCard className="mb-6 text-center rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
             <img
               src="https://avatars.githubusercontent.com/u/4277373?v=4"
               alt="José Simó"
@@ -295,6 +349,17 @@ const Home = () => {
                 <SiX className="text-base" /> X
               </RippleButton>
               <RippleButton
+                href="https://music.youtube.com/playlist?list=PLrTZHWsW-mdayf2WOylkb5R33x1NtpS3S&si=pDPydJOi6LXTbrVj"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={socialStyles.youtube.style}
+                rippleColor={socialStyles.youtube.ripple}
+                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 px-5 py-2 text-sm font-semibold transition-all duration-300 hover:brightness-125 hover:scale-105"
+                onClick={() => trackEvent("social_click", { platform: "youtube" })}
+              >
+                <SiYoutubemusic className="text-base text-[#FF0000]" /> Playlist
+              </RippleButton>
+              <RippleButton
                 as={Link}
                 to="/blog"
                 style={socialStyles.blog.style}
@@ -307,6 +372,7 @@ const Home = () => {
             </div>
           </GlassCard>
         </ScrollReveal>
+        </div>
 
         {filterSkill && (
           <div className="flex items-center gap-3 mb-6 px-4 py-2.5 rounded-xl bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 dark:border-blue-500/30 text-sm text-blue-700 dark:text-blue-300">
@@ -332,7 +398,8 @@ const Home = () => {
           </div>
         )}
 
-        <div id="experiencia" className="mb-8">
+        <div id="experiencia"></div>
+        <div ref={experienciaRef} className="mb-8">
           <ScrollReveal delay="0.3s">
             <SectionTitle className="text-sm mb-5">
               <T id="home.experience_title" />
@@ -485,15 +552,6 @@ const Home = () => {
                     <MdRollerSkating className="text-lg" />
                     <span className="text-xs">Inline Downhill</span>
                   </div>
-                  <a
-                    href="https://music.youtube.com/playlist?list=PLrTZHWsW-mdayf2WOylkb5R33x1NtpS3S&si=pDPydJOi6LXTbrVj"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-3 py-1.5 text-xs text-slate-700 dark:text-white/80 transition hover:bg-slate-200 dark:hover:bg-white/20 w-fit"
-                  >
-                    <SiYoutubemusic className="text-base text-[#FF0000]" />
-                    Coding Playlist
-                  </a>
                 </div>
               </GlassCard>
             </ScrollReveal>
@@ -708,7 +766,7 @@ const Home = () => {
             </p>
           </footer>
         </ScrollReveal>
-      </div>
+      </PageContainer>
     </div>
   );
 };

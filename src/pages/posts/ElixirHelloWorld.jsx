@@ -6,6 +6,7 @@ import { posts } from "../../data/posts";
 import { getReadingTime } from "../../utils/readingTime";
 import { useLanguage } from "../../context/LanguageContext";
 import PageHeader from "../../components/PageHeader";
+import PageContainer from "../../components/PageContainer";
 import SectionTitle, { GradientText } from "../../components/SectionTitle";
 import T from "../../components/T";
 import ShareButtons from "../../components/ShareButtons";
@@ -22,27 +23,27 @@ const steps = {
       iexState: "prompt",
       title: "¿Qué es la IEx?",
       explanation:
-        "IEx (Interactive Elixir) es la consola interactiva que viene con Elixir. La abres con iex y puedes escribir cualquier expresión al instante: llamar una función y ver qué retorna, crear una variable y usarla en la siguiente línea, probar un módulo, hacer un cálculo. Sin archivos, sin compilación — escribes y ves el resultado de una.",
+        "IEx (Interactive Elixir) es la consola interactiva que viene con Elixir. La abres con iex y puedes escribir cualquier expresión al instante: llamar una función y ver qué retorna, crear una variable y usarla en la siguiente línea, probar un módulo, hacer un cálculo. Sin archivos, sin compilación - escribes y ves el resultado de una.",
     },
     {
       mode: "iex",
       iexState: "command",
       title: "Escribimos en el prompt",
       explanation:
-        'Escribir IO.puts("Hello, World!") en la IEx es exactamente lo mismo que hacerlo en un archivo. El módulo IO, la función puts, el string entre comillas — todo igual. La diferencia es que aquí el resultado aparece de una, en la misma pantalla.',
+        'Escribir IO.puts("Hello, World!") en la IEx es exactamente lo mismo que hacerlo en un archivo. El módulo IO, la función puts, el string entre comillas - todo igual. La diferencia es que aquí el resultado aparece de una, en la misma pantalla.',
     },
     {
       mode: "iex",
       iexState: "output",
       title: "La IEx responde con dos líneas",
       explanation:
-        '"Hello, World!" es el texto que IO.puts imprimió. Pero la IEx también muestra :ok en azul — ese es el valor de retorno de la función. En Elixir toda expresión devuelve un valor. :ok es un átomo: un identificador inmutable que aquí significa que la operación fue exitosa.',
+        '"Hello, World!" es el texto que IO.puts imprimió. Pero la IEx también muestra :ok en azul - ese es el valor de retorno de la función. En Elixir toda expresión devuelve un valor. :ok es un átomo: un identificador inmutable que aquí significa que la operación fue exitosa.',
     },
     {
       mode: "transition",
       title: "Ahora, en un archivo",
       explanation:
-        "La IEx es perfecta para experimentar, pero el código que quieres conservar y reutilizar vive en archivos .ex. Vamos a hacer exactamente el mismo Hola Mundo — esta vez escrito en un archivo y ejecutado desde la terminal.",
+        "La IEx es perfecta para experimentar, pero el código que quieres conservar y reutilizar vive en archivos .ex. Vamos a hacer exactamente el mismo Hola Mundo - esta vez escrito en un archivo y ejecutado desde la terminal.",
     },
     {
       mode: "file",
@@ -66,7 +67,7 @@ const steps = {
     },
     {
       mode: "file",
-      title: "IO — el módulo",
+      title: "IO - el módulo",
       showCode: true,
       highlight: "IO",
       showCommand: false,
@@ -76,7 +77,7 @@ const steps = {
     },
     {
       mode: "file",
-      title: "puts — la función",
+      title: "puts - la función",
       showCode: true,
       highlight: "puts",
       showCommand: false,
@@ -86,13 +87,13 @@ const steps = {
     },
     {
       mode: "file",
-      title: '"Hello, World!" — el string',
+      title: '"Hello, World!" - el string',
       showCode: true,
       highlight: "string",
       showCommand: false,
       showOutput: false,
       explanation:
-        "El texto entre comillas dobles es un string. Es el argumento que le pasamos a puts — el texto que queremos mostrar en pantalla.",
+        "El texto entre comillas dobles es un string. Es el argumento que le pasamos a puts - el texto que queremos mostrar en pantalla.",
     },
     {
       mode: "file",
@@ -121,27 +122,27 @@ const steps = {
       iexState: "prompt",
       title: "What is IEx?",
       explanation:
-        "IEx (Interactive Elixir) is the interactive console that ships with Elixir. Open it with iex and you can type any expression instantly: call a function and see what it returns, create a variable and use it on the next line, try a module, run a quick calculation. No files, no compilation — just type and see the result.",
+        "IEx (Interactive Elixir) is the interactive console that ships with Elixir. Open it with iex and you can type any expression instantly: call a function and see what it returns, create a variable and use it on the next line, try a module, run a quick calculation. No files, no compilation - just type and see the result.",
     },
     {
       mode: "iex",
       iexState: "command",
       title: "We type at the prompt",
       explanation:
-        'Typing IO.puts("Hello, World!") in IEx is exactly the same as writing it in a file. The IO module, the puts function, the string in quotes — all identical. The difference is that here the result appears instantly, right on the same screen.',
+        'Typing IO.puts("Hello, World!") in IEx is exactly the same as writing it in a file. The IO module, the puts function, the string in quotes - all identical. The difference is that here the result appears instantly, right on the same screen.',
     },
     {
       mode: "iex",
       iexState: "output",
       title: "IEx responds with two lines",
       explanation:
-        '"Hello, World!" is the text IO.puts printed to the screen. But IEx also shows :ok in blue — that\'s the return value of the function. In Elixir every expression returns a value. :ok is an atom: an immutable identifier that here means the operation was successful.',
+        '"Hello, World!" is the text IO.puts printed to the screen. But IEx also shows :ok in blue - that\'s the return value of the function. In Elixir every expression returns a value. :ok is an atom: an immutable identifier that here means the operation was successful.',
     },
     {
       mode: "transition",
       title: "Now, in a file",
       explanation:
-        "IEx is perfect for exploration, but code you want to keep and reuse lives in .ex files. Let's do the exact same Hello World — this time written in a file and executed from the terminal.",
+        "IEx is perfect for exploration, but code you want to keep and reuse lives in .ex files. Let's do the exact same Hello World - this time written in a file and executed from the terminal.",
     },
     {
       mode: "file",
@@ -165,7 +166,7 @@ const steps = {
     },
     {
       mode: "file",
-      title: "IO — the module",
+      title: "IO - the module",
       showCode: true,
       highlight: "IO",
       showCommand: false,
@@ -175,7 +176,7 @@ const steps = {
     },
     {
       mode: "file",
-      title: "puts — the function",
+      title: "puts - the function",
       showCode: true,
       highlight: "puts",
       showCommand: false,
@@ -185,13 +186,13 @@ const steps = {
     },
     {
       mode: "file",
-      title: '"Hello, World!" — the string',
+      title: '"Hello, World!" - the string',
       showCode: true,
       highlight: "string",
       showCommand: false,
       showOutput: false,
       explanation:
-        "Text between double quotes is a string. It's the argument we pass to puts — the text we want to display on screen.",
+        "Text between double quotes is a string. It's the argument we pass to puts - the text we want to display on screen.",
     },
     {
       mode: "file",
@@ -368,7 +369,7 @@ const ElixirHelloWorld = () => {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 max-sm:pb-24">
+      <PageContainer maxWidth="max-w-5xl" className="py-12 max-sm:pb-24">
         <PageHeader
           back="/blog"
           backLabel={t("nav.back_blog")}
@@ -554,7 +555,7 @@ const ElixirHelloWorld = () => {
               </span>
             )}
             <SectionTitle as="p" className="text-xs">
-              {step + 1} / {currentSteps.length} — <T>{current.title}</T>
+              {step + 1} / {currentSteps.length} - <T>{current.title}</T>
             </SectionTitle>
           </div>
           <p className="text-body text-sm leading-relaxed">
@@ -628,7 +629,7 @@ const ElixirHelloWorld = () => {
         )}
 
         <PostNav slug={SLUG} />
-      </div>
+      </PageContainer>
     </div>
   );
 };
