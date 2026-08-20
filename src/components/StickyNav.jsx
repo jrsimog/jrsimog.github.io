@@ -245,7 +245,7 @@ const StickyNav = ({ onActiveChange, left, right }) => {
           <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
         </span>
         <RippleButton
-          href="/CV - José Ramón Simó Guerra.pdf"
+          href={lang === "en" ? "/CV - José Ramón Simó Guerra - EN.pdf" : "/CV - José Ramón Simó Guerra - ES.pdf"}
           download
           title={lang === "en" ? "Download CV" : "Descargar CV"}
           className="pdf-icon flex items-center justify-center rounded-full border border-transparent p-2 sm:p-2.5 transition-all duration-200 cursor-pointer"

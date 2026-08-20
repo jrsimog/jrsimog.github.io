@@ -164,8 +164,8 @@ const Home = () => {
       force3D: true,
       scrollTrigger: {
         trigger: experienciaRef.current,
-        start: "bottom 60%",
-        end: "bottom 10%",
+        start: "bottom 150",
+        end: "bottom -50",
         scrub: true,
       },
     });
@@ -237,7 +237,7 @@ const Home = () => {
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
             </span>
             <a
-              href="/CV - José Ramón Simó Guerra.pdf"
+              href={lang === "en" ? "/CV - José Ramón Simó Guerra - EN.pdf" : "/CV - José Ramón Simó Guerra - ES.pdf"}
               download
               className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100 dark:bg-white/5 px-4 py-2 text-sm text-slate-600 dark:text-white/60 transition hover:bg-slate-200 dark:hover:bg-white/10"
               onClick={() => trackEvent("cv_download", { location: "header" })}

@@ -50,7 +50,7 @@ const Blog = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
       <div className="absolute inset-0 z-0" style={{ background: 'var(--bg-radial)' }} />
-      <PageContainer maxWidth="max-w-5xl" className="py-12 slide-in-blurred-top max-sm:pb-24">
+      <PageContainer className="py-12 slide-in-blurred-top max-sm:pb-24">
 
         <PageHeader back="/" backLabel={t('blog.back')} />
 

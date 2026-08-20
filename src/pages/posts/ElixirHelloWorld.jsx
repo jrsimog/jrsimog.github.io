@@ -369,7 +369,7 @@ const ElixirHelloWorld = () => {
         }}
       />
 
-      <PageContainer maxWidth="max-w-5xl" className="py-12 max-sm:pb-24">
+      <PageContainer className="py-12 max-sm:pb-24">
         <PageHeader
           back="/blog"
           backLabel={t("nav.back_blog")}
